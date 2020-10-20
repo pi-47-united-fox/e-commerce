@@ -22,20 +22,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active" >
-              <a class="nav-link menu" href="#" >Home <span class="sr-only">(current)</span></a>
+              <a @click.prevent="changePage('Home')" class="nav-link menu" href="#" > Home </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link menu" href="#">All Products</a>
+              <a @click="changePage('products')" class="nav-link menu" href="#">All Products</a>
             </li>  
             <li class="nav-item dropdown" href="#"> 
               <a class="nav-link menu dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categories
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Category 1</a>
-                <!-- <a class="dropdown-item" href="#">Another action</a> -->
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Category 2</a>
+                <div v-for="(category,i) in categories" :key="i">
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">{{category.name}}</a> 
+                </div> 
               </div>
             </li>
           </ul>
@@ -63,10 +63,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{email}}
               </a>
-              <div class="dropdown-menu ml-3" aria-labelledby="navbarDropdown">
-                <!-- <a class="dropdown-item" href="#">Profile</a> -->
-                <!-- <a class="dropdown-item" href="#">Another action</a> -->
-                <!-- <div class="dropdown-divider"></div> -->
+              <div class="dropdown-menu ml-3" aria-labelledby="navbarDropdown"> 
                 <a class="dropdown-item" href="#">Logout</a>
               </div>
             </li>
@@ -75,18 +72,19 @@
             <button class="btn btn-outline-danger my-2 my-sm-0" >Logout</button>
             
           </div> -->
-          <form class="form-inline my-2 my-lg-0" @submit.prevent="">
-            <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-            <!-- <button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button> -->
-          </form>
+          <form class="form-inline my-2 my-lg-0" @submit.prevent=""> </form>
         </div>
       </div>
-    </nav>
-    <!-- <div id="nav"> -->
-      <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> -->
-    <!-- </div> -->
+    </nav> 
     <router-view/>
+    <footer> 
+      <!-- <div class="container"> -->
+        <div class="border mt-5 p-4 text-white">
+          Muhammad Fauzan Adhim - Hacktiv8 Student
+        </div>
+      <!-- </div> -->
+    </footer>
+
   </div>
 </template>
 <script>
@@ -103,6 +101,10 @@ export default {
   methods: {
     toogleLoginForm () {
       this.$store.commit('TOOGLE_LOGINFORM')
+    },
+    changePage (page) {
+      console.log(page);
+      this.$router.push({name:page})
     }
   },
   computed:{
@@ -123,13 +125,18 @@ export default {
     },
     isLoggedIn () {
       return this.$store.state.isLoggedIn
+    },
+    categories () {
+      return this.$store.state.categories
     }
   },
   created () {
     if(localStorage.access_token){
 
     }else{
-
+      this.$store.dispatch('fetch_products')
+      this.$store.dispatch('fetch_categories')
+      this.$store.dispatch('fetch_banners')
     }
   }
 }
@@ -175,5 +182,8 @@ export default {
   border:solid #ffc038 2px; 
   border-radius:10px;
   margin-right: 5px;
+}
+footer { 
+  background-color:#ffc038; 
 }
 </style>

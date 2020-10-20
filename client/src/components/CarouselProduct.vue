@@ -1,107 +1,58 @@
 <template>
-  <div class="container">
-          <div class="row blog">
-            <div class="col-md-12">
-              <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
-                <ol class="carousel-indicators">
-                  <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-                  <li data-target="#blogCarousel" data-slide-to="1"></li>
-                </ol>
-                <!-- Carousel items -->
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <div class="row">
-                      <div class="col-md-4" >
-                        <div class="item-box-blog">
-                          <div class="item-box-blog-image">
-                            <!--Date-->
-                            <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                            <!--Image-->
-                            <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                          </div>
-                          <div class="item-box-blog-body">
-                            <!--Heading-->
-                            <div class="item-box-blog-heading">
-                              <a href="#" tabindex="0">
-                                <h5>News Title</h5>
-                              </a>
-                            </div> 
-                            <!--Text-->
-                            <div class="item-box-blog-text">
-                              <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                            </div>
-                            <div class="d-flex"> 
-                                <a href="#" tabindex="0" class="btn white wishlist"> 
-                                </a> 
-                                <a href="#" tabindex="0" class="btn bg-blue-ui white read">Add to cart</a>  
-                            </div> 
-                            <!--Read More Button-->
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4" >
-                        <div class="item-box-blog">
-                          <div class="item-box-blog-image">
-                            <!--Date-->
-                            <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                            <!--Image-->
-                            <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                          </div>
-                          <div class="item-box-blog-body">
-                            <!--Heading-->
-                            <div class="item-box-blog-heading">
-                              <a href="#" tabindex="0">
-                                <h5>News Title</h5>
-                              </a>
-                            </div> 
-                            <!--Text-->
-                            <div class="item-box-blog-text">
-                              <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                            </div>
-                            <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
-                            <!--Read More Button-->
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4" >
-                        <div class="item-box-blog">
-                          <div class="item-box-blog-image">
-                            <!--Date-->
-                            <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Augu 01</span> </div>
-                            <!--Image-->
-                            <figure> <img alt="" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg"> </figure>
-                          </div>
-                          <div class="item-box-blog-body">
-                            <!--Heading-->
-                            <div class="item-box-blog-heading">
-                              <a href="#" tabindex="0">
-                                <h5>News Title</h5>
-                              </a>
-                            </div> 
-                            <!--Text-->
-                            <div class="item-box-blog-text">
-                              <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-                            </div>
-                            <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
-                            <!--Read More Button-->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--.row-->
-                  </div> 
- 
-                </div>
-                <!--.carousel-inner-->
+  <div class="container"> 
+    <carousel :autoplay='true' :perPage="3">
+        <slide v-for="(product, index) in filteredProduct" :key="index"> 
+          <div class="col" >
+            <div class="item-box-blog">
+              <div class="item-box-blog-image"> 
+                <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Stock: {{product.stock}}</span> </div> 
+                <figure> <img alt="" :src="product.image_url" width="190px" style="max-height:190px"> </figure>
               </div>
-              <!--.Carousel-->
+              <div class="item-box-blog-body"> 
+                <div class="item-box-blog-heading">
+                  <a href="#" tabindex="0">
+                    <h5>{{product.name}}</h5>
+                  </a>
+                </div>  
+                <div class="item-box-blog-text">
+                  <p>{{product.description}}</p>
+                </div>
+                <div class="d-flex"> 
+                    <a href="#" tabindex="0" class="btn white wishlist"> 
+                    </a> 
+                    <a href="#" tabindex="0" class="btn bg-blue-ui white read">Add to cart</a>  
+                </div>  
+              </div>
             </div>
           </div>
-        </div>
+        </slide> 
+    </carousel>
+    </div>
 </template>
 
 <script>
+import { Carousel, Slide } from 'vue-carousel';
 export default {
+  name: 'product-carousel',
+  props: ['categoryName'],
+  components: {
+      Carousel,
+      Slide
+  },
+  computed: {  
+    filteredProduct () { 
+      let category = this.$store.state.categories.filter(cate => cate.name == this.categoryName)
+      let result = [] 
+      if(category[0]){
+        let catId = category[0].id
+          result = this.$store.state.products.filter(product => product.CategoryId == catId);  
+      }
+      if(result.length>6){
+        result = result.slice(0,6)
+      }
+      return result
+    },
+  }
 
 }
 </script>
@@ -247,6 +198,7 @@ figure img{width:300px;}
     margin-right: 10px;
     background-image: url('../assets/wishlist-logo.webp');
     background-size: cover;
+    background-position: center;
 }
 .wishlist:hover {
   box-shadow: 0px 5px 15px inset #a5791b;
