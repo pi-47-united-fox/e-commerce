@@ -35,13 +35,19 @@ This cms App has:
 #### Product Endpoints:
   1. GET /products
   2. GET /products/:id
-  3. POST /products/
+  3. POST /products
   4. PUT /products/:id
   5. DELETE /products/:id
 
 #### Banners Endpoints:
   1. GET /banners
-  2. POST /banners/
+  2. POST /banners
+  3. PUT /banners/:id
+  4. DELETE /banners/:id
+
+#### Charts Endpoints:
+  1. GET /charts
+  2. POST /charts
   3. PUT /banners/:id
   4. DELETE /banners/:id
 

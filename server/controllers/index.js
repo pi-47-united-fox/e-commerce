@@ -1,6 +1,6 @@
 module.exports = {
     MainController: require('./MainController'),
-    UserController: require('./UserController'),
-    AdminController: require('./AdminController'),
+    CartController: require('./CartController'),
+    ProductController: require('./ProductController'),
     BannerController: require('./BannerController')
 }

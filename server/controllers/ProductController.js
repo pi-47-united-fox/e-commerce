@@ -1,6 +1,6 @@
 const { Product, Category } = require('../models');
 
-class AdminController {
+class ProductController {
     // @todo menambah category
     static addProductC(req, res, next) {
         if(req.body.categoryName === '') {
@@ -135,4 +135,4 @@ class AdminController {
     }
 }
 
-module.exports = AdminController
+module.exports = ProductController
