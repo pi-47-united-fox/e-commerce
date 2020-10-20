@@ -1,6 +1,6 @@
-# E-COMMERCE CMS DASHBOARD
+# E-COMMERCE
 
-e-commerce App is an application dasboard for manage item admin side. This app has :
+e-commerce App is an application for customer add products to cart. This app has :
 
 - RESTful endpoint for asset's CRUD operation
 - JSON formatted response
@@ -326,7 +326,7 @@ _Request Body_
 }
 ```
 
-_Response (200)_
+_Response (201)_
 
 ```json
 
@@ -359,14 +359,21 @@ _Request Header_
 }
 ```
 
+_Request Params_
+
+```
+{
+  "productId": "<id : productId>"
+}
+```
+
 _Request Body_
 
 ```json
 {
-  "UserId": "arabica",
-  "image_url": "https://imgur.com/AU2NT88",
-  "price": 10000,
-  "stock": 20
+  "UserId": "<integer>",
+  "ProductId": "<integer>",
+  "stock": 10
 }
 ```
 
@@ -376,10 +383,9 @@ _Response (201)_
 
   {
     "id" : 1,
-    "name" : "arabica",
-    "image_url" : "https://imgur.com/AU2NT88",
-    "price" : 10000,
-    "stock" : 20 ,
+    "UserId": 1,
+    "ProductId": 1,
+    "stock": 10
   },
 
 
@@ -419,38 +425,57 @@ _Response (200)_
 [
   {
     "id": 1,
-    "name": "arabica",
-    "image_url": "https://imgur.com/5XHKQuL",
-    "price": 10000,
-    "stock": 20
+    "UserId": 2,
+    "ProductId": 2,
+    "qty": 100,
+    "status": "undone",
+    "createdAt": "2020-10-20T04:58:30.662Z",
+    "updatedAt": "2020-10-20T04:58:30.662Z",
+    "Product": {
+      "id": 2,
+      "name": "Hot Latte",
+      "image_url": "https://i.imgur.com/rUnCV9V.jpg",
+      "price": 18000,
+      "stock": 20,
+      "createdAt": "2020-10-20T06:32:01.978Z",
+      "updatedAt": "2020-10-20T06:32:01.978Z"
+    }
   },
   {
     "id": 2,
-    "name": "blackcoffe",
-    "image_url": "https://imgur.com/8pdn5dH",
-    "price": 12000,
-    "stock": 20
+    "UserId": 2,
+    "ProductId": 2,
+    "qty": 100,
+    "status": "undone",
+    "createdAt": "2020-10-20T04:59:08.109Z",
+    "updatedAt": "2020-10-20T04:59:08.109Z",
+    "Product": {
+      "id": 2,
+      "name": "Hot Latte",
+      "image_url": "https://i.imgur.com/rUnCV9V.jpg",
+      "price": 18000,
+      "stock": 20,
+      "createdAt": "2020-10-20T06:32:01.978Z",
+      "updatedAt": "2020-10-20T06:32:01.978Z"
+    }
   },
   {
     "id": 3,
-    "name": "espresso",
-    "image_url": "https://imgur.com/zGarX1Z",
-    "price": 15000,
-    "stock": 20
-  },
-  {
-    "id": 4,
-    "name": "machiato",
-    "image_url": "https://imgur.com/HFmsZMT",
-    "price": 18000,
-    "stock": 20
-  },
-  {
-    "id": 5,
-    "name": "icelate",
-    "image_url": "https://imgur.com/AU2NT88",
-    "price": 18000,
-    "stock": 20
+    "UserId": 2,
+    "ProductId": 1,
+    "qty": 10,
+    "status": "undone",
+    "createdAt": "2020-10-20T05:08:38.146Z",
+    "updatedAt": "2020-10-20T05:08:38.146Z",
+    "Product": {
+      "id": 1,
+      "name": "kopi hitam",
+      "image_url": "https://i.imgur.com/P7UeOR0.jpg",
+      "price": 15000,
+      "stock": 8,
+      "createdAt": "2020-10-20T04:23:43.311Z",
+      "updatedAt": "2020-10-20T06:29:07.026Z"
+    }
   }
 ]
 ```
@@ -469,24 +494,27 @@ _Response (500 - Bad Request)_
 
 _Request Header_
 
-```
+```json
 {
   "access_token": "<your access token>"
+}
+```
+
+_Request Params_
+
+```json
+{
+  "id": "<id : CartId>"
 }
 ```
 
 _Request Body_
 
 ```json
-
 {
-
-    "name" : "arabica",
-    "image_url" : "https://imgur.com/5XHKQuL",
-    "price" : 12000,
-    "stock" : 20 ,
-},
-
+  "productId": "<integer>",
+  "qty": "<integer>"
+}
 ```
 
 _Response (200)_
@@ -494,11 +522,7 @@ _Response (200)_
 ```json
 
   {
-    "id" : "1",
-    "name" : "arabica",
-    "image_url" : "https://imgur.com/5XHKQuL",
-    "price" : 12000,
-    "stock" : 20 ,
+   "message" : "update success"
   },
 
 
@@ -531,11 +555,28 @@ _Response (500 - Bad Request)_
 #### DELETE /product/:id
 
 > Delete Asset by Id
-> _Request Header_
 
-```
+_Request Header_
+
+```json
 {
   "access_token": "<your access token>"
+}
+```
+
+_Request Params_
+
+```json
+{
+  "id": "<Cart Id>"
+}
+```
+
+_Request Body_
+
+```json
+{
+  "productId": "<Product id>"
 }
 ```
 
