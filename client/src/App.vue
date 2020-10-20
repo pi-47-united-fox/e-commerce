@@ -1,0 +1,179 @@
+<template>
+  <div id="app"> 
+    <LoginForm  
+      v-if="loginForm == true"
+      @close="toogleLoginForm" 
+    
+    />
+    <div class="container">
+      <div class="row  justify-content-between">
+        <img src="@/assets/logo-2.png" class="col-2 " width="130px" alt="">
+        <h3 class="col-8 align-self-center ">Here is where you find your stuff</h3>
+        <h3 class="col-2 align-self-center "></h3> 
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-lg  navbar-light bg-light" :class="{'sticky-top':loginForm == false}">
+      <div class="container">
+        <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active" >
+              <a class="nav-link menu" href="#" >Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link menu" href="#">All Products</a>
+            </li>  
+            <li class="nav-item dropdown" href="#"> 
+              <a class="nav-link menu dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Category 1</a>
+                <!-- <a class="dropdown-item" href="#">Another action</a> -->
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Category 2</a>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav" >
+            <li class="nav-item"  href="#">
+              <a href="#" class="d-flex" data-toggle="tooltip" data-placement="top" title="Your Wishlist" style="background-color:#ffc038; border-radius:10px; max-width:90px">
+                <img src="@/assets/wishlist-logo.webp" width="50px" alt=""> 
+                <div class="bg-dark text-white pl-3 pr-3 pt-3" style="border-radius:10px;">
+                  {{wishlistsCount}}
+                </div>
+              </a>
+            </li>
+            <li class="nav-item" href="#"> 
+              <a href="#" class="d-flex " style="background-color:#ffc038; border-radius:10px; max-width:90px">
+                <img src="@/assets/cart-logo.png" width="50px" alt=""> 
+                <div class="bg-dark text-white pl-3 pr-3 pt-3" style="border-radius:10px;">
+                  {{cartCount}}
+                </div>
+              </a>
+            </li>
+            <li class="nav-item" v-if="isLoggedIn == false">
+              <a class="nav-link menu  pl-4 pr-4" @click="toogleLoginForm" href="#"><h5>Login</h5></a>
+            </li>  
+            <li class="dropdown" v-if="isLoggedIn == true" href="#"> 
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{email}}
+              </a>
+              <div class="dropdown-menu ml-3" aria-labelledby="navbarDropdown">
+                <!-- <a class="dropdown-item" href="#">Profile</a> -->
+                <!-- <a class="dropdown-item" href="#">Another action</a> -->
+                <!-- <div class="dropdown-divider"></div> -->
+                <a class="dropdown-item" href="#">Logout</a>
+              </div>
+            </li>
+          </ul> 
+          <!-- <div class="flex">
+            <button class="btn btn-outline-danger my-2 my-sm-0" >Logout</button>
+            
+          </div> -->
+          <form class="form-inline my-2 my-lg-0" @submit.prevent="">
+            <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <!-- <button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button> -->
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- <div id="nav"> -->
+      <!-- <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> -->
+    <!-- </div> -->
+    <router-view/>
+  </div>
+</template>
+<script>
+import LoginForm from '@/components/LoginForm.vue'
+export default {
+  name: 'App',
+  components: {
+    LoginForm
+  },
+  data () {
+    return { 
+    }
+  },
+  methods: {
+    toogleLoginForm () {
+      this.$store.commit('TOOGLE_LOGINFORM')
+    }
+  },
+  computed:{
+    email () {
+      return this.$store.state.email
+    },
+    wishlistsCount () {
+      return this.$store.state.wishlists.length
+    },
+    cartCount () {
+      return this.$store.state.cart.length
+    },
+    email () {
+      return this.$store.state.userEmail
+    },
+    loginForm () {
+      return this.$store.state.loginForm
+    },
+    isLoggedIn () {
+      return this.$store.state.isLoggedIn
+    }
+  },
+  created () {
+    if(localStorage.access_token){
+
+    }else{
+
+    }
+  }
+}
+</script>
+<style >
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+
+.nav-item.active {
+  /* box-sizing: border-box; */
+  background-color:#ffc038; 
+} 
+.navbar { 
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.nav-item:hover {  
+  /* margin-right: 10px;
+  margin-left: 5px;  */
+  background-color:#ffc038; 
+  
+  transform: scale(1.001);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.nav-item {   
+  border:solid #ffc038 2px; 
+  border-radius:10px;
+  margin-right: 5px;
+}
+</style>
