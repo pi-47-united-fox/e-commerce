@@ -1,5 +1,5 @@
 const { verifyToken } = require('../helpers/jwt.js')
-const { User, Stock } = require('../models/index.js')
+const { User, Cart } = require('../models/index.js')
 
 // middleware for user authentication
 const authentication = (req, res, next) => {
@@ -48,8 +48,31 @@ const authorization = (req, res, next) => {
         })
 }
 
-// middleware for customer authorization
+// middleware for customer authorization that needs params
 const customerAuthorization = (req, res, next) => {
+    const userData = req.userData
+    const CartId = req.params.id
+
+    Cart.findByPk(CartId)
+        .then(result => {
+            console.log(result.UserId, 'xxx', userData.id)
+            if(!result){
+                next({name:'Not Found', message: "Cart not found."})
+            }
+            else if(result.UserId !== userData.id){
+                next({name:'Forbidden', message: "You are not authorized."})
+            }
+            else{
+                next()
+            }
+        })
+        .catch(err => {
+            next(err)
+        })
+}
+
+// middleware for customer authorization that does not need params
+const customerOnlyAuthorization = (req, res, next) => {
     const userData = req.userData
 
     User.findOne({
@@ -76,5 +99,6 @@ const customerAuthorization = (req, res, next) => {
 module.exports = {
     authentication,
     authorization,
-    customerAuthorization
+    customerAuthorization,
+    customerOnlyAuthorization
 }
