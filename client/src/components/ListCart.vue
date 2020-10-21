@@ -6,26 +6,53 @@
         <div class="container">
           <div class="row row-cols-3">
             <!-- itemCard loop -->
-            <div class="col mt-5" v-for="cart in carts" :key="cart.id">
+            <div class="col mt-5" v-for="cart in carts" :key="cart.ProductId">
               <div class="itemCard">
                 <div class="image">
-                  <img src="#" alt="" srcset="" />
+                  <img :src="cart.Product.image_url" alt="" srcset="" />
                 </div>
-                <!-- {{ data.products }} -->
+
                 <div class="itemCard-text">
-                  <div class="text-inner">
+                  <div class="text-Title">
                     <h2 style="font-weight: bolder;">
-                      {{ cart.ProductId }}
+                      {{ cart.Product.name }}
                     </h2>
-                    <p>{{ cart.quantity }}</p>
-                    <p>{{ cart.status }}</p>
                   </div>
                 </div>
-                <input type="number" name="" id="quantity" v-model="quantity" />
-                <button @click.prevent="editQuantity(cart.id)">
-                  Edit Quantity
-                </button>
-                <button @click.prevent="deleteCart(cart.id)">
+                <div class="display">
+                  <div class="qty">
+                    {{ cart.quantity }}
+                  </div>
+                  <div class="status">Status : {{ cart.status }}</div>
+                </div>
+
+                <div class="edit-qty">
+                  <input
+                    class="input-edit"
+                    type="number"
+                    name="qty"
+                    id="quantity"
+                    v-model="quantity"
+                    :placeholder="cart.quantity"
+                  />
+                  <button
+                    class="button-edit"
+                    @click.prevent="editQuantity(cart.id)"
+                  >
+                    Edit
+                  </button>
+                </div>
+
+                <button
+                  class="btn btn-danger"
+                  @click.prevent="
+                    deleteCart({
+                      id: cart.id,
+                      ProductId: cart.ProductId,
+                      quantity: cart.quantity
+                    })
+                  "
+                >
                   Remove Data
                 </button>
               </div>
@@ -54,8 +81,8 @@ export default {
       this.$store.dispatch("fetchCart");
       this.$store.dispatch("fetchProducts");
     },
-    deleteCart(id) {
-      this.$store.dispatch("deleteCart", id);
+    deleteCart(payload) {
+      this.$store.dispatch("deleteCart", payload);
     },
     editQuantity(id) {
       let payload = {
@@ -80,7 +107,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* itemcard */
 .container-x {
   width: 100%;
@@ -100,7 +127,7 @@ export default {
 
 .itemCard {
   width: 100%;
-  height: 400px;
+  height: auto;
   display: flex;
   flex-direction: column;
   background-color: saddlebrown;
@@ -115,15 +142,74 @@ export default {
   width: 100%;
   background-color: seashell;
 }
+img {
+  width: 100%;
+  height: 220px;
+  background-color: seashell;
+}
 
 .itemCard-text {
   width: 100%;
-  height: auto;
+  height: 15%;
   background-color: seashell;
   display: flex;
-  padding-bottom: 10px;
   justify-content: center;
   align-items: center;
+  border: 0px solid black;
+}
+
+.display {
+  width: 100%;
+  height: 20%;
+  background-color: red;
+  display: flex;
+}
+.qty {
+  width: 30%;
+  background-color: rgb(6, 20, 63);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.edit-qty {
+  width: 100%;
+  height: 10%;
+  background-color: pink;
+  display: flex;
+}
+
+.button-edit {
+  all: unset;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font-weight: bold;
+
+  width: 30%;
+  height: 50px;
+}
+
+.button-edit :hover {
+  background-color: burlywood;
+}
+
+.input-edit {
+  width: 70%;
+  height: 50px;
+}
+
+.status {
+  width: 70%;
+  background-color: slategray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: normal;
 }
 
 .text-inner {
@@ -138,7 +224,7 @@ export default {
 .action {
   width: 100%;
   height: 20%;
-  background-color: red;
+  background-color: rgb(70, 43, 43);
   display: flex;
 }
 

@@ -12,16 +12,16 @@ export default new Vuex.Store({
   },
   mutations: {
     FETCH_PRODUCTS(state, payload) {
-      this.state.products = payload;
+      state.products = payload;
     },
     FETCH_CARTS(state, payload) {
-      this.state.carts = payload;
+      state.carts = payload;
     },
     FETCH_WISHLIST(state, payload) {
-      this.state.wishlist = payload;
+      state.wishlist = payload;
     },
     ADD_CART(state, payload) {
-      this.$state.carts = payload;
+      state.carts = payload;
     }
   },
   actions: {
@@ -90,12 +90,16 @@ export default new Vuex.Store({
     deleteCart(context, payload) {
       axios({
         method: "DELETE",
-        url: `http://localhost:3000/carts/${payload}`,
+        url: `http://localhost:3000/carts/${payload.id}/${payload.ProductId}`,
         headers: {
           access_token: localStorage.getItem("access_token")
+        },
+        data: {
+          quantity: payload.quantity
         }
       })
         .then(({ data }) => {
+          console.log(data);
           console.log(data, "success delete cart");
           context.dispatch("fetchCart");
         })
@@ -117,9 +121,10 @@ export default new Vuex.Store({
           console.log(data, "success add cart");
           context.commit("ADD_CART", data);
           context.dispatch("fetchCart");
+          context.dispatch("fetchProducts");
         })
         .catch(err => {
-          console.log(err, "err delete cart");
+          console.log(err, "err add cart");
         });
     },
 

@@ -6,6 +6,9 @@ class CartControllers {
       where: {
         UserId: req.userData.id,
       },
+      include: {
+        model: Product,
+      },
     })
       .then((data) => {
         return res.status(200).json(data);
@@ -27,20 +30,33 @@ class CartControllers {
       ProductId: req.params.id,
       UserId: req.userData.id,
     };
-    Cart.findAll({
+    Cart.findOne({
       where: {
         ProductId: req.params.id,
         UserId: req.userData.id,
       },
-    }).then((data) => {
-      if (data.length !== 0) {
-        return res.send("uadah ada");
-      } else {
-        Cart.create(inputAdd).then((data) => {
-          res.status(201).json(data);
-        });
-      }
-    });
+    })
+      .then((data) => {
+        if (data) {
+          console.log(data.id, "inii");
+          return Cart.increment({ quantity: 1 }, { where: { id: data.id } });
+        } else {
+          return Cart.create(inputAdd);
+        }
+      })
+      .then((data) => {
+        return Product.decrement(
+          { stock: 1 },
+          { where: { id: req.params.id } }
+        );
+      })
+      .then((data) => {
+        return res.status(201).json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
   }
 
   //   static async addToCart(req, res, next) {
@@ -107,11 +123,21 @@ class CartControllers {
       where: {
         id: +req.params.id,
       },
+      returning: true,
     })
+      .then((data) => {
+        console.log(+req.params.ProductId, "ini product id");
+        console.log(data, "ini");
+        return Product.increment(
+          { stock: req.body.quantity },
+          { where: { id: +req.params.ProductId } }
+        );
+      })
       .then((data) => {
         return res.status(200).json(data);
       })
       .catch((err) => {
+        console.log(err);
         next(err);
       });
   }

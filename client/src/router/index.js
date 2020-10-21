@@ -51,13 +51,19 @@ const router = new VueRouter({
   routes
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.name === "Login" && localStorage.access_token) {
-//     next({ path: "/" });
-//   }
-//   if (to.name !== "Login" && !localStorage.access_token) {
-//     next({ path: "/login" }, { path: "/register" });
-//   } else next();
-// });
+router.beforeEach((to, from, next) => {
+  if (
+    (to.name === "Login" || to.name === "Register") &&
+    localStorage.access_token
+  ) {
+    next({ path: "/" });
+  } else if (!localStorage.access_token) {
+    if (to.name !== "Home") {
+      next();
+    } else {
+      next({ path: "/login" });
+    }
+  } else next();
+});
 
 export default router;

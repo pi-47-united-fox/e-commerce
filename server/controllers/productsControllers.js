@@ -22,17 +22,15 @@ class ProductControllers {
         if (product == null) {
           return res.status(404).json({ msg: "Not Found" });
         }
-        return res
-          .status(200)
-          .json({
-            id: product.id,
-            name: product.name,
-            image_url: product.image_url,
-            price: product.price,
-            stock: product.stock,
-            category: product.category,
-            UserId: product.UserId,
-          });
+        return res.status(200).json({
+          id: product.id,
+          name: product.name,
+          image_url: product.image_url,
+          price: product.price,
+          stock: product.stock,
+          category: product.category,
+          UserId: product.UserId,
+        });
       })
       .catch((err) => {
         // console.log(err,'err dari findOne')
@@ -51,17 +49,15 @@ class ProductControllers {
     };
     Product.create(inputProduct)
       .then((product) => {
-        return res
-          .status(201)
-          .json({
-            id: product.id,
-            name: product.name,
-            image_url: product.image_url,
-            price: product.price,
-            stock: product.stock,
-            category: product.category,
-            UserId: product.UserId,
-          });
+        return res.status(201).json({
+          id: product.id,
+          name: product.name,
+          image_url: product.image_url,
+          price: product.price,
+          stock: product.stock,
+          category: product.category,
+          UserId: product.UserId,
+        });
       })
       .catch((err) => {
         // console.log(err, 'dari err add')

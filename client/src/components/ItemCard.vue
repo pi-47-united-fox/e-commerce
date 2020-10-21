@@ -59,7 +59,7 @@ export default {
         quantity: 1
       };
       this.$store.dispatch("addToCart", payload);
-    },
+    }
   },
   computed: {
     data() {
@@ -72,7 +72,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* itemcard */
 .container-x {
   width: 100%;
@@ -95,7 +95,6 @@ export default {
   height: 400px;
   display: flex;
   flex-direction: column;
-  background-color: saddlebrown;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -106,6 +105,11 @@ export default {
 .itemCard-image {
   width: 100%;
   background-color: seashell;
+}
+
+.itemCard img {
+  width: 100%;
+  height: 220px;
 }
 
 .itemCard-text {
@@ -130,7 +134,6 @@ export default {
 .action {
   width: 100%;
   height: 20%;
-  background-color: red;
   display: flex;
 }
 

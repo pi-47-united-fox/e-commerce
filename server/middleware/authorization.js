@@ -1,12 +1,12 @@
-const { Product, Cart } = require("../models");
+const { Product, User, Cart } = require("../models");
 
 const authorization = (req, res, next) => {
-  Product.findByPk(+req.params.id)
+  User.findOne({ where: { id: req.userData.id } })
     .then((data) => {
       if (!data) {
         console.log(data);
-        return res.status(404).json({ msg: "Data Not Found" });
-      } else if (data.UserId !== req.userData.id) {
+        return res.status(404).json({ msg: "User Not Found" });
+      } else if (data.role !== "admin") {
         return res.status(401).json({ msg: "You do not have access" });
       } else {
         next();

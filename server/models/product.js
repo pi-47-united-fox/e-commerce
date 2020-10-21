@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "cant be empty",
           },
+          min: { args: [0], msg: "stock habis" },
         },
       },
       category: {
