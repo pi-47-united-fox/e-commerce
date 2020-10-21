@@ -1,12 +1,18 @@
 "use strict";
 
-const { Cart, Product } = require("../models");
+const { Cart, Product, Category } = require("../models");
 
 class CartController {
 	static getAllProcessed(req, res, next) {
 		Cart.findAll({
 			where: { status: "processing", UserId: req.userData.id },
-			include: { model: Product },
+			include: {
+				model: Product,
+				include: {
+					model: Category,
+				},
+			},
+			order: [["id", "ASC"]],
 		})
 			.then((result) => {
 				if (result.length) {

@@ -3,7 +3,7 @@
 		<div class="navbar-brand">
 			<a class="navbar-item" href="https://bulma.io">
 				<img src="https://avatars.dicebear.com/api/gridy/1234.svg" width="36" height="28" />
-				<p>Welcome {{this.$store.state.display_name}}</p>
+				<p>Welcome {{ this.$store.state.display_name }}</p>
 			</a>
 
 			<a
@@ -21,14 +21,15 @@
 
 		<div id="navbarBasicExample" class="navbar-menu">
 			<div class="navbar-start">
-				<a class="navbar-item"> Home </a>
+				<router-link class="navbar-item" to="/home"> Home </router-link>
 			</div>
 
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<a class="navbar-item"><i class="fas fa-cloud"></i> History </a>
-					<a class="navbar-item"><i class="fas fa-cloud"></i> WishList </a>
-					<a class="navbar-item mr-2"><i class="fas fa-shopping-cart"></i> Cart </a>
+					<router-link to="/home/cart" class="navbar-item"
+						><i class="fas fa-shopping-cart"></i> Cart
+					</router-link>
 					<div class="buttons">
 						<a class="button is-primary"> Log Out </a>
 					</div>
@@ -39,8 +40,7 @@
 </template>
 
 <script>
-export default {
-};
+export default {};
 </script>
 
 <style></style>

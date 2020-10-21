@@ -4,6 +4,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Home from "../views/Home.vue";
 import DisplayAll from "../views/DisplayAll.vue";
+import DisplayCart from "../views/DisplayCart.vue";
 
 Vue.use(VueRouter);
 
@@ -21,7 +22,10 @@ const routes = [
 	{
 		path: "/home",
 		component: Home,
-		children: [{ path: "", name: "Home", component: DisplayAll }],
+		children: [
+			{ path: "", name: "Home", component: DisplayAll },
+			{ path: "cart", name: "Home", component: DisplayCart },
+		],
 	},
 ];
 
