@@ -7,9 +7,12 @@
             md="7"
             class="ma-4"
           >
-            <CheckoutCard 
-                v-for="(cart) in carts" :key="cart.id"
-                :cart='cart.dataValues'
+            <CheckoutCard
+                v-for="(cart, idx) in carts" :key="cart.id"
+                :cart='cart'
+                :idx='idx'
+                :product='cart.Product'
+                :quantity='cart.quantity'
             />
             <!-- <v-card class="pa-2" outlined tile> HAi </v-card> -->
           </v-col>
@@ -35,18 +38,18 @@ export default {
     CheckoutSummary
   },
   computed: {
-      carts () {
-          return this.$store.state.carts
-      }
+    carts () {
+      return this.$store.state.carts
+    }
   },
   methods: {
-      fetchCarts () {
-          this.$store.dispatch('fetchCarts')
-      }
+    fetchCarts () {
+      this.$store.dispatch('fetchCarts')
+    }
   },
-  created() {
-      this.fetchCarts()
-  },
+  created () {
+    this.fetchCarts()
+  }
 }
 </script>
 

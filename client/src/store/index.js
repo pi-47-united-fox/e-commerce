@@ -7,12 +7,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userLogedIn: false,
+    totalPay: 0,
+    errorInputCart: false,
     products: [],
     banners: [],
     carts: [],
     wishlist: []
   },
   mutations: {
+    UPDATE_QTY_FORM (state, {value, idx}) {
+      console.log('selesai edit form')
+      state.carts[idx].quantity = value
+    },
     LOGIN (state, token) {
       state.userLogedIn = true
       localStorage.setItem('access_token', token)
@@ -24,6 +30,28 @@ export default new Vuex.Store({
     LOGOUT (state) {
       state.userLogedIn = false
       return localStorage.removeItem('access_token')
+    },
+    DEC_QUANTITY (state, payload) {
+      console.log('masuk commit atas', payload)
+      let idxEdited
+      state.carts.forEach((c, idx) => {
+        if (c.id === payload) {
+          console.log('indexnya yaitu', idx)
+          idxEdited = idx
+        }
+      })
+      state.carts[idxEdited].quantity += 1
+    },
+    INC_QUANTITY (state, payload) {
+      console.log('masuk commit atas', payload)
+      let idxEdited
+      state.carts.forEach((c, idx) => {
+        console.log('indexnya yaitu', idx)
+        if (c.id === payload) {
+          idxEdited = idx
+        }
+      })
+      state.carts[idxEdited].quantity += 1
     },
     FETCH_PRODUCTS (state, data) {
       if (localStorage.access_token) {
@@ -38,12 +66,25 @@ export default new Vuex.Store({
     },
     FETCH_CARTS (state, data) {
       state.carts = data
+      let total = 0
+      state.carts.forEach(c => {
+        // console.log(c)
+        total += (c.quantity * c.Product.price)
+      })
+      console.log('dari fetch cart', total)
+      state.totalPay = total
     },
     ADD_CART (state, data) {
 
     },
-    DELETE_CART (state, date) {
-
+    DELETE_CART (state, id) {
+      let iRemoved
+      state.carts.forEach((el, index) => {
+        if (el.id === +id) {
+          iRemoved = index
+        }
+      })
+      state.carts.splice(iRemoved, 1)
     },
     EDIT_CART (state, data) {
 
@@ -126,6 +167,35 @@ export default new Vuex.Store({
         }).catch(err => {
           console.error(err)
         })
+    },
+    deleteCart ({ commit }, id) {
+      console.log('masuk vuex id cart ayng mau di delete', id)
+      return axios
+        .delete('/carts/' + id, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        }).then(({ data: carts }) => {
+          // console.log(carts)
+          commit('DELETE_CART', id)
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+    updateCart ({commit}, { id, quantity }) {
+      return axios.put('/carts/' + id, {
+        quantity: quantity
+      }, {
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(({data}) => {
+        // console.log(data)
+        // commit sudah langsung dari seter
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
   },
   modules: {
