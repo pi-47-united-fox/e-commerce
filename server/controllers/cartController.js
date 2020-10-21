@@ -27,26 +27,45 @@ class CartController {
 			});
 	}
 
-	static addOrder(req, res, next) {
-		const orderData = {
-			UserId: req.userData.id,
-			ProductId: req.body.ProductId,
-			status: "processing",
-			quantity: req.body.quantity,
-		};
+	static async addOrder(req, res, next) {
+		try {
+			const orders = await Cart.findAll({
+				where: { status: "processing", UserId: req.userData.id },
+				include: { model: Product },
+			});
 
-		Cart.create(orderData)
-			.then((result) => {
+			let isSame = false;
+			orders.forEach(async (el) => {
+				if (el.Product.id === +req.body.ProductId) {
+					isSame = true;
+					try {
+						await Cart.update({ quantity: el.quantity + 1 }, { where: { id: el.id } });
+					} catch (err) {
+						next(err);
+					}
+				}
+			});
+			if (!isSame) {
+				const orderData = {
+					UserId: req.userData.id,
+					ProductId: req.body.ProductId,
+					status: "processing",
+					quantity: req.body.quantity,
+				};
+
+				let result = await Cart.create(orderData);
 				if (!result) {
 					next({ name: "BadRequest", message: "Failed to add Order" });
 				} else {
 					const { id, UserId, ProductId, status, quantity } = result;
 					res.status(201).json({ id, UserId, ProductId, status, quantity });
 				}
-			})
-			.catch((err) => {
-				next(err);
-			});
+			} else {
+				res.status(201).json({ message: "Product already added to Cart, add Quantity" });
+			}
+		} catch (err) {
+			next(err);
+		}
 	}
 
 	static async finishOrder(req, res, next) {
