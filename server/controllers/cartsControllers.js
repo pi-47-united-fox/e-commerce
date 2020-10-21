@@ -59,45 +59,6 @@ class CartControllers {
       });
   }
 
-  //   static async addToCart(req, res, next) {
-  //     try {
-  //       let checkCardUser = await Cart.findAll({
-  //         where: { ProductId: req.params.id, UserId: req.userData.id },
-  //       });
-  //       console.log(checkCardUser, ">>>> check user");
-  //       if (checkCardUser.length === 0) {
-  //         console.log("masih kosong nih");
-  //         let dataProduct = await Product.findByPk(req.params.id);
-  //         console.log(dataProduct, "data dari model produk");
-  //         if (dataProduct.stock < req.boy.quantity) {
-  //           throw {
-  //             name: "limited stock",
-  //             message: "stok habis",
-  //             statusCode: 400,
-  //           };
-  //         } else {
-  //           let input = {
-  //             ProductId: req.params.id,
-  //             UserId: req.userData.id,
-  //             quantity: req.body.quantity,
-  //             status: false,
-  //           };
-  //           let newStock = dataProduct.stock - req.body.quantity;
-  //           let createCart = await Cart.create(input);
-  //           res.status(201).json(createCart);
-  //           let updateStock = await Product.update(
-  //             { stock: newStock },
-  //             { where: { id: req.params.id } }
-  //           );
-  //         }
-  //       } else {
-  //         res.send("ok");
-  //       }
-  //     } catch {
-  //       next();
-  //     }
-  //   }
-
   static updateQuantity(req, res, next) {
     const updateData = {
       quantity: +req.body.quantity,
