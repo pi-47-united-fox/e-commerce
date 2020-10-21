@@ -95,7 +95,7 @@ img {
   box-shadow: -38px 33px 70px -23px rgba(0, 0, 0, 0.75);
 }
 .login-r {
-  background-color: black;
+  background-color: #5978d5;
   width: 350px;
   height: 340px;
   position: fixed;
@@ -106,7 +106,7 @@ img {
 }
 .text {
   margin: 10px;
-  padding: 10px;
+  padding: 15px;
   border: 0px;
   border-radius: 20px;
   width: 200pz;
