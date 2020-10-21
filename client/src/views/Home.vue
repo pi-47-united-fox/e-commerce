@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div><div></div>
+    <img src="../assets/zambanlogo.svg" alt="">
     <div class="navbar">
       <div class="container">
       <div>
