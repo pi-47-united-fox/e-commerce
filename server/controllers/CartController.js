@@ -30,8 +30,9 @@ class CartController {
                     where: { 
                         ProductId: req.params.ProductId, 
                         UserId: req.userData.id 
-                    }
-                });
+                    },
+                    plain: true
+                })
             } else {
                 console.log('addCart - cart belum ada:', cart)
                 return Cart.create({
@@ -41,8 +42,12 @@ class CartController {
                 })
             }
         }).then((newCart) => {
-            console.log('addCart, terakhir selesai:', newCart[0][0])
-            res.status(201).json(newCart[0][0][0])
+            // console.log(newCart)
+            if (Array.isArray(newCart)) {
+                newCart = newCart[0][0]
+            }
+            console.log('addCart, terakhir selesai:', newCart)
+            res.status(201).json(newCart)
         }).catch((err) => {
             console.log('masuk errro', err)
             next(err)
@@ -77,33 +82,33 @@ class CartController {
         
     }
 
-    static decrementC (req, res, next) {
-        Cart.decrement('quantity', { 
-            where: { 
-                ProductId: req.params.ProductId, 
-                UserId: req.userData.id
-            }
-        }).then((result) => {
-            res.status(200).json(result)
-        }).catch((err) => {
-            next(err)
-        });
-    }
+    // static decrementC (req, res, next) {
+    //     Cart.decrement('quantity', { 
+    //         where: { 
+    //             ProductId: req.params.ProductId, 
+    //             UserId: req.userData.id
+    //         }
+    //     }).then((result) => {
+    //         res.status(200).json(result)
+    //     }).catch((err) => {
+    //         next(err)
+    //     });
+    // }
 
-    static incrementC (req, res, next) {
-        Cart.increment('quantity', { 
-            where: { 
-                ProductId: req.params.ProductId, 
-                UserId: req.userData.id 
-            }
-        }).then((result) => {
-            res.status(200).json(result)
-        }).catch((err) => {
-            next(err)
-        });
-    }
+    // static incrementC (req, res, next) {
+    //     Cart.increment('quantity', { 
+    //         where: { 
+    //             ProductId: req.params.ProductId, 
+    //             UserId: req.userData.id 
+    //         }
+    //     }).then((result) => {
+    //         res.status(200).json(result)
+    //     }).catch((err) => {
+    //         next(err)
+    //     });
+    // }
 
-    static checkoutC (req, res, next) {
+    static async checkoutC (req, res, next) {
     //    const { payload } = req.body
     //    payload.forEach( e => {
     //        Product.decrement('stock', { by: req.body.quantity})
@@ -113,6 +118,45 @@ class CartController {
                
     //        });
     //    });
+        try {
+            let cartsToCheckout = await Cart.findAll({
+                where: {
+                    UserId: req.userData.id,
+                    status: 'waiting'
+                }
+            })
+            cartsToCheckout.forEach (async e => {
+                try {
+                    await Product.decrement('stock',{
+                        by: e.quantity,
+                        where: {
+                            id: e.ProductId
+                        }
+                    })
+                } catch (err) {
+                    console.log('dari loop decrement ke', e.id , err)
+                    next(err)
+                }
+            })
+
+            await Cart.update({
+                status: 'unpaid'
+            }, {
+                where: {
+                    status: 'waiting',
+                    UserId: req.userData.id
+                }
+            }).then((result) => {
+                return res.status(200).json({
+                    message: 'checkeout finished'
+                })
+            }).catch((err) => {
+                console.log('dari update statys', err)
+            });
+        } catch (err) {
+            console.log('dari checkout', err)
+            next(err)
+        }
     }
 
     static deleteCartC (req, res, next) {

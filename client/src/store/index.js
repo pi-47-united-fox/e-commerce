@@ -12,6 +12,7 @@ export default new Vuex.Store({
     products: [],
     banners: [],
     carts: [],
+    cartsUnpaid: [],
     wishlist: []
   },
   mutations: {
@@ -38,29 +39,30 @@ export default new Vuex.Store({
       state.userLogedIn = false
       return localStorage.removeItem('access_token')
     },
-    DEC_QUANTITY (state, payload) {
-      console.log('masuk commit atas', payload)
-      let idxEdited
-      state.carts.forEach((c, idx) => {
-        if (c.id === payload) {
-          console.log('indexnya yaitu', idx)
-          idxEdited = idx
-        }
-      })
-      state.carts[idxEdited].quantity += 1
-    },
-    INC_QUANTITY (state, payload) {
-      console.log('masuk commit atas', payload)
-      let idxEdited
-      state.carts.forEach((c, idx) => {
-        console.log('indexnya yaitu', idx)
-        if (c.id === payload) {
-          idxEdited = idx
-        }
-      })
-      state.carts[idxEdited].quantity += 1
-    },
+    // DEC_QUANTITY (state, payload) {
+    //   console.log('masuk commit atas', payload)
+    //   let idxEdited
+    //   state.carts.forEach((c, idx) => {
+    //     if (c.id === payload) {
+    //       console.log('indexnya yaitu', idx)
+    //       idxEdited = idx
+    //     }
+    //   })
+    //   state.carts[idxEdited].quantity += 1
+    // },
+    // INC_QUANTITY (state, payload) {
+    //   console.log('masuk commit atas', payload)
+    //   let idxEdited
+    //   state.carts.forEach((c, idx) => {
+    //     console.log('indexnya yaitu', idx)
+    //     if (c.id === payload) {
+    //       idxEdited = idx
+    //     }
+    //   })
+    //   state.carts[idxEdited].quantity += 1
+    // },
     FETCH_PRODUCTS (state, data) {
+      state.carts = []
       if (localStorage.access_token) {
         state.userLogedIn = true
       } else {
@@ -78,26 +80,43 @@ export default new Vuex.Store({
       state.banners = activeBanners
     },
     FETCH_CARTS (state, data) {
-      state.carts = data
+      console.log('masuk carts atas')
+      const waitingCarts = []
+      const unpaidCarts = []
       let total = 0
-      state.carts.forEach(c => {
-        // console.log(c)
-        total += (c.quantity * c.Product.price)
+      data.forEach(c => {
+        console.log('dari carts loop', c)
+        if (c.status === 'waiting') {
+          total += (c.quantity * c.Product.price)
+          console.log('masuk sini')
+          waitingCarts.push(c)
+        } else {
+          unpaidCarts.push(c)
+        }
       })
-      console.log('dari fetch cart', total)
+      state.carts = waitingCarts
+      state.cartsUnpaid = unpaidCarts
+      // console.log('dari fetch cart', total)
       state.totalPay = total
     },
     DELETE_CART (state, id) {
       let iRemoved
+      let total = 0
       state.carts.forEach((el, index) => {
         if (el.id === +id) {
+          total = (el.quantity * el.Product.price)
           iRemoved = index
         }
       })
+      state.totalPay -= total
       state.carts.splice(iRemoved, 1)
     },
     FETCH_WISHLIST (state, data) {
       state.wishlist = data
+    },
+    CHEKOUT (state) {
+      state.carts = []
+      state.totalPay = 0
     }
   },
   actions: {
@@ -153,8 +172,8 @@ export default new Vuex.Store({
             access_token: localStorage.access_token
           }
         }).then(({ data: newCart }) => {
-          commit('ADD_CART', newCart)
-          console.log(newCart)
+          // commit('ADD_CART', newCart)
+          console.log('selesai add', newCart)
         })
           .catch(err => {
             console.error(err)
@@ -220,26 +239,20 @@ export default new Vuex.Store({
         })
     },
     checkout ({ commit, state }) {
-      const data = []
-      state.carts.forEach(e => {
-        data.push({
-          id: e.id,
-          ProductId: e.ProductId,
-          quantity: e.quantity
-        })
+      return axios({
+        method: 'patch',
+        url: '/carts/checkout',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then((result) => {
+        commit('CHEKOUT')
+        console.log(result)
+      }).catch((err) => {
+        console.log(err)
       })
-      axios.post('/checkout', {
-        payload: data
-      }, {
-        access_token: localStorage.access_token
-      })
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.error(err)
-        })
     }
+
   },
   modules: {
   }

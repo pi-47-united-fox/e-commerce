@@ -16,7 +16,7 @@
           </div>
         </v-expand-transition>
         <v-app-bar flat color="rgba(0, 0, 0, 0)">
-            <v-icon small v-for="(i) in 3" :key="i">mdi-star</v-icon>
+            Stock: {{product.stock}}
           <v-spacer></v-spacer>
           <v-btn color="grey" icon>
             <v-icon>mdi-heart</v-icon>
@@ -65,5 +65,5 @@ export default {
   opacity: 0.9;
   position: absolute;
   width: 100%;
-}</style
->>
+}
+</style>

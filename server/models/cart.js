@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Cart.belongsTo(models.Product)
+      Cart.belongsTo(models.User)
     }
   };
   Cart.init({
@@ -20,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     quantity: DataTypes.INTEGER,
     status: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate (inst) {
+        inst.status = 'waiting'
+      }
+    },
     sequelize,
     modelName: 'Cart',
   });

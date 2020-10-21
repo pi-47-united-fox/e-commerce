@@ -20,7 +20,7 @@
          <v-btn color="red" @click="goToWishlist" class="d-block text-center mx-auto mb-9" icon>
         <v-icon>mdi-heart</v-icon>
         </v-btn>
-         <v-btn color="blue" class="d-block text-center mx-auto mb-9" icon>
+         <v-btn color="blue" @click="goToHistory" class="d-block text-center mx-auto mb-9" icon>
         <v-icon>mdi-bell</v-icon>
         </v-btn>
          <v-btn color="" class="d-block text-center mx-auto mb-9" icon>
@@ -57,6 +57,9 @@ export default {
     },
     goToCheckout () {
       return this.$router.push('/checkout')
+    },
+    goToHistory () {
+      return this.$router.push('/history')
     }
   }
 
