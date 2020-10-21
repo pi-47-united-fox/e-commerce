@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 class Jwt {
     static generate(id, email, role) {
+        console.log ('masuk JWT', id, email, role)
         return jwt.sign({
             id: id,
             email: email,

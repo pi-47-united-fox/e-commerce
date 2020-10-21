@@ -46,10 +46,10 @@ This cms App has:
   4. DELETE /banners/:id
 
 #### Charts Endpoints:
-  1. GET /charts
-  2. POST /charts
-  3. PUT /banners/:id
-  4. DELETE /banners/:id
+  1. GET /carts
+  2. POST /carts/:ProductId
+  3. PUT /carts/:CartId
+  4. DELETE /carts/:CartId
 
 &nbsp;
 
@@ -403,6 +403,159 @@ Response:
 {
     "id": "<deleted banner id>",
     "message": "Banners: success deleted"
+}
+```
+
+- status: 403
+- body:
+```json
+{
+    "message": "You dont have access"
+}
+```
+
+
+---
+
+## Cart Endpoints
+
+### 1. GET /carts
+description:
+  show cart by logedin UserId
+
+Request:
+- headers: access_token (string)
+
+Response:
+- status: 200
+- body:
+
+```json
+[
+  {
+    "id": 1,
+    "UserId": 13,
+    "ProductId": 2,
+    "quantity": 1,
+    "status": null,
+    "createdAt": "2020-10-21T00:09:27.092Z",
+    "updatedAt": "2020-10-21T00:09:27.092Z",
+    "Product": {
+      "id": 2,
+      "name": "Sepatu Sangat Keren",
+      "image_url": "https://cdn.elevenia.co.id/g/2/9/3/9/8/5/20293985_B.jpg",
+      "price": 300000,
+      "stock": 150,
+      "CategoryId": 1,
+      "createdAt": "2020-10-14T05:19:52.475Z",
+      "updatedAt": "2020-10-17T05:51:07.604Z"
+    }
+  },
+  {
+    "id": 2,
+    "UserId": 13,
+    "ProductId": 11,
+    "quantity": 2,
+    "status": null,
+    "createdAt": "2020-10-21T00:11:07.810Z",
+    "updatedAt": "2020-10-21T00:11:11.223Z",
+    "Product": {
+      "id": 11,
+      "name": "Sepatu Model Biasa",
+      "image_url": "https://cdn.elevenia.co.id/g/2/9/3/9/8/5/20293985_B.jpg",
+      "price": 664000,
+      "stock": 34,
+      "CategoryId": 2,
+      "createdAt": "2020-10-14T23:42:07.228Z",
+      "updatedAt": "2020-10-14T23:42:07.228Z"
+    }
+  }
+]
+```
+
+
+### 2. POST /carts
+description: 
+  add cart use ProductId 
+
+Request:
+- headers: access_token (string)
+- params : ProductId (integer)
+
+Response:
+
+- status: 201
+- body:
+
+```json
+{
+    "id": 3,
+    "UserId": 13,
+    "ProductId": 11,
+    "quantity": 2,
+    "status": null,
+    "createdAt": "2020-10-21T00:11:07.810Z",
+    "updatedAt": "2020-10-21T00:11:11.223Z",
+}
+```
+
+## 3. PUT /carts/:CartId
+description: 
+  edit/update carts
+
+Request:
+- headers: access_token (string)
+- params: 
+  - CartId: "integer" required
+- body: 
+```json 
+{
+    "quantity": "<cart_quantity:Integer>",
+}
+```
+
+Response:
+
+- status: 201
+- body:
+
+```json
+{
+    "id": 3,
+    "UserId": 13,
+    "ProductId": 11,
+    "quantity": 2,
+    "status": null,
+    "createdAt": "2020-10-21T00:11:07.810Z",
+    "updatedAt": "2020-10-21T00:11:11.223Z",
+}
+```
+```
+- status: 403
+- body:
+```json
+{
+  "message": "You dont have access"
+}
+```
+
+### 5. DELETE /carts/:id
+description:
+  delete cart by id
+
+Request:
+- headers: access_token (string)
+- params: 
+  - CartId: "integer" required
+
+Response:
+- status: 200
+- body:
+
+```json
+{
+    "id": "<deleted cart id>",
+    "message": "Success Deleted"
 }
 ```
 

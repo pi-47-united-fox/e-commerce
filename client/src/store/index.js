@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userLogedIn: true,
+    userLogedIn: false,
     products: [],
     banners: [],
     carts: [],
@@ -21,7 +21,7 @@ export default new Vuex.Store({
       state.userLogedIn = true
       localStorage.setItem('access_token', token)
     },
-    LOGOUT () {
+    LOGOUT (state) {
       state.userLogedIn = false
       return localStorage.removeItem('access_token')
     },
@@ -112,6 +112,20 @@ export default new Vuex.Store({
             console.error(err)
           })
       }
+    },
+    fetchCarts ({ commit }) {
+      console.log('masuk vuex')
+      return axios
+        .get('/carts', {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        }).then(({ data: carts }) => {
+          console.log(carts)
+          commit('FETCH_CARTS', carts)
+        }).catch(err => {
+          console.error(err)
+        })
     }
   },
   modules: {

@@ -43,15 +43,16 @@ class MainControoler {
             User.create({
                 email: req.body.email,
                 password: req.body.password
-            }).then(({dataValues: result}) => {
-                console.log('dari selesai create', result)
-                let access_token = Jwt.generate(result.id, result.email, result.role);
+            }).then((result) => {
+                const access_token = Jwt.generate(result.dataValues.id, result.dataValues.email, result.dataValues.role)
+                // console.log('dari selesai create', result.dataValues)
                 console.log('dari register', access_token)
-                res.status(201).json({
+                return res.status(201).json({
                    access_token: access_token
                 })
             }).catch((err) => {
-                next(err)
+                // console.log('dari register', err)
+                return next(err)
             });
         }
     }

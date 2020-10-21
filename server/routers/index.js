@@ -9,6 +9,6 @@ router.post('/login', MainController.loginUserC)
 router.post('/register', MainController.registerUserC)
 router.use('/products', require('./product'))
 router.use('/banners', require('./banner'))
-router.use('/cart', require('./cart'))
+router.use('/carts', require('./cart'))
 
 module.exports = router;
