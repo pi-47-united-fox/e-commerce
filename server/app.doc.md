@@ -512,7 +512,6 @@ _Request Body_
 
 ```json
 {
-  "productId": "<integer>",
   "qty": "<integer>"
 }
 ```

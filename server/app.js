@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "welcome to my app" });
+    res.status(200).json({ message: "welcome to my app" });
 });
 
 app.use(route);
@@ -19,7 +19,7 @@ app.use(route);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`masuk ke sokin ni ${PORT}`);
+    console.log(`masuk ke sokin ni ${PORT}`);
 });
 
 module.exports = app;

@@ -2,25 +2,25 @@ const { User, Cart, Product } = require("../models/index");
 
 class CartController {
     static async postCart(req, res, next) {
+        let inputQty = +req.body.qty;
+
         try {
-            let checkUser = await Cart.findAll({
-                where: { ProductId: req.params.productId, UserId: req.userData.id },
-            });
-            //   console.log(checkUser);
-            if (checkUser.length === 0) {
-                let productStock = await Product.findByPk(req.params.productId);
-                // console.log(productStock);
-                if (productStock.stock < req.body.qty) {
-                    throw {
-                        name: "stock error",
-                        message: "stock limited !",
-                        statusCode: 400,
-                    };
-                } else {
+            let productStock = await Product.findByPk(req.params.productId);
+            if (productStock.stock < inputQty) {
+                throw {
+                    name: "stock error",
+                    message: "stock limited !",
+                    statusCode: 400,
+                };
+            } else {
+                let checkUser = await Cart.findAll({
+                    where: { ProductId: req.params.productId, UserId: req.userData.id },
+                });
+                if (checkUser.length === 0) {
                     let value = {
                         UserId: req.userData.id,
                         ProductId: req.params.productId,
-                        qty: req.body.qty,
+                        qty: inputQty,
                         status: "undone",
                     };
                     let newStock = productStock.stock - req.body.qty;
@@ -32,26 +32,16 @@ class CartController {
                             where: { id: req.params.productId },
                         }
                     );
-                }
-            } else {
-                // res.send("checkPk");
-                let checkPk = await Cart.findOne({
-                    where: { ProductId: req.params.productId, UserId: req.userData.id },
-                });
-                let newQty = checkPk.qty;
-                console.log(newQty);
-                // res.status(200).json(checkPk.qty);
-                let productStock = await Product.findByPk(req.params.productId);
-                // console.log(productStock);
-                if (productStock.stock < req.body.qty) {
-                    throw {
-                        name: "stock error",
-                        message: "stock limited !",
-                        statusCode: 400,
-                    };
+
                 } else {
+                    let checkPk = await Cart.findOne({
+                        where: { ProductId: req.params.productId, UserId: req.userData.id },
+                    });
+                    let newQty = checkPk.qty;
+                    console.log(newQty);
+                    // res.status(200).json(checkPk.qty);
                     let value = {
-                        qty: +req.body.qty + newQty,
+                        qty: inputQty + newQty,
                     };
                     let newStock = productStock.stock - +req.body.qty;
                     let updateCart = await Cart.update(value, {
@@ -95,7 +85,8 @@ class CartController {
         try {
             let qtyCart = await Cart.findByPk(cartId);
             let cartQty = qtyCart.qty;
-            let productStock = await Product.findByPk(req.body.productId);
+            let ProductId = qtyCart.ProductId
+            let productStock = await Product.findByPk(ProductId);
             if (productStock.stock < inputQty) {
                 throw {
                     name: "stock error",
@@ -122,7 +113,7 @@ class CartController {
                     let updateStock = await Product.update(
                         { stock: newStock },
                         {
-                            where: { id: req.body.productId },
+                            where: { id: ProductId },
                         }
                     );
                 } else {
@@ -139,7 +130,7 @@ class CartController {
                     let updateStock = await Product.update(
                         { stock: newStock },
                         {
-                            where: { id: req.body.productId },
+                            where: { id: ProductId },
                         }
                     );
                 }
@@ -151,14 +142,16 @@ class CartController {
     static async deleteCart(req, res, next) {
         try {
             let dataCart = await Cart.findByPk(req.params.id);
-            let stockProduct = await Product.findByPk(req.body.productId);
+            let ProductId = dataCart.ProductId
+            console.log(ProductId);
+            let stockProduct = await Product.findByPk(ProductId);
             let newStock = stockProduct.stock + dataCart.qty;
 
             let value = {
                 stock: newStock,
             };
             let updateProduct = await Product.update(value, {
-                where: { id: req.body.productId },
+                where: { id: ProductId },
             });
             let deleteCart = await Cart.destroy({ where: { id: req.params.id } });
             if (deleteCart === 1) {

@@ -42,6 +42,10 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Quantity Cant't empty",
           },
+          min: {
+            args: [1],
+            msg: 'minimun 1 pcs'
+          }
         },
       },
       status: DataTypes.STRING,
