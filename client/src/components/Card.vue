@@ -3,7 +3,7 @@
     <v-card class="mx-auto" min-width="300">
       <v-img
         class="white--text align-end"
-        :aspect-ratio="16 / 9"
+        :aspect-ratio="16 / 16"
         :src="product.image_url"
       >
         <v-expand-transition>

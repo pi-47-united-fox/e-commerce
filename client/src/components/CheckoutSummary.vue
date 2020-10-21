@@ -13,7 +13,7 @@
       </v-card-text> -->
       <v-divider></v-divider>
       <v-card-actions>
-          <v-btn color="success" width="100%" :disabled="errorInputCart" >Checkout</v-btn>
+          <v-btn color="success" width="100%" :disabled="errorInputCart" @click="checkOut">Checkout</v-btn>
       </v-card-actions>
   </v-card>
 </div>
@@ -32,6 +32,11 @@ export default {
     },
     errorInputCart () {
       return this.$store.state.errorInputCart
+    }
+  },
+  methods: {
+    checkOut () {
+      this.$store.dispatch('checkout')
     }
   }
 }

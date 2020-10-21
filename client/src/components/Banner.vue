@@ -1,27 +1,28 @@
 <template>
   <v-carousel
     cycle
-    height="60vh"
+    height="100vh"
     hide-delimiter-background
     show-arrows-on-hover
   >
     <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
+      v-for="(banner) in banners"
+      :key="banner.id"
     >
       <v-sheet
-        :color="colors[i]"
         height="100%"
       >
-        <v-row
+        <!-- <v-row
           class="fill-height"
           align="center"
           justify="center"
+          background-color="transparent"
         >
-          <div class="display-3">
-            {{ slide }} Banner
-          </div>
-        </v-row>
+            {{banner.title}}
+        </v-row> -->
+        <v-img
+          :src="banner.image_url"
+        ></v-img>
       </v-sheet>
     </v-carousel-item>
   </v-carousel>
@@ -34,22 +35,16 @@ export default {
   name: 'Banner',
   data () {
     return {
-      colors: [
-        'primary',
-        'secondary',
-        'yellow darken-2',
-        'red',
-        'orange'
-      ],
-      slides: [
-        'First',
-        'Second',
-        'Third',
-        'Fourth',
-        'Fifth'
-      ]
     }
   },
-  components: {}
+  components: {},
+  computed: {
+    banners () {
+      return this.$store.state.banners
+    }
+  },
+  mounted () {
+    this.$store.dispatch('fetchBanners')
+  }
 }
 </script>

@@ -15,9 +15,16 @@ export default new Vuex.Store({
     wishlist: []
   },
   mutations: {
-    UPDATE_QTY_FORM (state, {value, idx}) {
+    UPDATE_QTY_FORM (state, { value, idx }) {
       console.log('selesai edit form')
+      // if (value > state.carts[idx].quantity) {
+      //   state.totalPay += (product.price * value)
+      // } else {
+      // }
       state.carts[idx].quantity = value
+      // let product = state.products.filter ( e => {
+      //   return e.id === state.carts[idx].ProductId
+      // })
     },
     LOGIN (state, token) {
       state.userLogedIn = true
@@ -62,7 +69,13 @@ export default new Vuex.Store({
       state.products = data
     },
     FETCH_BANNERS (state, data) {
-      state.banners = data
+      const activeBanners = []
+      data.forEach(e => {
+        if (e.isActive === true) {
+          activeBanners.push(e)
+        }
+      })
+      state.banners = activeBanners
     },
     FETCH_CARTS (state, data) {
       state.carts = data
@@ -74,9 +87,6 @@ export default new Vuex.Store({
       console.log('dari fetch cart', total)
       state.totalPay = total
     },
-    ADD_CART (state, data) {
-
-    },
     DELETE_CART (state, id) {
       let iRemoved
       state.carts.forEach((el, index) => {
@@ -85,9 +95,6 @@ export default new Vuex.Store({
         }
       })
       state.carts.splice(iRemoved, 1)
-    },
-    EDIT_CART (state, data) {
-
     },
     FETCH_WISHLIST (state, data) {
       state.wishlist = data
@@ -154,8 +161,22 @@ export default new Vuex.Store({
           })
       }
     },
+    fetchBanners ({ commit }) {
+      // console.log('masuk vuex')
+      return axios
+        .get('/banners', {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        }).then(({ data: banners }) => {
+          console.log('selesai sudah banner', banners)
+          commit('FETCH_BANNERS', banners)
+        }).catch(err => {
+          console.error(err)
+        })
+    },
     fetchCarts ({ commit }) {
-      console.log('masuk vuex')
+      // console.log('masuk vuex')
       return axios
         .get('/carts', {
           headers: {
@@ -182,20 +203,42 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    updateCart ({commit}, { id, quantity }) {
+    updateCart ({ commit }, { id, quantity, ProductId }) {
       return axios.put('/carts/' + id, {
+        ProductId: ProductId,
         quantity: quantity
       }, {
         headers: {
           access_token: localStorage.access_token
         }
-      }).then(({data}) => {
+      }).then(({ data }) => {
         // console.log(data)
         // commit sudah langsung dari seter
       })
-      .catch(err => {
-        console.log(err);
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    checkout ({ commit, state }) {
+      const data = []
+      state.carts.forEach(e => {
+        data.push({
+          id: e.id,
+          ProductId: e.ProductId,
+          quantity: e.quantity
+        })
       })
+      axios.post('/checkout', {
+        payload: data
+      }, {
+        access_token: localStorage.access_token
+      })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.error(err)
+        })
     }
   },
   modules: {

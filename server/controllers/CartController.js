@@ -1,6 +1,6 @@
 const {Cart, Product} = require('../models')
 
-class UserController {
+class CartController {
     static getAllCartC (req, res, next) {
         // console.log('getAllCarts - masuk', req.userData)
         Cart.findAll({
@@ -9,7 +9,7 @@ class UserController {
             },
             include: ['Product']
         }).then((result) => {
-            console.log('findAll - carts', result)
+            // console.log('findAll - carts', result)
             return res.status(200).json(result)
         }).catch((err) => {
             console.log('findAll - err', err)
@@ -41,7 +41,7 @@ class UserController {
                 })
             }
         }).then((newCart) => {
-            console.log('addCart, terakhir selesai:', newCart[0][0][0])
+            console.log('addCart, terakhir selesai:', newCart[0][0])
             res.status(201).json(newCart[0][0][0])
         }).catch((err) => {
             console.log('masuk errro', err)
@@ -50,18 +50,31 @@ class UserController {
     }
     
     static updateCartC (req, res, next) {
-        console.log ('dari update', req.body.quantity, req.params.CartId)
-        Cart.update({
-            quantity: req.body.quantity
-        }, {
-            where: {
-                id: req.params.CartId
+        console.log('masulk update cart')
+        Product.findByPk(req.body.ProductId)
+        .then((result) => {
+            if (result.stock < req.body.quantity || req.body.quantity < 0) {
+                console.log ('masuk sini s -----------------')
+                return res.status(403).json({
+                    message: 'tidak bisa melebihi stock'
+                })
+            } else {
+                return Cart.update({
+                    quantity: req.body.quantity
+                }, {
+                    where: {
+                        id: req.params.CartId
+                    }
+                })
             }
         }).then((result) => {
+            console.log('berhasi stock', result)
             res.status(200).json(result)
         }).catch((err) => {
+            console.log('masuk error stock')
             next(err)
         });
+        
     }
 
     static decrementC (req, res, next) {
@@ -90,6 +103,18 @@ class UserController {
         });
     }
 
+    static checkoutC (req, res, next) {
+    //    const { payload } = req.body
+    //    payload.forEach( e => {
+    //        Product.decrement('stock', { by: req.body.quantity})
+    //        .then((result) => {
+    //            return 
+    //        }).catch((err) => {
+               
+    //        });
+    //    });
+    }
+
     static deleteCartC (req, res, next) {
         Cart.destroy({
             where: {
@@ -108,4 +133,4 @@ class UserController {
 
 }
 
-module.exports = UserController
+module.exports = CartController

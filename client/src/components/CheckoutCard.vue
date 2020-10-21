@@ -11,22 +11,23 @@
               <v-btn class="ml-2 mt-3" icon @click="deleteCart">
                 <v-icon>mdi-trash-can</v-icon>
               </v-btn>
-              <v-btn class="ml-2 mt-3" icon>
+              <!-- <v-btn class="ml-2 mt-3" icon>
                 <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn class="ml-2 mt-3" icon @click="minQuantity">
+              </v-btn> -->
+              <v-spacer></v-spacer>
+              <!-- <v-btn class="ml-2 mt-3" icon @click="minQuantity">
                 <v-icon>mdi-minus</v-icon>
-              </v-btn>
+              </v-btn> -->
                 <v-text-field
                     :rules="minMaxRules"
                     v-model="quantity"
                     type="number"
-                    placeholder="Placeholder"
+                    placeholder="Quantity"
                     @blur="editQtyCart"
                 ></v-text-field>
-              <v-btn class="ml-2 mt-3" icon @click="addQuantity">
+              <!-- <v-btn class="ml-2 mt-3" icon @click="addQuantity">
                 <v-icon>mdi-plus</v-icon>
-              </v-btn>
+              </v-btn> -->
             </v-card-actions>
           </div>
 
@@ -83,7 +84,10 @@ export default {
       // console.log ('masuk sini tinggal kirim ke action', this.quantity)
       this.$store.dispatch('updateCart', {
         id: this.cart.id,
+        ProductId: this.cart.ProductId,
         quantity: this.quantity
+      }).then(() => {
+        this.$store.dispatch('fetchCarts')
       })
     }
   },
@@ -91,7 +95,7 @@ export default {
     // console.log(this.cart)
   },
   updated () {
-    console.log(this.quantity)
+    // console.log(this.quantity)
   }
 }
 </script>
