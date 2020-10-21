@@ -118,8 +118,13 @@ class CartController {
 	static getAllFinished(req, res, next) {
 		Cart.findAll({
 			where: { status: "finished", UserId: req.userData.id },
-			include: { model: Product },
-			order: [["createdAt", "ASC"]],
+			include: {
+				model: Product,
+				include: {
+					model: Category,
+				},
+			},
+			order: [["updatedAt", "ASC"]],
 		})
 			.then((result) => {
 				if (result.length) {
@@ -129,6 +134,7 @@ class CartController {
 							UserId: el.UserId,
 							status: el.status,
 							quantity: el.quantity,
+							updatedAt: el.updatedAt,
 							Product: el.Product,
 						};
 					});

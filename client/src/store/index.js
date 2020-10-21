@@ -11,6 +11,7 @@ export default new Vuex.Store({
 		display_name: "",
 		products: [],
 		cart: [],
+		history: [],
 	},
 	mutations: {
 		SET_DISPLAY_NAME(state) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
 		},
 		GET_CART(state, payload) {
 			state.cart = payload;
+		},
+		GET_HISTORY(state, payload) {
+			state.history = payload;
 		},
 	},
 	actions: {
@@ -182,6 +186,24 @@ export default new Vuex.Store({
 				.catch((err) => {
 					console.log(err);
 					Swal.fire("Oops...", "Failed to Checkout", "error");
+				});
+		},
+
+		getHistory(context) {
+			axios({
+				method: "GET",
+				url: "http://localhost:3000/history",
+				headers: { access_token: localStorage.access_token },
+			})
+				.then((result) => {
+					if (result.status === 200) {
+						context.commit("GET_HISTORY", result.data);
+					} else {
+						console.log(result);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
 				});
 		},
 	},
