@@ -40,6 +40,31 @@ class UsersController {
 				next(err);
 			});
 	}
+
+	static register(req, res, next) {
+		const randomNumber = Math.floor(Math.random() * 78212) + 109873;
+
+		const userData = {
+			email: req.body.email,
+			password: req.body.password,
+			display_name: req.body.display_name,
+			is_admin: false,
+			img_url: `https://avatars.dicebear.com/api/male/${randomNumber}.svg`,
+		};
+
+		User.create(userData)
+			.then((result) => {
+				if (!result) {
+					next({ name: "BadRequest", message: "Failed to create Account" });
+				} else {
+					const { id, email, display_name, img_url } = result;
+					res.status(201).json({ id, email, display_name, img_url });
+				}
+			})
+			.catch((err) => {
+				next(err);
+			});
+	}
 }
 
 module.exports = UsersController;

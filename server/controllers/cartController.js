@@ -114,6 +114,20 @@ class CartController {
 				next(err);
 			});
 	}
+
+	static updateQuantity(req, res, next) {
+		Cart.update({ quantity: req.body.quantity }, { where: { id: req.params.id } })
+			.then((result) => {
+				if (result) {
+					res.status(200).json({ message: "Product quantity updated" });
+				} else {
+					next({ name: "BadRequest", message: "Failed to Update Order" });
+				}
+			})
+			.catch((err) => {
+				next(err);
+			});
+	}
 }
 
 module.exports = CartController;

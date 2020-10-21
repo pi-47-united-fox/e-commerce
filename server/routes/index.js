@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/users/login", UsersController.login);
+router.post("/users/register", UsersController.register);
 
 router.use(authentication);
 
@@ -26,6 +27,7 @@ router.patch("/banners/:id", authorization, BannersController.changeActive);
 router.delete("/banners/:id", authorization, BannersController.deleteOne);
 
 router.get("/cart", CartController.getAllProcessed); // get all still processed order
+router.patch("/cart/:id", CartController.updateQuantity); // update cart quantity
 router.post("/cart", CartController.addOrder); // add product to cart
 router.patch("/checkout", CartController.finishOrder); // change all processed cart to finished, lower quantity as well
 router.delete("/cart/:id", CartController.deleteOrder); // delete order
