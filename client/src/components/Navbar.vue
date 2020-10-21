@@ -20,11 +20,25 @@
           <a class="nav-link" href="#" @click.prevent="logout">Logout</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <h5><i class="fa fa-shopping-cart" style="color: black;"></i> Cart</h5>
-        <p>......</p>
-        <h5><i class="fa fa-heart" style="color: red;"></i> Wishlist</h5>
-      </form>
+      <!-- <form class="form-inline my-2 my-lg-0"> -->
+      <h5>
+        <i
+          class="fa fa-shopping-cart"
+          style="color: black;cursor: pointer;"
+          @click.prevent="toCart"
+        ></i>
+        Cart
+      </h5>
+      <p>......</p>
+      <h5>
+        <i
+          class="fa fa-heart"
+          style="color: red;"
+          @click.prevent="toWishlist"
+        ></i>
+        Wishlist
+      </h5>
+      <!-- </form> -->
     </div>
   </nav>
   <!-- navbar ends -->
@@ -43,9 +57,19 @@ export default {
     },
     toHome() {
       this.$router.push({ path: "/" });
+    },
+    toCart() {
+      this.$router.push({ path: "/cart" });
+    },
+    toWishlist() {
+      this.$router.push({ path: "/wishlist" });
     }
   }
 };
 </script>
 
-<style></style>
+<style>
+i {
+  cursor: pointer;
+}
+</style>

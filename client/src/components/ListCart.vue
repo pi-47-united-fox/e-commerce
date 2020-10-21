@@ -6,29 +6,28 @@
         <div class="container">
           <div class="row row-cols-3">
             <!-- itemCard loop -->
-            <div
-              class="col mt-5"
-              v-for="product in data.products"
-              :key="product.id"
-            >
+            <div class="col mt-5" v-for="cart in carts" :key="cart.id">
               <div class="itemCard">
                 <div class="image">
-                  <img :src="product.image_url" alt="" srcset="" />
+                  <img src="#" alt="" srcset="" />
                 </div>
+                <!-- {{ data.products }} -->
                 <div class="itemCard-text">
                   <div class="text-inner">
-                    <h2 style="font-weight: bolder;">{{ product.name }}</h2>
-                    <p>{{ product.category }}</p>
-                    <p>Rp. {{ product.price }}</p>
-                    <p>Stock :{{ product.stock }}</p>
+                    <h2 style="font-weight: bolder;">
+                      {{ cart.ProductId }}
+                    </h2>
+                    <p>{{ cart.quantity }}</p>
+                    <p>{{ cart.status }}</p>
                   </div>
                 </div>
-                <div class="action">
-                  <div class="addCart" @click.prevent="addToCart(product.id)">
-                    <i class="fa fa-shopping-cart"></i>Add To Cart
-                  </div>
-                  <div class="wistlist"><i class="fa fa-heart"></i></div>
-                </div>
+                <input type="number" name="" id="quantity" v-model="quantity" />
+                <button @click.prevent="editQuantity(cart.id)">
+                  Edit Quantity
+                </button>
+                <button @click.prevent="deleteCart(cart.id)">
+                  Remove Data
+                </button>
               </div>
             </div>
             <!-- itemCard end -->
@@ -43,31 +42,40 @@
 
 <script>
 export default {
-  name: "ItemCard",
+  name: "ListCart",
   data() {
-    return {};
+    return {
+      quantity: 0,
+      status: false
+    };
   },
   methods: {
-    fetchProducts() {
+    fetchCart() {
+      this.$store.dispatch("fetchCart");
       this.$store.dispatch("fetchProducts");
     },
-    addToCart(id) {
-      // console.log(id);
-      let payload = {
-        ProductId: id,
-        UserId: localStorage.getItem("UserID"),
-        quantity: 1
-      };
-      this.$store.dispatch("addToCart", payload);
+    deleteCart(id) {
+      this.$store.dispatch("deleteCart", id);
     },
+    editQuantity(id) {
+      let payload = {
+        id: id,
+        quantity: this.quantity
+      };
+      console.log(id);
+      this.$store.dispatch("editQuantity", payload);
+    }
   },
   computed: {
+    carts() {
+      return this.$store.state.carts;
+    },
     data() {
       return this.$store.state.products;
     }
   },
   created() {
-    this.fetchProducts();
+    this.fetchCart();
   }
 };
 </script>
@@ -76,7 +84,7 @@ export default {
 /* itemcard */
 .container-x {
   width: 100%;
-  height: auto;
+  height: 900px;
   display: flex;
   justify-content: space-around;
   align-items: center;

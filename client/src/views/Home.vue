@@ -25,7 +25,7 @@ export default {
     // Login,
     Banner,
     ItemCard
-  }
+  },
 };
 </script>
 

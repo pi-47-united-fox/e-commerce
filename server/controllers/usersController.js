@@ -50,10 +50,10 @@ class userController {
             id: user.id,
             email: user.email,
           });
-          const username = user.username;
+          const iduser = user.id;
           const role = user.role;
           console.log("sucess.login");
-          return res.status(200).json({ access_token, username, role });
+          return res.status(200).json({ access_token, iduser, role });
         }
       })
       .catch((err) => {
