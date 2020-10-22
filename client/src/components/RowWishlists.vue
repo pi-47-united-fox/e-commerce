@@ -13,61 +13,61 @@
                 Remove
             </button>
         </td>
-    </tr> 
+    </tr>
 </template>
 
 <script>
 import server from '@/api/server'
 export default {
-    name:'WL-ROW',
-    props:['wishlist','count'],
-    methods: {
-        removeWl () {
-            let productId = this.wishlist.ProductId
-            console.log(productId);
-            server
-                .delete(`wishlist/${productId}`,{
-                    headers: {
-                        access_token:localStorage.access_token
-                    }
-                }
-                )
-                .then(({ data }) => { 
-                console.log(data); 
-                this.$store.dispatch("fetch_wishlists");
-                })
-                .catch((err) => { 
-                console.log(err.response);
-                if (err.response) {
-                    this.$store.commit('SET_ERRMSG',err.response.data.msg) 
-                }
-                });
-        },
-        toCart () {
-            let productId = this.wishlist.ProductId
-            console.log(productId);
-            server
-                .post(`cart`, {
-                    productId
-                },{
-                    headers: {
-                        access_token:localStorage.access_token
-                    }
-                }
-                )
-                .then(({ data }) => { 
-                console.log(data); 
-                this.removeWl()
-                this.$store.dispatch("fetch_cart");
-                })
-                .catch((err) => { 
-                console.log(err.response);
-                if (err.response) {
-                    this.$store.commit('SET_ERRMSG',err.response.data.msg) 
-                }
-                });
+  name: 'WL-ROW',
+  props: ['wishlist', 'count'],
+  methods: {
+    removeWl () {
+      const productId = this.wishlist.ProductId
+      console.log(productId)
+      server
+        .delete(`wishlist/${productId}`, {
+          headers: {
+            access_token: localStorage.access_token
+          }
         }
+        )
+        .then(({ data }) => {
+          console.log(data)
+          this.$store.dispatch('fetch_wishlists')
+        })
+        .catch((err) => {
+          console.log(err.response)
+          if (err.response) {
+            this.$store.commit('SET_ERRMSG', err.response.data.msg)
+          }
+        })
+    },
+    toCart () {
+      const productId = this.wishlist.ProductId
+      console.log(productId)
+      server
+        .post('cart', {
+          productId
+        }, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        }
+        )
+        .then(({ data }) => {
+          console.log(data)
+          this.removeWl()
+          this.$store.dispatch('fetch_cart')
+        })
+        .catch((err) => {
+          console.log(err.response)
+          if (err.response) {
+            this.$store.commit('SET_ERRMSG', err.response.data.msg)
+          }
+        })
     }
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from 'vuex' 
+import Vuex from 'vuex'
 import server from '@/api/server'
 
 Vue.use(Vuex)
@@ -8,15 +8,13 @@ export default new Vuex.Store({
   state: {
     wishlists: [],
     cart: [],
-    isLoggedIn:false,
-    userEmail:'',
+    isLoggedIn: false,
+    userEmail: '',
     errMessage: '',
-    loginForm:false,
+    loginForm: false,
     banners: [],
     products: [],
-    categories: [],
-    wishlists: [],
-    cart: []
+    categories: []
   },
   mutations: {
     SET_USEREMAIL (state, payload) {
@@ -48,8 +46,8 @@ export default new Vuex.Store({
     },
     FETCH_CART (state, payload) {
       state.cart = payload
-    },
-    
+    }
+
   },
   actions: {
     fetch_products (context) {
@@ -87,9 +85,9 @@ export default new Vuex.Store({
     },
     fetch_wishlists (context) {
       server
-        .get('/wishlists',{
+        .get('/wishlists', {
           headers: {
-            access_token:localStorage.access_token
+            access_token: localStorage.access_token
           }
         })
         .then(result => {
@@ -102,9 +100,9 @@ export default new Vuex.Store({
     },
     fetch_cart (context) {
       server
-        .get('/carts',{
+        .get('/carts', {
           headers: {
-            access_token:localStorage.access_token
+            access_token: localStorage.access_token
           }
         })
         .then(result => {
@@ -116,7 +114,7 @@ export default new Vuex.Store({
           console.log(err.response)
         })
     },
-    fetch_all ({dispatch}) {
+    fetch_all ({ dispatch }) {
       dispatch('fetch_banners')
       dispatch('fetch_categories')
       dispatch('fetch_products')

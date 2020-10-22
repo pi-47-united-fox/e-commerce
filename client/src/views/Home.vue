@@ -1,41 +1,41 @@
 <template>
 
   <div class="home">
-    <div class="container"> 
-        <Banner />  
+    <div class="container">
+        <Banner />
     <hr>
-      <section> 
-        <div class="row category-title" @click="changePage('fashion')"> 
-            <h1 class="text-left ml-3">Fashion</h1> 
+      <section>
+        <div class="row category-title" @click="changePage('fashion')">
+            <h1 class="text-left ml-3">Fashion</h1>
         </div>
         <hr>
-        <div class="row"> 
+        <div class="row">
           <div class="col-3 ">
             <img src="https://image.freepik.com/free-vector/fashion-illustration-with-female-model_23-2148211619.jpg" height="300px" width="100%" alt="">
           </div>
-          <div class="col-9">  
+          <div class="col-9">
             <CarouselProduct categoryName="Fashion"/>
           </div>
         </div>
         <hr>
         <h1 class="text-left category-title" @click="changePage('electronics')">Electronics</h1>
         <hr>
-        <div class="row"> 
+        <div class="row">
           <div class="col-3 ">
             <img src="https://image.freepik.com/free-vector/colorful-garget-icons_23-2147515956.jpg" height="300px" width="100%" alt="">
           </div>
-          <div class="col-9">  
+          <div class="col-9">
             <CarouselProduct categoryName="Elektronik"/>
           </div>
         </div>
         <hr>
         <h1 class="text-left category-title" @click="changePage('hobby')">Hobbies</h1>
         <hr>
-        <div class="row"> 
+        <div class="row">
           <div class="col-3 ">
             <img src="https://image.freepik.com/free-vector/colorful-garget-icons_23-2147515956.jpg" height="300px" width="100%" alt="">
           </div>
-          <div class="col-9">  
+          <div class="col-9">
             <CarouselProduct categoryName="Hobby"/>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     changePage (page) {
-      console.log(page);
+      console.log(page)
     }
   }
 }
@@ -65,5 +65,5 @@ export default {
 <style scoped>
 .category-title {
   cursor: pointer;
-}  
+}
 </style>

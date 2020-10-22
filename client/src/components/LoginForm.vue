@@ -50,8 +50,6 @@
                   />
                 </div>
                 <div class="form-group">
-                  <!-- <label for="remember-me" class="text-orange"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br> -->
-                  <!-- <google-login :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure">Google Login</google-login> -->
                   <input
                     type="submit"
                     class="btn btn-orange pl-5 pr-5 mr-1"
@@ -127,8 +125,6 @@
                   />
                 </div>
                 <div class="form-group">
-                  <!-- <label for="remember-me" class="text-orange"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br> -->
-                  <!-- <google-login :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure">Google Login</google-login> -->
                   <input
                   type="submit"
                     class="btn btn-orange btn-md mr-1"
@@ -158,84 +154,84 @@
 </template>
 
 <script>
-import server from "@/api/server";
+import server from '@/api/server'
 export default {
-  name: "LoginForm",
-  data() {
+  name: 'LoginForm',
+  data () {
     return {
-      emailFormLogin: "",
-      passwordFormLogin: "",
-      emailFormRegist: "",
-      passwordFormRegist: "",
+      emailFormLogin: '',
+      passwordFormLogin: '',
+      emailFormRegist: '',
+      passwordFormRegist: '',
       login: true,
-      errMessage: "",
-    };
+      errMessage: ''
+    }
   },
   methods: {
-    closeAlert() {
-      this.errMessage = "";
+    closeAlert () {
+      this.errMessage = ''
     },
-    toogleLogin() {
-      this.login = !this.login;
+    toogleLogin () {
+      this.login = !this.login
     },
-    loginProcess() {
-      console.log(this.emailFormLogin, this.passwordFormLogin);
+    loginProcess () {
+      console.log(this.emailFormLogin, this.passwordFormLogin)
       server
-        .post(`login`, {
+        .post('login', {
           email: this.emailFormLogin,
-          password: this.passwordFormLogin,
+          password: this.passwordFormLogin
         })
         .then(({ data }) => {
-          localStorage.setItem("access_token", data.access_token);
-          console.log(data);
-          this.$store.commit("TOOGLE_LOGINFORM");
-          this.$store.commit("TOOGLE_LOGGEDIN");
-          this.$store.dispatch("fetch_all");
+          localStorage.setItem('access_token', data.access_token)
+          console.log(data)
+          this.$store.commit('TOOGLE_LOGINFORM')
+          this.$store.commit('TOOGLE_LOGGEDIN')
+          this.$store.dispatch('fetch_all')
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err)
           // console.log(err.response);
           if (err.response) {
-            this.errMessage = err.response.data.msg;
+            this.errMessage = err.response.data.msg
           }
-        });
+        })
     },
-    registProcess() {
-      console.log(this.emailFormRegist, this.passwordFormRegist);
+    registProcess () {
+      console.log(this.emailFormRegist, this.passwordFormRegist)
       server
-        .post(`register`, {
+        .post('register', {
           email: this.emailFormRegist,
-          password: this.passwordFormRegist,
+          password: this.passwordFormRegist
         })
         .then(({ data }) => {
         //   localStorage.setItem("access_token", data.access_token);
-          console.log(data);
-            this.errMessage = "Account created Successfully";
-            this.emailFormRegist =''
-            this.passwordFormRegist = ''
-            this.toogleLogin()
+          console.log(data)
+          this.errMessage = 'Account created Successfully'
+          this.emailFormRegist = ''
+          this.passwordFormRegist = ''
+          this.toogleLogin()
         //   this.$store.commit("TOOGLE_LOGINFORM");
         //   this.$store.commit("TOOGLE_LOGGEDIN");
         //   this.$store.dispatch("fetch_all");
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err)
           // console.log(err.response);
           if (err.response) {
-            this.errMessage = err.response.data.msg;
+            this.errMessage = err.response.data.msg
           }
-        });
+        })
     },
-    closeForm() {
-      this.$store.commit("TOOGLE_LOGINFORM");
-    },
+    closeForm () {
+      this.$store.commit('TOOGLE_LOGINFORM')
+    }
   },
   computed: {
     // errMessage() {
     //   return this.$store.state.errMessage;
     // },
-  },
-};
+  }
+}
 </script>
 
 <style>

@@ -1,15 +1,15 @@
 <template>
-  <div id="app"> 
-    <LoginForm  
+  <div id="app">
+    <LoginForm
       v-if="loginForm == true"
-      @close="toogleLoginForm" 
-    
+      @close="toogleLoginForm"
+
     />
     <div class="container">
       <div class="row  justify-content-between">
         <img src="@/assets/logo-3.png" class="col-2 " width="130px" alt="">
         <h3 class="col-8 align-self-center ">Here is where you find your stuff</h3>
-        <h3 class="col-2 align-self-center "></h3> 
+        <h3 class="col-2 align-self-center "></h3>
       </div>
     </div>
     <nav class="navbar navbar-expand-lg  navbar-light bg-light" :class="{'sticky-top':loginForm == false}">
@@ -26,31 +26,31 @@
             </li>
             <li class="nav-item ">
               <a @click.prevent="changePage('Products')" class="nav-link menu" href="#">All Products</a>
-            </li>  
-            <li class="nav-item dropdown" href="#"> 
+            </li>
+            <li class="nav-item dropdown" href="#">
               <a class="nav-link menu dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categories
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <div @click.prevent="productPage(category.name)" v-for="(category,i) in categories" :key="i">
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">{{category.name}}</a> 
-                </div> 
+                  <a class="dropdown-item" href="#">{{category.name}}</a>
+                </div>
               </div>
             </li>
           </ul>
           <ul class="navbar-nav" >
             <li class="nav-item" @click.prevent="changePage('Wishlists')"  href="#">
               <a href="#"  class="d-flex" data-toggle="tooltip" data-placement="top" title="Your Wishlist" style="background-color:#ffc038; border-radius:10px; max-width:90px">
-                <img src="@/assets/wishlist-logo.webp" width="50px" alt=""> 
+                <img src="@/assets/wishlist-logo.webp" width="50px" alt="">
                 <div class="bg-dark text-white pl-3 pr-3 pt-3" style="border-radius:10px;">
                   {{wishlistsCount}}
                 </div>
               </a>
             </li>
-            <li class="nav-item" @click.prevent="changePage('Cart')" href="#"> 
+            <li class="nav-item" @click.prevent="changePage('Cart')" href="#">
               <a href="#" class="d-flex "  style="background-color:#ffc038; border-radius:10px; max-width:90px">
-                <img src="@/assets/cart-logo.png" width="50px" alt=""> 
+                <img src="@/assets/cart-logo.png" width="50px" alt="">
                 <div class="bg-dark text-white pl-3 pr-3 pt-3" style="border-radius:10px;">
                   {{cartCount}}
                 </div>
@@ -58,26 +58,26 @@
             </li>
             <li class="nav-item" v-if="isLoggedIn == false">
               <a class="nav-link menu  pl-4 pr-4" @click="toogleLoginForm" href="#"><h5>Login</h5></a>
-            </li>  
+            </li>
              <li class="dropdown" v-show="isLoggedIn == true" href="#">  <!-- kalau pakai v-if ada bug-> ga bisa di buka dropdownnya setelah login, harus reload page dulu -->
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{email}}
               </a>
-              <div class="dropdown-menu ml-3" aria-labelledby="navbarDropdown"> 
+              <div class="dropdown-menu ml-3" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" @click.prevent="logout" href="#">Logout</a>
               </div>
             </li>
-          </ul> 
+          </ul>
           <!-- <div class="flex">
             <button class="btn btn-outline-danger my-2 my-sm-0" >Logout</button>
-            
+
           </div> -->
           <form class="form-inline my-2 my-lg-0" @submit.prevent=""> </form>
         </div>
       </div>
-    </nav> 
+    </nav>
     <router-view/>
-    <footer> 
+    <footer>
       <!-- <div class="container"> -->
         <div class="border mt-5 p-4 text-white">
           Muhammad Fauzan Adhim - Hacktiv8 Student
@@ -95,7 +95,7 @@ export default {
     LoginForm
   },
   data () {
-    return { 
+    return {
     }
   },
   methods: {
@@ -103,33 +103,29 @@ export default {
       this.$store.commit('TOOGLE_LOGINFORM')
     },
     changePage (page) {
-      console.log(page);
-      this.$router.push({name:page})
+      console.log(page)
+      this.$router.push({ name: page })
     },
-    productPage (payload ) { 
-       this.$router.push({ path: 'products', query: { category: payload } }) 
+    productPage (payload) {
+      this.$router.push({ path: 'products', query: { category: payload } })
     },
     logout () {
       localStorage.clear()
-      this.$store.commit('FETCH_WISHLISTS',[])
-      this.$store.commit('FETCH_CART',[])
-      this.$store.commit('TOOGLE_LOGGEDIN',[])
-      this.$router.push({name:'Home'})
-
+      this.$store.commit('FETCH_WISHLISTS', [])
+      this.$store.commit('FETCH_CART', [])
+      this.$store.commit('TOOGLE_LOGGEDIN', [])
+      this.$router.push({ name: 'Home' })
     }
   },
-  computed:{
-    email () {
-      return this.$store.state.email
-    },
+  computed: {
     wishlistsCount () {
       return this.$store.state.wishlists.length
     },
     cartCount () {
       let cCount = 0
-        this.$store.state.cart.forEach(el=>{
-          cCount+=el.quantity
-        })
+      this.$store.state.cart.forEach(el => {
+        cCount += el.quantity
+      })
       return cCount
     },
     email () {
@@ -146,10 +142,10 @@ export default {
     }
   },
   created () {
-    if(localStorage.access_token){ 
-      this.$store.dispatch("fetch_all");  
-      this.$store.commit("TOOGLE_LOGGEDIN"); 
-    }else{
+    if (localStorage.access_token) {
+      this.$store.dispatch('fetch_all')
+      this.$store.commit('TOOGLE_LOGGEDIN')
+    } else {
       this.$store.dispatch('fetch_products')
       this.$store.dispatch('fetch_categories')
       this.$store.dispatch('fetch_banners')
@@ -181,25 +177,25 @@ export default {
 
 .nav-item.active {
   /* box-sizing: border-box; */
-  background-color:#ffc038; 
-} 
-.navbar { 
+  background-color:#ffc038;
+}
+.navbar {
   box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
-.nav-item:hover {  
+.nav-item:hover {
   /* margin-right: 10px;
   margin-left: 5px;  */
-  background-color:#ffc038; 
-  
+  background-color:#ffc038;
+
   transform: scale(1.001);
   box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
-.nav-item {   
-  border:solid #ffc038 2px; 
+.nav-item {
+  border:solid #ffc038 2px;
   border-radius:10px;
   margin-right: 5px;
 }
-footer { 
-  background-color:#aa7f23; 
+footer {
+  background-color:#aa7f23;
 }
 </style>

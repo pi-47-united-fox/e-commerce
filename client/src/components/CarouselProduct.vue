@@ -1,118 +1,116 @@
 <template>
-  <div class="container"> 
+  <div class="container">
     <carousel :autoplay='true' :perPage="3">
-        <slide v-for="(product, index) in filteredProduct" :key="index"> 
+        <slide v-for="(product, index) in filteredProduct" :key="index">
           <div class="col" >
             <div class="item-box-blog">
-              <div class="item-box-blog-image"> 
-                <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Stock: {{product.stock}}</span> </div> 
+              <div class="item-box-blog-image">
+                <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Stock: {{product.stock}}</span> </div>
                 <figure> <img alt="" :src="product.image_url" width="190px" style="max-height:190px"> </figure>
               </div>
-              <div class="item-box-blog-body"> 
+              <div class="item-box-blog-body">
                 <div class="item-box-blog-heading">
                   <!-- <a href="#" tabindex="0"> -->
                     <h5>{{product.name}}</h5>
                   <!-- </a> -->
-                </div>  
+                </div>
                 <div class="item-box-blog-text">
                   <p>Rp. {{product.price.toLocaleString('id')}}</p>
                 </div>
-                <div class="d-flex"> 
-                    <a href="#" tabindex="0" @click.prevent="addWishlist(product.id)" class="btn white wishlist"> 
-                    </a> 
-                    <a href="#" tabindex="0" @click.prevent="addCart(product.id)" class="btn bg-blue-ui white read">Add to cart</a>  
-                </div>  
+                <div class="d-flex">
+                    <a href="#" tabindex="0" @click.prevent="addWishlist(product.id)" class="btn white wishlist">
+                    </a>
+                    <a href="#" tabindex="0" @click.prevent="addCart(product.id)" class="btn bg-blue-ui white read">Add to cart</a>
+                </div>
               </div>
             </div>
           </div>
-        </slide> 
+        </slide>
     </carousel>
     </div>
 </template>
 
 <script>
-import { Carousel, Slide } from 'vue-carousel';
-import server from "@/api/server";
+import { Carousel, Slide } from 'vue-carousel'
+import server from '@/api/server'
 export default {
   name: 'product-carousel',
   props: ['categoryName'],
   components: {
-      Carousel,
-      Slide
+    Carousel,
+    Slide
   },
-    methods: {
-      addWishlist (productId) { 
-        if(localStorage.access_token){
-          server
-            .post(`wishlist`, {
-                productId
-            },{
-                headers: {
-                    access_token:localStorage.access_token
-                }
+  methods: {
+    addWishlist (productId) {
+      if (localStorage.access_token) {
+        server
+          .post('wishlist', {
+            productId
+          }, {
+            headers: {
+              access_token: localStorage.access_token
             }
-            )
-            .then(({ data }) => { 
-            console.log(data); 
-            this.$store.dispatch("fetch_wishlists");
-            })
-            .catch((err) => { 
-            console.log(err.response);
+          }
+          )
+          .then(({ data }) => {
+            console.log(data)
+            this.$store.dispatch('fetch_wishlists')
+          })
+          .catch((err) => {
+            console.log(err.response)
             if (err.response) {
-                this.$store.commit('SET_ERRMSG',err.response.data.msg) 
+              this.$store.commit('SET_ERRMSG', err.response.data.msg)
             }
-            });
-        }else{
-          this.$store.commit("TOOGLE_LOGINFORM");
-        }
-
-      },
-      addCart (productId) {
-        if(localStorage.access_token){
-          server
-            .post(`cart`, {
-                productId
-            },{
-                headers: {
-                    access_token:localStorage.access_token
-                }
-            }
-            )
-            .then(({ data }) => { 
-            console.log(data); 
-            this.$store.dispatch("fetch_cart");
-            })
-            .catch((err) => { 
-            console.log(err.response);
-            if (err.response) {
-                this.$store.commit('SET_ERRMSG',err.response.data.msg) 
-            }
-            });
-        }else{
-          this.$store.commit("TOOGLE_LOGINFORM");
-        }
-      },
-    },
-  computed: {  
-    filteredProduct () { 
-      let category = this.$store.state.categories.filter(cate => cate.name == this.categoryName)
-      let result = [] 
-      if(category[0]){
-        let catId = category[0].id
-          result = this.$store.state.products.filter(product => product.CategoryId == catId);  
+          })
+      } else {
+        this.$store.commit('TOOGLE_LOGINFORM')
       }
-      if(result.length>6){
-        result = result.slice(0,6)
+    },
+    addCart (productId) {
+      if (localStorage.access_token) {
+        server
+          .post('cart', {
+            productId
+          }, {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+          )
+          .then(({ data }) => {
+            console.log(data)
+            this.$store.dispatch('fetch_cart')
+          })
+          .catch((err) => {
+            console.log(err.response)
+            if (err.response) {
+              this.$store.commit('SET_ERRMSG', err.response.data.msg)
+            }
+          })
+      } else {
+        this.$store.commit('TOOGLE_LOGINFORM')
+      }
+    }
+  },
+  computed: {
+    filteredProduct () {
+      const category = this.$store.state.categories.filter(cate => cate.name === this.categoryName)
+      let result = []
+      if (category[0]) {
+        const catId = category[0].id
+        result = this.$store.state.products.filter(product => product.CategoryId === catId)
+      }
+      if (result.length > 6) {
+        result = result.slice(0, 6)
       }
       return result
-    },
+    }
   }
 
 }
 </script>
 
 <style scoped>
-
 
 .cta-100 {
   margin-top: 100px;
@@ -142,7 +140,6 @@ figure img{width:300px;}
   /* height: 50%; */
 }
 
-
 /* The colour of the indicators */
 
 .blog .carousel-indicators li {
@@ -155,7 +152,6 @@ figure img{width:300px;}
 .blog .carousel-indicators .active {
   background: #0fc9af;
 }
- 
 
 .item-carousel-blog-block {
   outline: medium none;
@@ -256,7 +252,7 @@ figure img{width:300px;}
 }
 .wishlist:hover {
   box-shadow: 0px 5px 15px inset #a5791b;
-} 
+}
 
 .btn.bg-blue-ui.white.read:hover {
   box-shadow: 0px 5px 15px inset #4d5f77;

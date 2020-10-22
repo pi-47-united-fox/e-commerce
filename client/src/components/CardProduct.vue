@@ -1,22 +1,22 @@
 <template>
     <div class="col-4" >
         <div class="item-box-blog">
-            <div class="item-box-blog-image"> 
-            <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Stock: {{product.stock}}</span> </div> 
+            <div class="item-box-blog-image">
+            <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Stock: {{product.stock}}</span> </div>
             <figure> <img alt="" :src="product.image_url" width="190px" style="max-height:190px"> </figure>
             </div>
-            <div class="item-box-blog-body"> 
-                <div class="item-box-blog-heading"> 
-                    <h5>{{product.name}}</h5> 
-                </div>  
+            <div class="item-box-blog-body">
+                <div class="item-box-blog-heading">
+                    <h5>{{product.name}}</h5>
+                </div>
                 <div class="item-box-blog-text">
                     <p>{{product.description}}</p>
                 </div>
-                <div class="d-flex"> 
-                    <a href="#" tabindex="0" @click.prevent="addWishlist" class="btn white wishlist"> 
-                    </a> 
-                    <a href="#" tabindex="0" @click.prevent="addCart" class="btn bg-blue-ui white read">Add to cart</a>  
-                </div>  
+                <div class="d-flex">
+                    <a href="#" tabindex="0" @click.prevent="addWishlist" class="btn white wishlist">
+                    </a>
+                    <a href="#" tabindex="0" @click.prevent="addCart" class="btn bg-blue-ui white read">Add to cart</a>
+                </div>
             </div>
         </div>
     </div>
@@ -25,69 +25,66 @@
 <script>
 import server from '@/api/server'
 export default {
-    name: 'Card-Product',
-    props: ['product'],
-    methods: {
-        addWishlist () { 
-
-            if(localStorage.access_token){
-                server
-                    .post(`wishlist`, {
-                        productId: this.product.id
-                    },{
-                        headers: {
-                            access_token:localStorage.access_token
-                        }
-                    }
-                    )
-                    .then(({ data }) => { 
-                    console.log(data); 
-                    this.$store.dispatch("fetch_wishlists");
-                    })
-                    .catch((err) => { 
-                    console.log(err.response);
-                    if (err.response) {
-                        this.$store.commit('SET_ERRMSG',err.response.data.msg) 
-                    }
-                    });
-            }else{
-            this.$store.commit("TOOGLE_LOGINFORM");
+  name: 'Card-Product',
+  props: ['product'],
+  methods: {
+    addWishlist () {
+      if (localStorage.access_token) {
+        server
+          .post('wishlist', {
+            productId: this.product.id
+          }, {
+            headers: {
+              access_token: localStorage.access_token
             }
-
-        },
-        addCart () {
-            if(localStorage.access_token){
-
-                server
-                    .post(`cart`, {
-                        productId: this.product.id
-                    },{
-                        headers: {
-                            access_token:localStorage.access_token
-                        }
-                    }
-                    )
-                    .then(({ data }) => { 
-                    console.log(data); 
-                    this.$store.dispatch("fetch_cart");
-                    })
-                    .catch((err) => { 
-                    console.log(err.response);
-                    if (err.response) {
-                        this.$store.commit('SET_ERRMSG',err.response.data.msg) 
-                    }
-                    });
-            }else{
-            this.$store.commit("TOOGLE_LOGINFORM");
-            } 
-        },
+          }
+          )
+          .then(({ data }) => {
+            console.log(data)
+            this.$store.dispatch('fetch_wishlists')
+          })
+          .catch((err) => {
+            console.log(err.response)
+            if (err.response) {
+              this.$store.commit('SET_ERRMSG', err.response.data.msg)
+            }
+          })
+      } else {
+        this.$store.commit('TOOGLE_LOGINFORM')
+      }
+    },
+    addCart () {
+      if (localStorage.access_token) {
+        server
+          .post('cart', {
+            productId: this.product.id
+          }, {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+          )
+          .then(({ data }) => {
+            console.log(data)
+            this.$store.dispatch('fetch_cart')
+          })
+          .catch((err) => {
+            console.log(err.response)
+            if (err.response) {
+              this.$store.commit('SET_ERRMSG', err.response.data.msg)
+            }
+          })
+      } else {
+        this.$store.commit('TOOGLE_LOGINFORM')
+      }
     }
+  }
 
 }
 </script>
 
 <style>
- 
+
 .white {
   color: #fff !important;
 }
@@ -96,7 +93,7 @@ export default {
   background-color: #708198 !important;
 }
 figure img{width:300px;}
- 
+
 .item-box-blog {
   border: 1px solid #dadada;
   margin-top: 10px;
@@ -194,7 +191,7 @@ figure img{width:300px;}
 }
 .wishlist:hover {
   box-shadow: 0px 5px 15px inset #a5791b;
-} 
+}
 
 .btn.bg-blue-ui.white.read:hover {
   box-shadow: 0px 5px 15px inset #4d5f77;
