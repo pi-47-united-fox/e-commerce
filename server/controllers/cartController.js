@@ -5,7 +5,7 @@ class CartController {
     static addToCart(req, res, next) {
         let newProductToCart = {
             UserId: req.userData.id,
-            ProductId: req.params.productId
+            ProductId: +req.params.productId
         }
         Cart.create(newProductToCart)
             .then(data => {
@@ -80,7 +80,7 @@ class CartController {
     static addProductToMyCart(req, res, next) {
         let newCart = {
             UserId: req.userData.id,
-            ProductId: req.params.productId
+            ProductId: +req.params.productId
         }
         Cart.create(newCart)
             .then(data => {
@@ -92,7 +92,7 @@ class CartController {
     }
 
     static deleteProductFromMyCart(req, res, next) {
-        let targetId = req.params.productId
+        let targetId = +req.params.productId
         // console.log(targetId)
         Cart.findOne({where: {ProductId: targetId, status: 'unpaid'}})
             .then(data => {
@@ -145,7 +145,7 @@ class CartController {
     static addToWishList(req, res, next) {
         let newProductToCart = {
             UserId: req.userData.id,
-            ProductId: req.params.productId
+            ProductId: +req.params.productId
         }
         Cart.create(newProductToCart)
             .then(data => {
@@ -168,7 +168,7 @@ class CartController {
     static moveWishlistToCart(req, res, next) {
         Cart.update({status: 'unpaid'}, {
             where: {
-                id: req.params.cartId,
+                id: +req.params.cartId,
                 UserId: req.userData.id,
                 status: 'wishlist'
             }         
