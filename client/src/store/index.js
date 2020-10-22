@@ -35,7 +35,7 @@ export default new Vuex.Store({
 		postLogin(context, payload) {
 			axios({
 				method: "POST",
-				url: "http://localhost:3000/users/login",
+				url: "https://api-e-commerce-cms.herokuapp.com/users/login",
 				headers: {
 					"Content-type": "application/json",
 				},
@@ -61,7 +61,7 @@ export default new Vuex.Store({
 			console.log(payload);
 			axios({
 				method: "POST",
-				url: "http://localhost:3000/users/register",
+				url: "https://api-e-commerce-cms.herokuapp.com/users/register",
 				headers: {
 					"Content-type": "application/json",
 				},
@@ -82,7 +82,7 @@ export default new Vuex.Store({
 		getAllProducts(context) {
 			axios({
 				method: "GET",
-				url: "http://localhost:3000/products",
+				url: "https://api-e-commerce-cms.herokuapp.com/products",
 				headers: { access_token: localStorage.access_token },
 			})
 				.then((result) => {
@@ -100,7 +100,7 @@ export default new Vuex.Store({
 		getAllCart(context) {
 			axios({
 				method: "GET",
-				url: "http://localhost:3000/cart",
+				url: "https://api-e-commerce-cms.herokuapp.com/cart",
 				headers: { access_token: localStorage.access_token },
 			})
 				.then((result) => {
@@ -118,7 +118,7 @@ export default new Vuex.Store({
 		addToCart(context, payload) {
 			axios({
 				method: "POST",
-				url: "http://localhost:3000/cart",
+				url: "https://api-e-commerce-cms.herokuapp.com/cart",
 				headers: { "Content-type": "application/json", access_token: localStorage.access_token },
 				data: payload,
 			})
@@ -137,7 +137,7 @@ export default new Vuex.Store({
 		deleteFromCart(context, id) {
 			axios({
 				method: "DELETE",
-				url: `http://localhost:3000/cart/${id}`,
+				url: `https://api-e-commerce-cms.herokuapp.com/cart/${id}`,
 				headers: { access_token: localStorage.access_token },
 			})
 				.then((result) => {
@@ -155,7 +155,7 @@ export default new Vuex.Store({
 		updateQuantity(context, payload) {
 			axios({
 				method: "PATCH",
-				url: `http://localhost:3000/cart/${payload.id}`,
+				url: `https://api-e-commerce-cms.herokuapp.com/cart/${payload.id}`,
 				headers: { "Content-type": "application/json", access_token: localStorage.access_token },
 				data: {
 					quantity: payload.quantity,
@@ -176,7 +176,7 @@ export default new Vuex.Store({
 		checkOut() {
 			axios({
 				method: "PATCH",
-				url: `http://localhost:3000/checkout`,
+				url: `https://api-e-commerce-cms.herokuapp.com/checkout`,
 				headers: { access_token: localStorage.access_token },
 			})
 				.then((result) => {
@@ -196,7 +196,7 @@ export default new Vuex.Store({
 		getHistory(context) {
 			axios({
 				method: "GET",
-				url: "http://localhost:3000/history",
+				url: "https://api-e-commerce-cms.herokuapp.com/history",
 				headers: { access_token: localStorage.access_token },
 			})
 				.then((result) => {
@@ -214,7 +214,7 @@ export default new Vuex.Store({
 		getWish(context) {
 			axios({
 				method: "GET",
-				url: "http://localhost:3000/wishlist",
+				url: "https://api-e-commerce-cms.herokuapp.com/wishlist",
 				headers: { access_token: localStorage.access_token },
 			})
 				.then((result) => {
@@ -232,7 +232,7 @@ export default new Vuex.Store({
 		addWish(context, payload) {
 			axios({
 				method: "POST",
-				url: "http://localhost:3000/wishlist",
+				url: "https://api-e-commerce-cms.herokuapp.com/wishlist",
 				headers: { "Content-type": "application/json", access_token: localStorage.access_token },
 				data: payload,
 			})
@@ -251,7 +251,7 @@ export default new Vuex.Store({
 		deleteWish(context, id) {
 			axios({
 				method: "DELETE",
-				url: `http://localhost:3000/wishlist/${id}`,
+				url: `https://api-e-commerce-cms.herokuapp.com/wishlist/${id}`,
 				headers: { access_token: localStorage.access_token },
 			})
 				.then((result) => {

@@ -81,11 +81,17 @@ class CartController {
 				include: { model: Product },
 			});
 
+			let isSafe = true;
+
 			orders.forEach((el) => {
 				if (el.quantity > el.Product.stock) {
-					next({ name: "BadRequest", message: "Stock is not enough" });
+					isSafe = false;
 				}
 			});
+
+			if (!isSafe) {
+				return next({ name: "BadRequest", message: "Stock is not enough" });
+			}
 
 			orders.forEach(async (el) => {
 				try {
