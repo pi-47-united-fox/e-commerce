@@ -7,7 +7,7 @@
             <p class="card-text text-justify">Price: Rp.{{product.price}}</p>
             <p class="card-text text-justify">Stock(s): {{product.stock}}</p>
             <button class="btn btn-primary"
-            v-on:click.prevent="addCart(product.id)">Add to cart</button>
+            v-on:click.prevent="addWish(product.id)">Add to cart</button>
         </div>
     </div>
 </div>
@@ -15,11 +15,11 @@
 
 <script>
 export default {
-    name: 'ProductCard',
+    name: 'WishCard',
     props: ['product'],
     methods: {
-        addCart (id) {
-            this.$store.dispatch('addCart', {id: id})
+        addWish (id) {
+            this.$store.dispatch('addWish', {id: id})
         }
     }
 }

@@ -83,6 +83,18 @@ class CartController {
         })
     }
 
+    static fetchCartById(req, res, next){
+        const id = req.params.id
+        Cart.findByPk(id)
+        .then(cart => {
+            // console.log(carts)
+            res.status(200).json(cart)
+        })
+        .catch(err => {
+            res.status(500).json({message: err.message})
+        })
+    }
+
     static updateCart(req, res, next){
         const obj = {
             quantity: req.body.quantity

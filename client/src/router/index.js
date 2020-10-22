@@ -17,15 +17,20 @@ const routes = [
     component: Register
   },
   {
-    path: '/content',
-    name: 'Content',
-    component: () => import(/* webpackChunkName: "content" */ '../views/Content.vue')
+    path: '/home',
+    name: 'Home',
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
   },
   {
     path: '/cart',
     name: 'Cart',
     component: () => import(/* webpackChunkName: "cart" */ '../views/Cart.vue')
   },
+  {
+    path: '/wishlist',
+    name: 'Wishlist',
+    component: () => import(/* webpackChunkName: "wishlist" */ '../views/Wishlist.vue')
+  }
 ]
 
 const router = new VueRouter({

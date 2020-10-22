@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Login</router-link> |
+      <!-- <router-link to="/">Login</router-link> |
       <router-link to="/register">Register</router-link> |
       <router-link to="/content">Content</router-link> |
-      <router-link to="/cart">Cart</router-link>
+      <router-link to="/cart">Cart</router-link> -->
     </div>
     <router-view/>
   </div>
