@@ -7,6 +7,9 @@ router.get('/', (req, res) => {
 
 router.post('/login', MainController.loginUserC)
 router.post('/register', MainController.registerUserC)
+router.get('/confirm/:confirmToken', MainController.confirmEmailC)
+
+
 router.use('/products', require('./product'))
 router.use('/banners', require('./banner'))
 router.use('/carts', require('./cart'))

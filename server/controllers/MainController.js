@@ -1,5 +1,6 @@
 const { User }          = require("../models");
 const { Jwt, BcryptJs } = require("../helpers");
+const nodemailer        = require('nodemailer')
 
 
 class MainControoler {
@@ -46,15 +47,54 @@ class MainControoler {
             }).then((result) => {
                 const access_token = Jwt.generate(result.dataValues.id, result.dataValues.email, result.dataValues.role)
                 // console.log('dari selesai create', result.dataValues)
-                console.log('dari register', access_token)
+                const confirmToken = Jwt.generate(result.dataValues.id, result.dataValues.email, result.dataValues.role)
+                // Send the email
+                // Belum diaplikasikan sepenuhnya karena email terkirim  tidak diterima 
+                const transporter = nodemailer.createTransport({ host: 'smtp.mailtrap.io', port: 2525, auth: { user: process.env.EMAIL, pass: process.env.PASSWORD } });
+                const mailOptions = { 
+                    from: 'no-reply@unshop.com',
+                    to: result.dataValues.email,
+                    subject: 'Hello....', 
+                    text: `Confirm use link: ${process.env.LINK}/confirm/${confirmToken}`,
+                    html: `<h1>Confirm use link: </h1> <a href="${process.env.LINK}/confirm/${confirmToken}">${process.env.LINK}/confirm/${confirmToken}</a>`
+                }
+                // console.log('masuk sini')
+                transporter.sendMail(mailOptions, function (err, info) {
+                    console.log('selsai kirim', mailOptions)
+                    if (err) {
+                        console.log('dari nodemailer', err)
+                    } else {
+                        console.log('dari nodemailer info', info)
+                    }
+                });
+
                 return res.status(201).json({
                    access_token: access_token
                 })
             }).catch((err) => {
-                // console.log('dari register', err)
                 return next(err)
             });
         }
+    }
+
+    static confirmEmailC (req,res, next) {
+        const {confirmToken} = req.params
+        const encoded = Jwt.check(confirmToken)
+        User.update({
+            isActive: true
+        }, {
+            where: {
+                id: encoded.id
+            }
+        }).then((result) => {
+            res.send(`
+            <h1>Your account now Active on full Services</h1>
+            `)
+        }).catch((err) => {
+            res.send(`
+            <h1>Invalid Activation link</h1>
+            `)
+        });
     }
 }
 

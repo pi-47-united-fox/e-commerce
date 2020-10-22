@@ -37,6 +37,7 @@ export default {
   methods: {
     checkOut () {
       this.$store.dispatch('checkout')
+      this.$router.push('/history')
     }
   }
 }

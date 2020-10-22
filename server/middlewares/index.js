@@ -2,5 +2,6 @@ module.exports = {
     errHandler: require('./errHandler'),
     authentication: require('./autentication'),
     authorization: require('./authorization'),
-    authorizationCustomer: require('./authorization_customer')
+    authorizationCustomer: require('./authorization_customer'),
+    authorizationWishlist: require('./authorization_wishlist')
 }

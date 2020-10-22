@@ -30,13 +30,16 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    role: DataTypes.STRING
+    role: DataTypes.STRING,
+    isActive: DataTypes.BOOLEAN
   }, {
     hooks: {
       beforeCreate(instance) {
         // FOR PASSWORD
         instance.password = BcryptJs.makeHash(instance.password)
         instance.role = 'customer'
+        // Satus
+        instance.isActive = false
       }
     },
     sequelize,

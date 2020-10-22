@@ -29,9 +29,10 @@ This cms App has:
 ## EndPoints
 ---
 
-#### User (Role Admin) Endpoints:
+#### User Endpoints:
   1. POST /login
   2. POST /register
+  3. GET /confirm/:confirmToken
 
 #### Product Endpoints:
   1. GET /products
@@ -80,6 +81,8 @@ Response:
         "access_token": "jwt string",
     }
     ```
+
+
 ### 2. POST /register
 Request:
 - data:
@@ -98,6 +101,14 @@ Response:
         "access_token": "jwt string",
     }
     ```
+
+### 3. GET /confirm/:confirmToken
+
+description: 
+  Confirm email user
+
+Response:
+- body : <html>
 
 ## Product Endpoints
 ---

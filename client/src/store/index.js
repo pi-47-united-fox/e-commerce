@@ -40,7 +40,7 @@ export default new Vuex.Store({
       state.loved = []
       state.cartsUnpaid = []
       state.carts = []
-      state.totalPay = []
+      state.totalPay = 0
       return localStorage.removeItem('access_token')
     },
     // DEC_QUANTITY (state, payload) {

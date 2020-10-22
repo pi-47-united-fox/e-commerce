@@ -1,34 +1,102 @@
 <template>
-    <v-navigation-drawer
-        v-model="drawer"
-        app
-        class="pt-4"
-        mini-variant
-    >
+    <v-navigation-drawer v-model="drawer" app class="pt-4" mini-variant>
         <v-avatar
             size="40"
             color="grey"
             class="d-block text-center mx-auto mb-9"
-        > User Avatar
+        >
+        <div class="mx-auto mt-3">
+        USp
+        </div>
         </v-avatar>
-        <v-btn color="black" @click="goToShopping" class="d-block text-center mx-auto mb-9" icon>
-            <v-icon>mdi-shopping</v-icon>
-        </v-btn>
-        <v-btn color="green" @click="goToCheckout" class="d-block text-center mx-auto mb-9" icon>
-        <v-icon>mdi-cart</v-icon>
-        </v-btn>
-         <v-btn color="red" @click="goToWishlist" class="d-block text-center mx-auto mb-9" icon>
-        <v-icon>mdi-heart</v-icon>
-        </v-btn>
-         <v-btn color="blue" @click="goToHistory" class="d-block text-center mx-auto mb-9" icon>
-        <v-icon>mdi-bell</v-icon>
-        </v-btn>
-         <v-btn color="" class="d-block text-center mx-auto mb-9" icon>
-        <v-icon>mdi-email-open</v-icon>
-        </v-btn>
-        <v-btn color="" v-if="hideLogOut" @click="logMeOut" class="d-block text-center mx-auto mb-9" icon>
-        <v-icon>mdi-logout</v-icon>
-        </v-btn>
+        <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    color="black"
+                    @click="goToShopping"
+                    class="d-block text-center mx-auto mb-9"
+                    icon
+                >
+                    <v-icon>mdi-shopping</v-icon>
+                </v-btn>
+            </template>
+            <span>Shop</span>
+        </v-tooltip>
+        <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    color="red"
+                    @click="goToWishlist"
+                    class="d-block text-center mx-auto mb-9"
+                    icon
+                >
+                    <v-icon>mdi-heart</v-icon>
+                </v-btn>
+            </template>
+            <span>Wishlist</span>
+        </v-tooltip>
+        <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    color="green"
+                    @click="goToCheckout"
+                    class="d-block text-center mx-auto mb-9"
+                    icon
+                >
+                    <v-icon>mdi-cart</v-icon>
+                </v-btn>
+            </template>
+            <span>Checkout</span>
+        </v-tooltip>
+        <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    color="blue"
+                    @click="goToHistory"
+                    class="d-block text-center mx-auto mb-9"
+                    icon
+                >
+                    <v-icon>mdi-history</v-icon>
+                </v-btn>
+            </template>
+            <span>Chekout History</span>
+        </v-tooltip>
+        <v-tooltip right v-if="hideLogOut">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="logMeOut"
+                    class="d-block text-center mx-auto mb-9"
+                    icon
+                >
+                    <v-icon>mdi-logout</v-icon>
+                </v-btn></template
+            >
+            <span>Log Out</span>
+        </v-tooltip>
+        <v-tooltip right v-else>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="toSignInPage"
+                    class="d-block text-center mx-auto mb-9"
+                    icon
+                >
+                    <v-icon>mdi-login</v-icon>
+                </v-btn></template
+            >
+            <span>Log in</span>
+        </v-tooltip>
     </v-navigation-drawer>
 </template>
 
@@ -61,9 +129,11 @@ export default {
     },
     goToHistory () {
       return this.$router.push('/history')
+    },
+    toSignInPage () {
+      this.$router.push('/login')
     }
   }
-
 }
 </script>
 
