@@ -12,6 +12,7 @@ export default new Vuex.Store({
 		products: [],
 		cart: [],
 		history: [],
+		wish: [],
 	},
 	mutations: {
 		SET_DISPLAY_NAME(state) {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
 		},
 		GET_HISTORY(state, payload) {
 			state.history = payload;
+		},
+		GET_WISH(state, payload) {
+			state.wish = payload;
 		},
 	},
 	actions: {
@@ -177,7 +181,7 @@ export default new Vuex.Store({
 			})
 				.then((result) => {
 					if (result.status === 200) {
-						Swal.fire("Success", "Your item is alreadt processed", "success");
+						Swal.fire("Success", "Your item is already processed", "success");
 						router.push("/home");
 					} else {
 						Swal.fire("Oops...", "Failed to Checkout", "error");
@@ -198,6 +202,61 @@ export default new Vuex.Store({
 				.then((result) => {
 					if (result.status === 200) {
 						context.commit("GET_HISTORY", result.data);
+					} else {
+						console.log(result);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
+
+		getWish(context) {
+			axios({
+				method: "GET",
+				url: "http://localhost:3000/wishlist",
+				headers: { access_token: localStorage.access_token },
+			})
+				.then((result) => {
+					if (result.status === 200) {
+						context.commit("GET_WISH", result.data);
+					} else {
+						console.log(result);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
+
+		addWish(context, payload) {
+			axios({
+				method: "POST",
+				url: "http://localhost:3000/wishlist",
+				headers: { "Content-type": "application/json", access_token: localStorage.access_token },
+				data: payload,
+			})
+				.then((result) => {
+					if (result.status === 201) {
+						router.push("/home/wishlist");
+					} else {
+						console.log(result);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
+
+		deleteWish(context, id) {
+			axios({
+				method: "DELETE",
+				url: `http://localhost:3000/wishlist/${id}`,
+				headers: { access_token: localStorage.access_token },
+			})
+				.then((result) => {
+					if (result.status === 200) {
+						context.dispatch("getWish");
 					} else {
 						console.log(result);
 					}

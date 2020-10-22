@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <h1 class="title has-text-centered mb-6">All Product</h1>
+    <h1 class="title has-text-centered mb-6">Wislist</h1>
     <div class="columns is-multiline banner-col is-centered">
       <div
         class="card column is-3 mx-3 mb-3"
-        v-for="product in products"
-        :key="product.id"
+        v-for="wish in wishes"
+        :key="wish.id"
       >
         <div class="card-image">
           <figure class="image is-4by5">
-            <img :src="product.img_url" alt="Product picture" />
+            <img :src="wish.Product.img_url" alt="Product picture" />
           </figure>
         </div>
         <div class="card-content">
@@ -19,29 +19,29 @@
                 class="title is-4 has-text-centered"
                 style="text-transform: capitalize"
               >
-                {{ product.name }}
+                {{ wish.Product.name }}
               </p>
               <table class="table is-narrow">
                 <tr>
                   <th>Price:</th>
                   <td class="is-size-7">
-                    Rp. {{ product.price.toLocaleString("id") }}
+                    Rp. {{ wish.Product.price.toLocaleString("id") }}
                   </td>
                 </tr>
                 <tr>
                   <th>Category:</th>
-                  <td>{{ product.category_name }}</td>
+                  <td>{{ wish.Product.Category.name }}</td>
                 </tr>
               </table>
             </div>
           </div>
         </div>
         <footer class="card-footer">
-          <a @click="addToCart(product.id)" class="card-footer-item"
-            >Add to Cart</a
+          <a @click="deleteWish(wish.id)" class="card-footer-item"
+            >Delete From Wish List</a
           >
-          <a @click="addToWish(product.id)" class="card-footer-item"
-            >Add to Wish List</a
+          <a @click="addToCart(wish.Product.id, wish.id)" class="card-footer-item"
+            >Add to Cart</a
           >
         </footer>
       </div>
@@ -52,23 +52,24 @@
 <script>
 export default {
   methods: {
-    getProducts() {
-      this.$store.dispatch("getAllProducts");
+    getWish() {
+      this.$store.dispatch("getWish");
     },
-    addToCart(ProductId) {
+    deleteWish(id) {
+      this.$store.dispatch("deleteWish", id);
+    },
+    addToCart(ProductId, id) {
+      this.$store.dispatch("deleteWish", id);
       this.$store.dispatch("addToCart", { ProductId, quantity: 1 });
-    },
-    addToWish(ProductId) {
-      this.$store.dispatch("addWish", { ProductId });
     }
   },
   computed: {
-    products() {
-      return this.$store.state.products;
+    wishes() {
+      return this.$store.state.wish;
     }
   },
   created() {
-    this.getProducts();
+    this.getWish();
   }
 };
 </script>

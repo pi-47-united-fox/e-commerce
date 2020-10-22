@@ -26,10 +26,13 @@
 
 			<div class="navbar-end">
 				<div class="navbar-item">
+					<router-link to="/home/wishlist" class="navbar-item"
+						><i class="fas fa-list-ul"></i> Wish List
+					</router-link>
 					<router-link to="/home/history" class="navbar-item"
 						><i class="fas fa-cloud"></i> History
 					</router-link>
-					<router-link to="/home/cart" class="navbar-item"
+					<router-link to="/home/cart" class="navbar-item mr-2"
 						><i class="fas fa-shopping-cart"></i> Cart
 					</router-link>
 					<div class="buttons">

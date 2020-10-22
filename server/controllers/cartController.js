@@ -81,6 +81,12 @@ class CartController {
 				include: { model: Product },
 			});
 
+			orders.forEach((el) => {
+				if (el.quantity > el.Product.stock) {
+					next({ name: "BadRequest", message: "Stock is not enough" });
+				}
+			});
+
 			orders.forEach(async (el) => {
 				try {
 					await Product.update(

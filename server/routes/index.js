@@ -6,6 +6,7 @@ const { authentication, authorization } = require("../middlewares/security");
 const ProductsController = require("../controllers/productsController");
 const BannersController = require("../controllers/bannersController");
 const CartController = require("../controllers/cartController");
+const WishListController = require("../controllers/wishListController");
 
 router.get("/", (req, res) => {
 	res.send(`<h1>Hello World</h1>`);
@@ -33,5 +34,9 @@ router.patch("/checkout", CartController.finishOrder); // change all processed c
 router.delete("/cart/:id", CartController.deleteOrder); // delete order
 
 router.get("/history", CartController.getAllFinished); // get all past finished transaction
+
+router.get("/wishlist", WishListController.getAllWish); //get all wishlist
+router.post("/wishlist", WishListController.addWishList); //add new wishlist
+router.delete("/wishlist/:id", WishListController.deleteWish); //delete wishlist
 
 module.exports = router;

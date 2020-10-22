@@ -6,6 +6,7 @@ import Home from "../views/Home.vue";
 import DisplayAll from "../views/DisplayAll.vue";
 import DisplayCart from "../views/DisplayCart.vue";
 import DisplayHistory from "../views/DisplayHistory.vue";
+import DisplayWish from "../views/DisplayWish.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,7 @@ const routes = [
 			{ path: "", name: "Home", component: DisplayAll },
 			{ path: "cart", name: "Cart", component: DisplayCart },
 			{ path: "history", name: "History", component: DisplayHistory },
+			{ path: "wishlist", name: "WishList", component: DisplayWish },
 		],
 	},
 ];
