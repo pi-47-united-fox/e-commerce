@@ -1,6 +1,7 @@
 E-Commerce App
-Link Deploy CMS : https://e-commerce-cms-ae90d.web.app/
-Link Deploy App : 
+Link Deploy CMS     : https://e-commerce-cms-ae90d.web.app/
+Link Deploy App     : https://e-commerce-customer-1e4ac.web.app/
+Link Server         : https://e-commerce-projects.herokuapp.com/
 ```json
     RESTful endpoint for E-Commerce CMS App
     JSON-formatted response.
