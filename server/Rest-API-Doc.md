@@ -31,6 +31,7 @@ This cms App has:
 
 #### User (Role Admin) Endpoints:
   1. POST /login
+  2. POST /register
 
 #### Product Endpoints:
   1. GET /products
@@ -50,12 +51,36 @@ This cms App has:
   2. POST /carts/:ProductId
   3. PUT /carts/:CartId
   4. DELETE /carts/:CartId
+  5. PATCH /carts
+
+#### Wislist Endpoints:
+  1. GET /wishlist
+  2. POST /wishlist/:ProductId
+  4. DELETE /wishlist/:WishlistId
 
 &nbsp;
 
 ## User Endpoints
 ---
 ### 1. POST /login
+Request:
+- data:
+    ```json
+    {
+    "email": "string",
+    "password": "string"
+    }
+    ```
+
+Response:
+- status: 200
+- body:
+    ```json
+    {
+        "access_token": "jwt string",
+    }
+    ```
+### 2. POST /register
 Request:
 - data:
     ```json
@@ -474,7 +499,7 @@ Response:
 ```
 
 
-### 2. POST /carts
+### 2. POST /carts/:ProductId
 description: 
   add cart use ProductId 
 
@@ -539,7 +564,7 @@ Response:
 }
 ```
 
-### 5. DELETE /carts/:id
+### 5. DELETE /carts/:CartId
 description:
   delete cart by id
 
@@ -564,5 +589,134 @@ Response:
 ```json
 {
     "message": "You dont have access"
+}
+```
+
+### 6. PATCH /carts/checkout
+description:
+  cehekout the waiting cart by user LogedIn
+
+Request:
+- headers: access_token (string)
+
+Response:
+- status: 200
+- body:
+
+```json
+{
+    "message": "checkeout finished"
+}
+```
+
+- status: 403
+- body:
+```json
+{
+    "message": "You dont have access"
+}
+```
+
+
+---
+
+## Wishlist Endpoints
+
+### 1. GET /wishlist
+description:
+  show wishlist by logedin UserId
+
+Request:
+- headers: access_token (string)
+
+Response:
+- status: 200
+- body:
+
+```json
+[
+  {
+    "id": 1,
+    "UserId": 13,
+    "ProductId": 2,
+    "createdAt": "2020-10-21T00:09:27.092Z",
+    "updatedAt": "2020-10-21T00:09:27.092Z",
+    "Product": {
+      "id": 2,
+      "name": "Sepatu Sangat Keren",
+      "image_url": "https://cdn.elevenia.co.id/g/2/9/3/9/8/5/20293985_B.jpg",
+      "price": 300000,
+      "stock": 150,
+      "CategoryId": 1,
+      "createdAt": "2020-10-14T05:19:52.475Z",
+      "updatedAt": "2020-10-17T05:51:07.604Z"
+    }
+  },
+  {
+    "id": 2,
+    "UserId": 13,
+    "ProductId": 11,
+    "createdAt": "2020-10-21T00:11:07.810Z",
+    "updatedAt": "2020-10-21T00:11:11.223Z",
+    "Product": {
+      "id": 11,
+      "name": "Sepatu Model Biasa",
+      "image_url": "https://cdn.elevenia.co.id/g/2/9/3/9/8/5/20293985_B.jpg",
+      "price": 664000,
+      "stock": 34,
+      "CategoryId": 2,
+      "createdAt": "2020-10-14T23:42:07.228Z",
+      "updatedAt": "2020-10-14T23:42:07.228Z"
+    }
+  }
+]
+```
+
+### 2. POST /wishlist/:ProductId
+description: 
+  add wishlist use ProductId 
+
+Request:
+- headers: access_token (string)
+- params : ProductId (integer)
+
+Response:
+
+- status: 201
+- body:
+
+```json
+{
+    "message": "added to wishlist"
+}
+```
+
+- status: 400
+- body:
+
+```json
+{
+    "message": "product already in wishlist
+}
+```
+
+
+### 3. DELETE /wishlist/:WishlistId
+description:
+  delete cart by id
+
+Request:
+- headers: access_token (string)
+- params: 
+  - CartId: "integer" required
+
+Response:
+- status: 200
+- body:
+
+```json
+{
+    "id": "<deleted cart id>",
+    "message": "Success Deleted"
 }
 ```

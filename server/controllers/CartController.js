@@ -21,7 +21,8 @@ class CartController {
         Cart.findOne ({
             where: {
                 ProductId: req.params.ProductId,
-                UserId: req.userData.id
+                UserId: req.userData.id,
+                status: 'waiting'
             }
         }).then (cart => {
             if (cart) {
@@ -109,15 +110,6 @@ class CartController {
     // }
 
     static async checkoutC (req, res, next) {
-    //    const { payload } = req.body
-    //    payload.forEach( e => {
-    //        Product.decrement('stock', { by: req.body.quantity})
-    //        .then((result) => {
-    //            return 
-    //        }).catch((err) => {
-               
-    //        });
-    //    });
         try {
             let cartsToCheckout = await Cart.findAll({
                 where: {

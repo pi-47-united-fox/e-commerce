@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot:default="{ hover }" >
-    <v-card class="mx-auto" min-width="300">
+    <v-card class="mx-auto" min-width="300" max-width="300">
       <v-img
         class="white--text align-end"
         :aspect-ratio="16 / 16"
@@ -12,19 +12,14 @@
             class="d-flex transition-fast-in-fast-out v-card--reveal"
             style="height: 100%;"
           >
-            <v-btn rounded color="green" v-if="product.stock > 0" @click="addToCart">Add to Cart</v-btn>
+            <v-btn rounded color="green" @click="addToCart">Add to Cart</v-btn>
           </div>
         </v-expand-transition>
         <v-app-bar flat color="rgba(0, 0, 0, 0)">
-            <div v-if="product.stock === 0">
-              Stock: Habis Terjual
-            </div>
-            <div v-else>
-              Stock: {{product.stock}}
-            </div>
+            Stock: {{product.stock}}
           <v-spacer></v-spacer>
-          <v-btn color="grey" icon @click="addToWishlist">
-            <v-icon>mdi-heart</v-icon>
+          <v-btn color="grey" icon @click="deleteFromWishlist">
+            <v-icon>mdi-trash-can</v-icon>
           </v-btn>
         </v-app-bar>
       </v-img>
@@ -46,7 +41,7 @@
 <script>
 export default {
   name: 'Card',
-  props: ['product'],
+  props: ['product', 'id', 'wish'],
   methods: {
     addToCart () {
       const { id } = this.product
@@ -58,15 +53,8 @@ export default {
           }
         })
     },
-    addToWishlist () {
-      const { id } = this.product
-      this.$store.dispatch('addToWishlist', id)
-        .then((result) => {
-          if (result === 'to register or login') {
-            // GOTO Register page
-            this.$router.push('/register')
-          }
-        })
+    deleteFromWishlist () {
+      this.$store.dispatch('deleteWishlist', this.wish.id)
     }
   }
 }
