@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    role:{
+    role: {
       type: DataTypes.STRING,
       defaultValue: "cutomer"
     },
@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
   });
   User.beforeCreate((user) => {
+    user.role = 'customer'
     const salt = bcrypt.genSaltSync(10)
     user.password = bcrypt.hashSync(user.password, salt)
   })

@@ -74,16 +74,20 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    addToCart ({ commit }, id) {
-      console.log(id, 'id di addtocart store')
+    addToCart ({ commit }, payload) {
+      // console.log(id, 'id di addtocart store')
       Axios({
         method: 'POST',
-        url: `http://localhost:3000/carts/${id}`,
+        url: `http://localhost:3000/carts/${payload.id}`,
         headers: {
           access_token: localStorage.getItem('access_token')
+        },
+        data:{
+          price:payload.price
         }
       })
         .then(({ data }) => {
+          console.log(data);
           console.log(data, 'ini add tocard')
         })
         .catch(err => {
@@ -155,30 +159,29 @@ export default new Vuex.Store({
         }
       })
     },
-    register ({ commit }, payload) {
-      return new Promise((resolve, reject) => {
+    register (context, payload) {
+      console.log('ini di register', payload);
         Axios({
           method: 'POST',
-          url: '/register',
+          url: 'http://localhost:3000/register',
           data: {
             email: payload.email,
             password: payload.password
           }
         })
           .then(({ data }) => {
-            console.log(data.email)
+            // console.log(data.email)
             Swal.fire(
               'Successfully Register!',
               'Please click login instead anchor!',
               'success'
             )
-            resolve()
+            router.push('/login')
+
           })
           .catch(err => {
             console.log(err)
-            reject(err)
           })
-      })
     },
   },
   modules: {

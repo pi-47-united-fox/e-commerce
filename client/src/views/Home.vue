@@ -48,7 +48,10 @@ export default {
   },
   methods:{
     toCart(){
-       this.$router.push({ path: "Cart" });
+       this.$router.push({ path: "Cart" })
+       .catch((error) => {
+        console.info(error.message)
+    })
     },
     logOut() {
       Swal.fire({

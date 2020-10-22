@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img src="../assets/zambanlogo.svg" alt="">
+    <img src="../assets/zambanlogo.svg" alt="" />
     <div class="login-wraper">
       <div class="login-l">
         <img
@@ -8,7 +8,7 @@
           alt="login"
         />
       </div>
-        <h2>Login PAGE</h2>
+      <h2>Login PAGE</h2>
       <div class="login-r">
         <div style="margin-top: 10px">
           <div class="input">
@@ -29,7 +29,12 @@
           </div>
           <button class="btn-login" @click.prevent="login">login</button>
           <!-- <div></div> -->
-           <p>Don't have account? <a @click.prevent="toRegister" ref="#" id="a-register">Register here</a></p>
+          <p>
+            Don't have account?
+            <a @click.prevent="toRegister()" ref="#" id="a-register"
+              >Register here</a
+            >
+          </p>
         </div>
       </div>
     </div>
@@ -37,6 +42,7 @@
 </template>
 
 <script>
+import router from "../router";
 export default {
   nama: "LoginPage",
   data() {
@@ -53,18 +59,21 @@ export default {
         password: this.password,
       });
     },
-    toRegister(){
-      this.store.push({name:register})
-    }
+    toRegister() {
+      this.$router.push({ name: "Register" }).catch((error) => {
+        console.info(error.message);
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
-a,p,h2{
+a,
+p,
+h2 {
   margin-top: 10px;
   color: white;
-  
 }
 body {
   margin: 0px;
@@ -73,8 +82,8 @@ img {
   height: 100%;
   width: auto;
 }
-h2{
-  colour:white
+h2 {
+  colour: white;
 }
 #app {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -128,7 +137,7 @@ h2{
   padding-top: 5px; */
 }
 .btn-login {
-  margin-left:11px;
+  margin-left: 11px;
   margin-top: 20px;
   background-color: white;
   height: 40px;

@@ -8,7 +8,7 @@
           <h6 class="card-subtitle mb-2">Price Rp.{{ products.price }}</h6>
           <!-- <h6 class="card-subtitle mb-2">Stock {{ products.stock }}</h6> -->
           <div class="btn-wraper">
-            <button class="add-btn" @click.prevent="addToCart(products.id)">
+            <button class="add-btn" @click.prevent="addToCart()">
               Add to cart
             </button>
           </div>
@@ -22,8 +22,12 @@
 export default {
   props: ["products"],
   methods: {
-    addToCart(id) {
-      this.$store.dispatch("addToCart", id);
+    addToCart() {
+      // console.log('ini dia');
+      this.$store.dispatch("addToCart", {
+        id: this.products.id,
+        price: this.products.price,
+      });
     },
   },
 };

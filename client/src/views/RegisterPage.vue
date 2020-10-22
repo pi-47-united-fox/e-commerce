@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img src="../assets/zambanlogo.svg" alt="">
+    <img src="../assets/zambanlogo.svg" alt="" />
     <div class="login-wraper">
       <div class="login-l">
         <img
@@ -8,7 +8,7 @@
           alt="login"
         />
       </div>
-        <h2>Login PAGE</h2>
+      <h2>Login PAGE</h2>
       <div class="login-r">
         <div style="margin-top: 10px">
           <div class="input">
@@ -27,9 +27,11 @@
               v-model="password"
             />
           </div>
-          <button class="btn-login" @click.prevent="login">Register</button>
+          <button class="btn-login" @click="register()">Register</button>
           <!-- <div></div> -->
-           <p>I have account!! <a href="#" id="a-register">Register here</a></p>
+          <p>
+            I have account!! <a href="#" id="a-register" @click.prevent="toLogin()">Go to login page</a>
+          </p>
         </div>
       </div>
     </div>
@@ -46,25 +48,27 @@ export default {
     };
   },
   methods: {
-    login() {
+    register() {
       // console.log(this.email, this.password, '<----ini dari view login')
-      this.$store.dispatch("login", {
+      this.$store.dispatch("register", {
         email: this.email,
         password: this.password,
       });
     },
-    toLoginFile(){
-        this.$router.Login
-    }
+    toLogin() {
+      console.log("pindahan kuy");
+      this.$router.push({ name: "Login" });
+    },
   },
 };
 </script>
 
 <style scoped>
-a,p,h2{
+a,
+p,
+h2 {
   margin-top: 10px;
   color: white;
-  
 }
 body {
   margin: 0px;
@@ -73,8 +77,8 @@ img {
   height: 100%;
   width: auto;
 }
-h2{
-  colour:white
+h2 {
+  colour: white;
 }
 #app {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -128,7 +132,7 @@ h2{
   padding-top: 5px; */
 }
 .btn-login {
-  margin-left:11px;
+  margin-left: 11px;
   margin-top: 20px;
   background-color: white;
   height: 40px;

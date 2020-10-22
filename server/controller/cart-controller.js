@@ -7,7 +7,7 @@ class CartController {
         let quantity = 1
         let cartquantity = 0
         Cart.findOne({
-            // include: Product,
+            include: Product,
             where: {
                 ProductId: req.params.ProductId,
                 UserId: req.userData.id
@@ -16,7 +16,7 @@ class CartController {
             .then(data => {
                 // console.log('data', data.Product.price);
                 if (data) {
-                    console.log('<-------------------ini dia!!!!');
+                    // console.log('<-------------------ini dia!!!!');
                     cartquantity = data.quantity
                     return Product.findOne({
                         where: {
@@ -35,7 +35,7 @@ class CartController {
                 }
             })
             .then(data => {
-                console.log(data.hasOwnProperty("stock"), 'disini');
+                // console.log(data.hasOwnProperty("stock"), 'disini');
 
                 if (data.stock !== undefined) {
                     console.log(data, '<------ini data');
@@ -45,7 +45,7 @@ class CartController {
                     } else {
                         return Cart.update({
                             quantity: cartTotal,
-                            total: Number(data.price) * (cartTotal),
+                            total: Number(data.price) * cartTotal,
                         }, {
                             where: { ProductId: req.params.ProductId, UserId: req.userData.id },
                             returning: true

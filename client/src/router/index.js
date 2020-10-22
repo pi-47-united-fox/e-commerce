@@ -24,11 +24,7 @@ const routes = [
     name: 'Cart',
     component: Cart
   },
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart
-  },
+
   {
     path: '/register',
     name: 'Register',
@@ -44,10 +40,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && !localStorage.getItem('access_token')) next({ name: 'Login' })
-  else next()
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.name !== 'Login' && !localStorage.getItem('access_token')) next({ name: 'Login' })
+//   else next()
+// })
 
 // router.beforeEach((to, from, next) => {
 //   if (to.name === 'Login' && localStorage.getItem('access_token')) next({ name: 'Home' })
