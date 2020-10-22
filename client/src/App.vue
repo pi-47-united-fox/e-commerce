@@ -59,7 +59,7 @@
             <li class="nav-item" v-if="isLoggedIn == false">
               <a class="nav-link menu  pl-4 pr-4" @click="toogleLoginForm" href="#"><h5>Login</h5></a>
             </li>  
-            <li class="dropdown" v-if="isLoggedIn == true" href="#"> 
+             <li class="dropdown" v-show="isLoggedIn == true" href="#">  <!-- kalau pakai v-if ada bug-> ga bisa di buka dropdownnya setelah login, harus reload page dulu -->
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{email}}
               </a>

@@ -53,7 +53,8 @@
                   <!-- <label for="remember-me" class="text-orange"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br> -->
                   <!-- <google-login :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure">Google Login</google-login> -->
                   <input
-                    class="btn btn-orange btn-md mr-1"
+                    type="submit"
+                    class="btn btn-orange pl-5 pr-5 mr-1"
                     @click.prevent="loginProcess"
                     value="Login"
                   />
@@ -210,6 +211,9 @@ export default {
         //   localStorage.setItem("access_token", data.access_token);
           console.log(data);
             this.errMessage = "Account created Successfully";
+            this.emailFormRegist =''
+            this.passwordFormRegist = ''
+            this.toogleLogin()
         //   this.$store.commit("TOOGLE_LOGINFORM");
         //   this.$store.commit("TOOGLE_LOGGEDIN");
         //   this.$store.dispatch("fetch_all");
