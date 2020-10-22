@@ -11,7 +11,6 @@ class CartController {
         Cart.create(newProductToCart)
             .then(data => {
                 result = data
-                console.log(data, "lin 13")
                 return Product.findOne({where: {id: +req.params.productId}})
             })
             .then(product => {

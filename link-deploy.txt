@@ -1,0 +1,5 @@
+SERVER
+https://enlightened-store.web.app/
+
+CLIENT
+https://chandelier-store.web.app

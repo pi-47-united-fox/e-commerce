@@ -46,7 +46,7 @@ export default new Vuex.Store({
     login (context, payload) {
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/login',
+        url: 'https://enlightened-store.herokuapp.com/login',
         data: payload
       })
         .then(({ data }) => {
@@ -66,7 +66,7 @@ export default new Vuex.Store({
     register (context, payload) {
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/register',
+        url: 'https://enlightened-store.herokuapp.com/register',
         data: payload
       })
         .then(({ data }) => {
@@ -90,7 +90,7 @@ export default new Vuex.Store({
     fetchProducts (context, payload) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/products',
+        url: 'https://enlightened-store.herokuapp.com/products',
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
@@ -104,7 +104,7 @@ export default new Vuex.Store({
     getMyCart (context, payload) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/mycart',
+        url: 'https://enlightened-store.herokuapp.com/mycart',
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
@@ -118,7 +118,7 @@ export default new Vuex.Store({
     addToMyCart (context, payload) {
       axios({
         method: 'POST',
-        url: `http://localhost:3000/carts/${payload}`,
+        url: `https://enlightened-store.herokuapp.com/carts/${payload}`,
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
@@ -133,7 +133,7 @@ export default new Vuex.Store({
     removeFromMyCart (context, payload) {
       axios({
         method: 'DELETE',
-        url: `http://localhost:3000/carts/${payload}`,
+        url: `https://enlightened-store.herokuapp.com/carts/${payload}`,
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
@@ -148,7 +148,7 @@ export default new Vuex.Store({
     checkout (context, payload) {
       axios({
         method: 'PUT',
-        url: 'http://localhost:3000/checkout',
+        url: 'https://enlightened-store.herokuapp.com/checkout',
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
@@ -163,7 +163,7 @@ export default new Vuex.Store({
     getMyTransaction (context, payload) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/transactions',
+        url: 'https://enlightened-store.herokuapp.com/transactions',
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
@@ -177,7 +177,7 @@ export default new Vuex.Store({
     getMyWishlist (context, payload) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/wishlists',
+        url: 'https://enlightened-store.herokuapp.com/wishlists',
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
@@ -191,7 +191,7 @@ export default new Vuex.Store({
     addToCartFromWishlist (context, payload) {
       axios({
         method: 'PUT',
-        url: `http://localhost:3000/wishlists/${payload}`,
+        url: `https://enlightened-store.herokuapp.com/wishlists/${payload}`,
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
@@ -206,7 +206,7 @@ export default new Vuex.Store({
     addToMyWishlist (context, payload) {
       axios({
         method: 'POST',
-        url: `http://localhost:3000/wishlists/${payload}`,
+        url: `https://enlightened-store.herokuapp.com/wishlists/${payload}`,
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
