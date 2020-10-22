@@ -52,6 +52,26 @@ class CartController
                 next(err)
             })
     }
+    static getHistory (req,res,next) {
+        console.log("history");
+        Cart.findAll({where:{
+                UserId:req.userData.id,
+                status: 'paid'
+            },
+            include:[Product],
+            order: [ 
+                ['ProductId', 'ASC'],
+            ],
+        })
+            .then(carts=>{
+                console.log(carts);
+                res.status(200).json(carts)
+            })
+            .catch(err=>{
+                console.log(err);
+                next(err)
+            })
+    }
 
     static deleteCart (req, res, next) {
         let UserId = req.userData.id

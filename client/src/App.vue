@@ -64,6 +64,8 @@
                 {{email}}
               </a>
               <div class="dropdown-menu ml-3" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" @click.prevent="changePage('History')" href="#">Purchase history</a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" @click.prevent="logout" href="#">Logout</a>
               </div>
             </li>

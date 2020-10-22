@@ -14,7 +14,8 @@ export default new Vuex.Store({
     loginForm: false,
     banners: [],
     products: [],
-    categories: []
+    categories: [],
+    history:[]
   },
   mutations: {
     SET_USEREMAIL (state, payload) {
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     },
     FETCH_CART (state, payload) {
       state.cart = payload
+    },
+    FETCH_HISTORY (state, payload) {
+      state.history = payload
     }
 
   },
@@ -114,12 +118,28 @@ export default new Vuex.Store({
           console.log(err.response)
         })
     },
+    fetch_history (context) {
+      server
+        .get('/history', {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        .then(result => {
+          console.log(result.data)
+          context.commit('FETCH_HISTORY', result.data) 
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
     fetch_all ({ dispatch }) {
       dispatch('fetch_banners')
       dispatch('fetch_categories')
       dispatch('fetch_products')
       dispatch('fetch_wishlists')
       dispatch('fetch_cart')
+      dispatch('fetch_history')
     }
   },
   modules: {
