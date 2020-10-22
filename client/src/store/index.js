@@ -11,7 +11,8 @@ export default new Vuex.Store({
     carts: [],
     cart: {}, 
     edit: false,
-    product_id: ''
+    product_id: '',
+    wishes: []
   },
   mutations: {
     setProducts (state, payload) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     setCart (state, payload) {
       state.cart = payload
+    },
+    setWishes (state, payload) {
+      state.wishes = payload
     }
   },
   actions: {
@@ -146,6 +150,67 @@ export default new Vuex.Store({
         .then(({ data }) => {
           context.commit('setEdit', {id: '', status: false})
           context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchWishes (context) {
+      axios({
+        url: 'http://localhost:3000/wishlists',
+        method: 'get',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          // console.log(data)
+          context.commit('setWishes', data)
+        })
+        .catch(console.log)
+    },
+    deleteWish (context, payload) {
+      axios({
+        method: 'delete',
+        url: `http://localhost:3000/wishlists/${payload.id}`,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          // router.push({ name: 'Home' })
+          context.dispatch('fetchWishes')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    addWish (context, payload) {
+      axios({
+        method: 'post',
+        url: `http://localhost:3000/wishlists/${payload.id}`,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      .then(({data}) => {
+        // context.commit('setFavorites', data)
+        router.push({name: 'Wishlist'})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    checkout (context) {
+      axios({
+        method: 'put',
+        url: `http://localhost:3000/carts/checkout`,
+        headers: {
+            access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          router.push({name: 'Home'})
         })
         .catch(err => {
           console.log(err)

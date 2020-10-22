@@ -1,13 +1,14 @@
 <template>
 <div class="col-3 px-0 mr-3">
     <div class="card h-100 shadow border border-dark" style="width: 18rem;">
-        <img :src="product.image_url" class="card-img-top img-thumbnail" alt="Product's picture">
+        <img :src="wish.Product.image_url" class="card-img-top img-thumbnail" alt="Product's picture">
         <div class="card-body">
-            <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text text-justify">Price: Rp.{{product.price}}</p>
-            <p class="card-text text-justify">Stock(s): {{product.stock}}</p>
-            <button class="btn btn-primary"
-            v-on:click.prevent="addWish(product.id)">Add to cart</button>
+             <button type="button" class="close float-right" aria-label="Close"
+            v-on:click.prevent="deleteWish(wish.id)">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h5 class="card-title">{{wish.Product.name}}</h5>
+            <p class="card-text text-justify">Price: Rp.{{wish.Product.price}}</p>
         </div>
     </div>
 </div>
@@ -16,10 +17,10 @@
 <script>
 export default {
     name: 'WishCard',
-    props: ['product'],
+    props: ['wish'],
     methods: {
-        addWish (id) {
-            this.$store.dispatch('addWish', {id: id})
+        deleteWish (id) {
+            this.$store.dispatch('deleteWish', {id: id})
         }
     }
 }

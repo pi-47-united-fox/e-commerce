@@ -2,13 +2,13 @@
 <div>
     <Navbar />
     <div class="container">
-        <h1 class="my-5 text-center">Your wishlist:</h1>
+        <h1 class="my-5 text-center">Your wishlists:</h1>
     </div>
     <div class="container my-5">
         <div class="row">
-            <WishCard v-for="(product, i) in products" 
+            <WishCard v-for="(wish, i) in wishes" 
             v-bind:key="i"
-            v-bind:product="product"
+            v-bind:wish="wish"
             v-bind:index="i"
             />
         </div>
@@ -24,6 +24,14 @@ export default {
     components: {
         Navbar,
         WishCard
+    },
+    created () {
+        this.$store.dispatch('fetchWishes')
+    },
+    computed: {
+        wishes () {
+            return this.$store.state.wishes
+        }
     }
 }
 </script>

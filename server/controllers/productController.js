@@ -29,7 +29,7 @@ class ProductController{
             category: req.body.category,
             price: req.body.price,
             stock: req.body.stock,
-            UserId: req.userData.id
+            UserId: +req.userData.id
         }
 
         Product.create(obj)

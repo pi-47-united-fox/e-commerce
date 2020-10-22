@@ -6,8 +6,10 @@
             <h5 class="card-title">{{product.name}}</h5>
             <p class="card-text text-justify">Price: Rp.{{product.price}}</p>
             <p class="card-text text-justify">Stock(s): {{product.stock}}</p>
-            <button class="btn btn-primary"
-            v-on:click.prevent="addCart(product.id)">Add to cart</button>
+            <button class="btn btn-primary mr-1"
+            v-on:click.prevent="addCart(product.id)">Cart</button>
+            <button class="btn btn-success ml-1"
+            v-on:click.prevent="addWish(product.id)">Wishlist</button>
         </div>
     </div>
 </div>
@@ -20,6 +22,9 @@ export default {
     methods: {
         addCart (id) {
             this.$store.dispatch('addCart', {id: id})
+        },
+        addWish (id) {
+            this.$store.dispatch('addWish', {id: id})
         }
     }
 }

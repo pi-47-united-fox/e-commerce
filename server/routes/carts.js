@@ -4,6 +4,7 @@ const { customerAuthorization, customerOnlyAuthorization } = require('../middlew
 
 
 router.get('/carts', customerOnlyAuthorization, CartController.fetchCart)
+router.put('/carts/checkout', customerOnlyAuthorization, CartController.checkOut)
 router.post('/carts/:productId', customerOnlyAuthorization, CartController.addCart2)
 router.get('/carts/:id', customerAuthorization, CartController.fetchCartById)
 router.put('/carts/:id', customerAuthorization, CartController.updateCart)

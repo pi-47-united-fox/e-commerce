@@ -13,7 +13,7 @@
             :index="i">
             </CardDetail>
         </ul>
-        <button type="button" class="btn btn-info">Check out</button>
+        <button type="button" class="btn btn-info" v-on:click.prevent="checkout">Check out</button>
     </div>
 </div>
 </template>
@@ -35,6 +35,9 @@ export default {
                 id: null
             })
             this.$router.push({name: 'Home'})
+        },
+        checkout () {
+            this.$store.dispatch('checkout')
         }
     },
     created () {

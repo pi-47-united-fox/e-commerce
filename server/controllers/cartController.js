@@ -1,10 +1,11 @@
-const { Cart, Product } = require('../models/index')
+const { Cart, Product, sequelize } = require('../models/index')
 
 class CartController {
     static fetchCart(req, res, next){
         Cart.findAll({
             where:{
-                UserId: req.userData.id
+                UserId: req.userData.id,
+                status: 'pending'
             },
             include: Product
         })
@@ -44,7 +45,8 @@ class CartController {
         Cart.findOne({
             where: {
                 ProductId: obj.ProductId,
-                UserId: obj.UserId
+                UserId: obj.UserId,
+                status: 'pending'
             }
         })
         .then(result => {
@@ -128,6 +130,46 @@ class CartController {
         .catch(err => {
             res.status(500).json({message: err.message})
         })
+    }
+
+    static async checkOut(req, res, next) {
+        const t = await sequelize.transaction()
+        try {
+            const checkout = await Cart.findAll({
+                where: { 
+                    status: 'pending',
+                    UserId: +req.userData.id
+                },
+                include: [Product]
+            })
+            checkout.forEach(async (element) => {
+                if (element.quantity > element.Product.stock) {
+                    res.status(400).json({
+                        message: `Maximum stocks of ${element.Product.stock} has been exceeded` })
+                }
+                else {
+                    await Product.update({
+                        stock: element.Product.stock - element.quantity
+                    },{
+                        where: { 
+                            id: element.ProductId
+                        } 
+                    }, 
+                    { 
+                        transaction: t 
+                    })
+                }
+            });
+            const updateStatus = await Cart.update({ status: 'paid' }, { where: { status: 'pending', UserId: +req.userData.id } }, { transaction: t })
+            if (updateStatus) {
+                res.status(200).json({ message: 'Checkout completed' })
+            }
+            await t.commit()
+        }
+        catch (err) {
+            next(err)
+            await t.rollback()
+        }
     }
 }
 
