@@ -8,6 +8,7 @@
 `-POST /cart`
 `-PATCH /cart/:CartId`
 `-DELETE /cart/:CartId`
+`-POST /checkout`
 
 
 ## POST /login
@@ -407,6 +408,36 @@
 ```
 {
    "message":"delete Cart id = <id> successfully"
+}
+```
+### _Response (401)_
+```
+{
+    "message":"<Authorization / Authentication Message>"
+}
+```
+### _Response (500)_
+```
+{
+    "message":"Internal Server Error"
+}
+
+```
+
+
+## POST /checkout
+> Delete Cart
+### _Request Header_
+```
+{
+    "access_token":"<your access_token>"    
+}
+```   
+
+### _Response (200)_
+```
+{
+   "message":"<message>"
 }
 ```
 ### _Response (401)_
