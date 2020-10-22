@@ -1,4 +1,6 @@
-require('dotenv').config()
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
 
 const express = require('express')
 const errorHandler = require('./middlewares/errorHandler')
@@ -11,9 +13,9 @@ app.use(cors())
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
-app.get('/', function(req, res) {
-    res.status(200).json('Hello world');
-  });
+// app.get('/', function(req, res) {
+//     res.status(200).json('Hello world');
+//   });
 
 app.use(routes)
 app.use(errorHandler)
