@@ -11,7 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   //await queryInterface.addColumn('Users','CartId', Sequelize.INTEGER)
+   await queryInterface.addColumn('Users','CartId', Sequelize.INTEGER)
   },
 
   down: async (queryInterface, Sequelize) => {
