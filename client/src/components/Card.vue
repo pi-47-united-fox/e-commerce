@@ -17,7 +17,7 @@
         </v-expand-transition>
         <v-app-bar flat color="rgba(0, 0, 0, 0)">
             <div v-if="product.stock === 0">
-              Stock: Habis Terjual
+              Habis Terjual
             </div>
             <div v-else>
               Stock: {{product.stock}}

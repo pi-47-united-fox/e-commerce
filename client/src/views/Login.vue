@@ -43,7 +43,7 @@
                             :loading="loading"
                             :disabled="email == '' || password == ''"
                         >
-                            Submit
+                            Sign In
                         </v-btn>
                         <v-spacer></v-spacer>
                         <v-btn

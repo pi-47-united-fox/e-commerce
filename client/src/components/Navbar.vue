@@ -48,6 +48,7 @@ export default {
   methods: {
     logMeOut () {
       this.$store.commit('LOGOUT')
+      this.$router.push('/')
     },
     goToWishlist () {
       return this.$router.push('/wishlist')

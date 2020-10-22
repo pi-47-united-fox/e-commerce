@@ -21,12 +21,12 @@ export default {
     //
   }),
 
-  created() {
+  created () {
     if (localStorage.access_token) {
       this.$store.state.userLogedIn = true
     } else {
       this.$store.state.userLogedIn = false
     }
-  },
+  }
 }
 </script>

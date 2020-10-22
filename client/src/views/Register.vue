@@ -31,8 +31,7 @@
                     <v-divider></v-divider>
 
                     <v-alert v-if="formHasErrors" dense outlined type="error">
-                        Wrong <strong>Email</strong> or
-                        <strong>Password</strong>
+                        <strong>Email</strong> already Registered
                     </v-alert>
 
                     <v-card-actions>
@@ -43,7 +42,7 @@
                             :loading="loading"
                             :disabled="email == '' || password == ''"
                         >
-                            Submit
+                            Register
                         </v-btn>
                         <v-spacer></v-spacer>
                         <v-btn
@@ -95,7 +94,6 @@ export default {
           if (result === undefined) {
             this.$router.push('/')
           } else {
-            this.loading = !this.loading
             this.formHasErrors = true
             console.log('masuk')
           }

@@ -5,8 +5,8 @@
       <h2 class="display-1 ml-4">My Wishlist:</h2>
       <v-row>
         <v-col v-for="(wish) in loved" :key="wish.id">
-          <WishlistCard 
-            :product='wish.Product' 
+          <WishlistCard
+            :product='wish.Product'
             :wish='wish'
             :id='wish.id'
           />
@@ -28,9 +28,9 @@ export default {
       return this.$store.state.loved
     }
   },
-  created() {
+  created () {
     this.$store.dispatch('fetchWishlist')
-  },
+  }
 }
 </script>
 

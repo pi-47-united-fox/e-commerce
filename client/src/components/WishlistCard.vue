@@ -12,11 +12,16 @@
             class="d-flex transition-fast-in-fast-out v-card--reveal"
             style="height: 100%;"
           >
-            <v-btn rounded color="green" @click="addToCart">Add to Cart</v-btn>
+            <v-btn rounded color="green" v-if="product.stock > 0" @click="addToCart">Add to Cart</v-btn>
           </div>
         </v-expand-transition>
         <v-app-bar flat color="rgba(0, 0, 0, 0)">
-            Stock: {{product.stock}}
+            <div v-if="product.stock === 0">
+              Habis Terjual
+            </div>
+            <div v-else>
+              Stock: {{product.stock}}
+            </div>
           <v-spacer></v-spacer>
           <v-btn color="grey" icon @click="deleteFromWishlist">
             <v-icon>mdi-trash-can</v-icon>

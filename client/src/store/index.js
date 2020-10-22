@@ -37,6 +37,10 @@ export default new Vuex.Store({
     },
     LOGOUT (state) {
       state.userLogedIn = false
+      state.loved = []
+      state.cartsUnpaid = []
+      state.carts = []
+      state.totalPay = []
       return localStorage.removeItem('access_token')
     },
     // DEC_QUANTITY (state, payload) {
@@ -119,7 +123,7 @@ export default new Vuex.Store({
       state.carts = []
       state.totalPay = 0
     },
-    DELETE_WISHLIST (state, data) {
+    DELETE_WISHLIST (state, id) {
       let iRemoved
       state.carts.forEach((el, index) => {
         if (el.id === +id) {
@@ -262,18 +266,18 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
-    fetchWishlist ({commit}) {
-      axios.get('/wishlist',{
+    fetchWishlist ({ commit }) {
+      axios.get('/wishlist', {
         headers: {
           access_token: localStorage.access_token
         }
-      }).then(({data}) => {
-       commit('FETCH_WISHLIST', data)
+      }).then(({ data }) => {
+        commit('FETCH_WISHLIST', data)
       }).catch(err => {
-        console.error(err); 
+        console.error(err)
       })
     },
-    addToWishlist ({commit}, id) {
+    addToWishlist ({ commit }, id) {
       if (!localStorage.access_token) {
         return 'to register or login'
       } else {
@@ -285,11 +289,11 @@ export default new Vuex.Store({
           console.log('added new wishlist', newWishlist)
           // commit('ADD', newWishlist)
         }).catch(err => {
-            console.error(err)
-          })
+          console.error(err)
+        })
       }
     },
-    deleteWishlist ({commit}, id) {
+    deleteWishlist ({ commit }, id) {
       axios.delete('/wishlist/' + id, {
         headers: {
           access_token: localStorage.access_token
@@ -297,7 +301,7 @@ export default new Vuex.Store({
       }).then(res => {
         commit('DELETE_WISHLIST', id)
       }).catch(err => {
-        console.error(err); 
+        console.error(err)
       })
     }
 
