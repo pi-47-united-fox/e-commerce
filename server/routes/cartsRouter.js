@@ -7,6 +7,10 @@ router.use(authentification);
 router.get("/", CartControllers.getAllCart);
 router.post("/:id", CartControllers.addToCart);
 router.patch("/:id", authorizationCart, CartControllers.updateQuantity);
-router.delete("/:id/:ProductId", authorizationCart, CartControllers.removeFromCart);
+router.delete(
+  "/:id/:ProductId",
+  authorizationCart,
+  CartControllers.removeFromCart
+);
 
 module.exports = router;

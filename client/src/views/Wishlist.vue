@@ -2,6 +2,7 @@
   <div class="home">
     <Banner />
     <!-- HomePage -->
+    <h1 class="mt-5" style="color:white">Wishlist</h1>
     <div class="container-x">
       <div class="box-homes">
         <div class="container">
