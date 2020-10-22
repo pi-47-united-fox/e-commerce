@@ -13,8 +13,8 @@
           v-model="value"
           min="1"
           max="100"
+          @change="update()"
         ></b-form-spinbutton>
-        <p>Value: {{ cart.Cart.quantity }}</p>
       </div>
     </td>
     <td>{{ cart.Cart.total }}</td>
@@ -24,19 +24,41 @@
 </template>
 
 <script>
+import Axios from "axios"
 export default {
   name: "CartItem",
   props: ["cart", "index"],
   data(){
     return {
-      value:0
+      value:this.cart.Cart.quantity
     }
   },
   methods: {
     deleteCart(id) {
-      console.log(id, "ini delete cart");
+      // console.log(id, "ini delete cart");
       this.$store.dispatch("deleteFromCart", id);
     },
+    update(){
+      let id = this.cart.Cart.ProductId
+      console.log(id);
+      Axios ({
+        method: 'PUT',
+        url: `http://localhost:3000/carts/${id}`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          quantity: this.value
+        }
+      })
+        .then(({ data }) => {
+          this.$store.dispatch('fetchCarts')
+          return data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   watch: {
     stock: function (val, oldVal) {

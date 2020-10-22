@@ -1,5 +1,11 @@
 <template>
   <div class="container">
+    <div class="bck-btn">
+      <img src="../assets/circle-with-an-arrow-pointing-to-left.svg" @click='back()' width="30px">
+      <h4>Back</h4>
+    </div>
+    <table>
+    </table>
     <table class="table">
       <thead>
         <tr>
@@ -26,7 +32,7 @@
           <td></td>
           <td></td>
           <td>Total</td>
-          <td>{{ new Number(price).toLocaleString("id-ID") }}</td>
+          <td>Rp{{ new Number(price).toLocaleString("id-ID") }}</td>
           <td></td>
         </tr>
       </tbody>
@@ -41,16 +47,23 @@ export default {
   components: {
     CartItem,
   },
+  methods:{
+    back(){
+      this.$router.push({name:'Home'})
+    }
+  },
   computed: {
     carts() {
       const carts = this.$store.state.carts;
       console.log(carts, "<------------");
       let temp = 0;
-      carts.forEach((element) => {
-        temp += element.price * element.Cart.stock;
+      carts.forEach((el) => {
+        // console.log(el.Cart.stock);
+        temp += el.price * el.Cart.quantity;
       });
       this.price = temp;
       this.product = carts;
+      console.log(temp);
       return carts;
     },
   },
@@ -61,5 +74,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.bck-btn{
+  height: 30px;
+  margin-bottom:  30px;
+}
 </style>
