@@ -14,7 +14,8 @@
                     <ul class="menu mt-2">
                         <li><a href="" @click.prevent="$router.push({ path:'/' })">Home</a></li>
                         <li><a href="" @click.prevent="$router.push({ path:'/cartPage' })">Cart</a></li>
-                        <li><a href="">My Wishlist</a></li>
+                        <li><a href="" @click.prevent="$router.push({ path:'/transactionPage' })">Transaction</a></li>
+                        <li><a href="" @click.prevent="$router.push({ path:'/wishlistPage' })">My Wishlist</a></li>
                         <li><a @click.prevent="logoutHandler" href="">Logout</a></li>
                     </ul>
                 </nav>

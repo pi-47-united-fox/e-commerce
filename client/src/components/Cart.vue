@@ -1,6 +1,6 @@
 <template>
   <div class="item col-lg-4">
-    <div class="thumbnail card">
+    <div class="thumbnail card" v-if="allCart.status == 'unpaid'">
       <div class="img-event">
         <img
           class="group list-group-image img-fluid"
@@ -17,14 +17,14 @@
           Quantity:
           <form @submit.prevent="changeQuantity(allCart.ProductId)"> 
             <div class="form-group" style="display:flex; justify-content:center;">
-              <button type="button" class="btn btn-danger fa fa-minus" @click.prevent="minusQuantity(allCart.ProductId)"></button>
+              <button type="button" class="btn btn-danger fa fa-minus" @click.prevent="minusQuantity(allCart.ProductId)" :disabled="allCart.quantity === 1"></button>
               <input
                 type="text"
                 class="form-control form-control-sm"
                 style="width: 90px"
                 v-model="allCart.quantity"
               />
-              <button type="button" class="btn btn-success fa fa-plus" @click.prevent="addQuantity(allCart.ProductId)"></button>
+              <button type="button" class="btn btn-success fa fa-plus" @click.prevent="addQuantity(allCart.ProductId)" :disabled="allCart.quantity === allCart.Product.stock - 1"></button>
             </div>
           </form>
         </h5>

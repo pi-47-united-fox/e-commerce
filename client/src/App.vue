@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <Navbar 
-    v-if="this.$route.name == 'Home' || this.$route.name == 'Cart' || this.$route.name == 'CartPage'"></Navbar>
+    v-if="this.$route.name == 'Home' || this.$route.name == 'Cart' || this.$route.name == 'CartPage' || this.$route.name == 'TransactionPage' || this.$route.name == 'WishlistPage'"></Navbar>
     <router-view/>
     <Footer
-    v-if="this.$route.name === 'Home' || this.$route.name === 'Cart' || this.$route.name == 'CartPage'"></Footer>
+    v-if="this.$route.name === 'Home' || this.$route.name === 'Cart' || this.$route.name == 'CartPage' || this.$route.name == 'TransactionPage' || this.$route.name == 'WishlistPage'"></Footer>
   </div>
 </template>
 

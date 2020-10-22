@@ -24,14 +24,14 @@
                 style="padding: 5px; margin: 10px"
               ></button>
               <div class="dropdown-content">
-                <a href="#" @click="addToCart(allData.id)">Cart</a>
-                <a href="#">Wishlist</a>
+                <a href="" class="fa fa-shopping-cart" @click.prevent="addToCart(allData.id)"> Cart</a>
+                <a href="" class="fa fa-heart" @click.prevent="addToWishlist(allData.id)"> Wishlist</a>
               </div>
             </div>
             <span class="money">{{'Rp.'+allData.price.toLocaleString()}}</span>
           </div>
         </div>
-        <span>Stock: {{allData.stock}}</span>
+        <span>Stock: {{allData.stock - 1}}</span>
       </div>
     </div>
   </div>
@@ -44,6 +44,9 @@ export default {
   methods: {
       addToCart (id) {
           this.$store.dispatch("addCarts",id);
+      },
+      addToWishlist (id) {
+          this.$store.dispatch("addWishlist",id);
       }
   }
 };

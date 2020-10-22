@@ -14,7 +14,7 @@
           />
         </div>
         <!-- Login Form -->
-        <form @submit.prevent="registerHanlder">
+        <form @submit.prevent="registerHandler">
           <input
             type="email"
             id="email"
@@ -44,7 +44,22 @@
 
 <script>
 export default {
-    name: 'Register'
+    name: 'Register',
+    data () {
+      return {
+        email: '',
+        password: ''
+      }
+    },
+    methods: {
+      registerHandler () {
+        let obj = {
+          email : this.email,
+          password: this.password
+        }
+        this.$store.dispatch('register', obj)
+      }
+    }
 }
 </script>
 

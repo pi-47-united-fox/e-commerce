@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Product.belongsToMany(models.User, {through: 'Cart'})
       Product.hasMany(models.Cart)
+      Product.belongsToMany(models.User, {through: 'Wishlist'})
+      Product.hasMany(models.Wishlist)
     }
   };
   Product.init({
