@@ -50,9 +50,9 @@ class MainControoler {
                 const confirmToken = Jwt.generate(result.dataValues.id, result.dataValues.email, result.dataValues.role)
                 // Send the email
                 // Belum diaplikasikan sepenuhnya karena email terkirim  tidak diterima 
-                const transporter = nodemailer.createTransport({ host: 'smtp.mailtrap.io', port: 2525, auth: { user: process.env.EMAIL, pass: process.env.PASSWORD } });
+                const transporter = nodemailer.createTransport({ service: 'Gmail', port: 2525, auth: { user: process.env.EMAIL, pass: process.env.PASSWORD } });
                 const mailOptions = { 
-                    from: 'no-reply@unshop.com',
+                    from: 'bgsrizkis@gmail.com',
                     to: result.dataValues.email,
                     subject: 'Hello....', 
                     text: `Confirm use link: ${process.env.LINK}/confirm/${confirmToken}`,
