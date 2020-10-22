@@ -3,10 +3,14 @@
 List of available endpoints:
 ​
 - `POST /login`
-- `POST /products`
+- `POST /product`
 - `GET /products`
 - `PUT /products/:id`
 - `DELETE /products/:id`
+- `POST /banner`
+- `GET /banners`
+- `PUT /banner/:id`
+- `DELETE /banner/:id`
 ---
 ## POST /login
 ​

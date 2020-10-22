@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     banners () {
-      return this.$store.state.banners
+      return this.$store.state.banners.filter(b=> b.isActive === true)
     }
   }
 
