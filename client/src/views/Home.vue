@@ -64,6 +64,12 @@ export default {
     this.$store.dispatch('fetch_products')
     this.$store.dispatch('fetch_categories')
     this.$store.dispatch('fetch_banners')
+    if(localStorage.access_token){ 
+        console.log("fetching");
+        this.$store.dispatch('fetch_history') 
+        this.$store.dispatch('fetch_cart') 
+        this.$store.dispatch('fetch_wishlists') 
+    }
   }
 }
 </script>

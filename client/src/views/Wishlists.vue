@@ -48,7 +48,10 @@ export default {
     wishlists () {
       return this.$store.state.wishlists
     }
-  }
+  }, 
+  created () {
+      this.$store.dispatch('fetch_wishlists')
+  },
 
 }
 </script>

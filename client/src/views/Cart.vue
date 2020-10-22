@@ -112,6 +112,9 @@ export default {
       return this.$store.state.errMessage
     }
   },
+  created () {
+      this.$store.dispatch('fetch_cart')
+  },
   destroyed () {
     this.closeAlert()
   }
