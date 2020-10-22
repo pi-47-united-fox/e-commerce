@@ -11,6 +11,7 @@ import Pendidikan from '../views/Pendidikan'
 import Psikologi from '../views/Psikologi'
 import Sejarah from '../views/Sejarah'
 import Teknologi from '../views/Teknologi'
+import Others from '../views/Others'
 import Carts from '../views/Carts'
 import History from '../views/History'
 
@@ -70,6 +71,11 @@ const routes = [{
   path: '/teknologi',
   name: 'Teknologi',
   component: Teknologi
+},
+{
+  path: '/others',
+  name: 'Others',
+  component: Others
 },
 {
   path: '/carts',

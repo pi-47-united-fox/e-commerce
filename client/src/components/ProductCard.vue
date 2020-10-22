@@ -35,8 +35,8 @@ export default {
     ...mapActions([
       'addProductToCart'
     ]),
-    addToCart (id, price) {
-      this.addProductToCart({ id, price })
+    addToCart (id, price, stock) {
+      this.addProductToCart({ id, price, stock })
     }
   }
 }

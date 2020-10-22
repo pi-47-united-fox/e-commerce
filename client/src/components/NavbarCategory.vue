@@ -9,6 +9,7 @@
       <router-link to="/psikologi"  class="rounded-pill btn-outline p-2 px-3">Psikologi</router-link> &nbsp;
       <router-link to="/sejarah"  class="rounded-pill btn-outline p-2 px-3">Sejarah</router-link> &nbsp;
       <router-link to="/teknologi"  class="rounded-pill btn-outline p-2 px-3">Komputer dan Teknologi</router-link> &nbsp;
+      <router-link to="/others"  class="rounded-pill btn-outline p-2 px-3">Others</router-link> &nbsp;
     </b-row>
   </div>
 </template>
