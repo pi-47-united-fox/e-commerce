@@ -55,7 +55,7 @@ export default {
       this.deleteCart({ id: +id, price: +price })
     },
     willMinus (id, currentQuantity, price) {
-      if (currentQuantity < 1) {
+      if (currentQuantity <= 1) {
         return false
       } else {
         this.updateQuantity({
