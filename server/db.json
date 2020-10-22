@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Headphone Logitech",
+        "image_url": "https://www.logitech.com/assets/65671/2/bluetooth-headset-zone-wireless.png",
+        "price": 200000,
+        "stock" : 5
+    },
+    {
+        "name": "Mouse Logitech",
+        "image_url": "https://resource.logitechg.com/e_trim/w_490,h_310,c_limit/c_lpad,ar_413:310,q_auto:best,f_auto,dpr_auto/content/dam/gaming/en/products/g502-lightspeed-gaming-mouse/g502-lightspeed-gallery-1.png?v=1",
+        "price": 1500000,
+        "stock" : 10
+    },
+    {
+        "name": "Speaker Logitech",
+        "image_url": "https://www.logitech.com/assets/35576/6/surround-sound-speakers-z906-glamour-images.png",
+        "price": 2500000,
+        "stock" : 25
+    },
+    {
+        "name": "Keyboard Logitech",
+        "image_url": "https://resource.logitechg.com/e_trim/w_490,h_310,c_limit/c_lpad,ar_413:310,q_auto:best,f_auto,dpr_auto/content/dam/gaming/en/products/g915-tkl/g915-tkl-gallery/us-g915-tkl-carbon-gallery-topdown.png?v=1",
+        "price": 750000,
+        "stock" : 7
+    },
+    {
+        "name": "Mouse Wireless Logitech",
+        "image_url": "https://resource.logitechg.com/e_trim/w_490,h_310,c_limit/c_lpad,ar_413:310,q_auto:best,f_auto,dpr_auto/content/dam/gaming/en/products/g903/g903-gallery-1.png?v=1",
+        "price": 1750000,
+        "stock" : 12
+    },
+    {
+        "name": "Webcam Logitech",
+        "image_url": "https://www.logitech.com/assets/65765/11/4k-pro-magnetic-webcam-for-apple-pro-display-xdr.png",
+        "price": 250000,
+        "stock" : 30
+    }
+]
