@@ -59,6 +59,11 @@ export default {
     changePage (page) {
       console.log(page)
     }
+  },
+  created () { 
+    this.$store.dispatch('fetch_products')
+    this.$store.dispatch('fetch_categories')
+    this.$store.dispatch('fetch_banners')
   }
 }
 </script>
