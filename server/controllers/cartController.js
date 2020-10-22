@@ -1,5 +1,6 @@
 const { User, Product, Cart } = require("../models/index")
 
+
 class CartController {
     static addToCart(req, res, next) {
         let newProductToCart = {
@@ -8,10 +9,10 @@ class CartController {
         }
         Cart.create(newProductToCart)
             .then(data => {
-                req.status(201).json(data)
+                res.status(201).json(data)
             })
             .catch(err => {
-                console.log(err)
+                next(err)
             })
 
     }
@@ -50,7 +51,7 @@ class CartController {
                 }
             })
             .catch(err => {
-                console.log(err)
+                next(err)
             })
 
     }
@@ -68,26 +69,11 @@ class CartController {
             if(!data) {
                 res.status(200).json([])
             } else {
-                let ids = []
-                let uniqueProduct = []
-                for(let i = 0; i < data.length; i++) {
-                    if(!ids.some(el => el === data[i].ProductId)) {
-                        ids.push(data[i].ProductId)
-                        uniqueProduct.push(data[i])
-                    } else {
-                        uniqueProduct.map(el => {
-                            if(el.ProductId === data[i].ProductId) {
-                                el.quantity ++
-                            }
-                            return el
-                        })
-                    }
-                }
-                res.status(200).json(uniqueProduct)
+                res.status(200).json(data)
             }
         })
         .catch(err => {
-            console.log(err)
+            next(err)
         })
     }
 
@@ -101,22 +87,18 @@ class CartController {
                 res.status(201).json(data)
             })
             .catch(err => {
-                console.log(err)
+                next(err)
             })
     }
 
     static deleteProductFromMyCart(req, res, next) {
         let targetId = req.params.productId
-        console.log(targetId)
-        Cart.findOne({where: {ProductId: targetId}})
+        // console.log(targetId)
+        Cart.findOne({where: {ProductId: targetId, status: 'unpaid'}})
             .then(data => {
                 return Cart.destroy({
                     where: {
-                        ProductId: data.ProductId,
-                        UserId: data.UserId,
-                        status: data.status,
-                        createdAt: data.createdAt,
-                        updatedAt: data.updatedAt
+                        id: data.id
                     }
                 })
             })
@@ -124,7 +106,7 @@ class CartController {
                 res.status(200).json({ message: "Product has been successfully removed from cart." })
             })
             .catch(err => {
-                console.log(err)
+                next(err)
             })
     }
 
@@ -140,25 +122,95 @@ class CartController {
                 })
                 return Cart.update({status: 'paid'}, {
                     where: {
-                        id: {
-                            $in: idCart
-                        }
+                          id: idCart
                     }
                 })             
             })
             .then(data => {
-                return Product.update({quantity: quantity-1}, {
+                // return Product.update({quantity: quantity-1}, {
+                //     where: {
+                //         id: {
+                //             $in: idProduct
+                //         }
+                //     }
+                // })
+                res.status(200).json({ message: "Checkout success." })
+            })
+            .catch(err => {
+                next(err)
+            })
+
+    }
+
+    static addToWishList(req, res, next) {
+        let newProductToCart = {
+            UserId: req.userData.id,
+            ProductId: req.params.productId
+        }
+        Cart.create(newProductToCart)
+            .then(data => {
+                return Cart.update({status: 'wishlist'}, {
                     where: {
-                        id: {
-                            $in: idProduct
-                        }
+                        id: data.id
                     }
                 })
             })
-            .catch(err => {
-                console.log(err)
+            .then(data => {
+                res.status(200).json({
+                    message: "Wish you luck!"
+                })
             })
+            .catch(err => {
+                next(err)
+            })
+    }
 
+    static moveWishlistToCart(req, res, next) {
+        Cart.update({status: 'unpaid'}, {
+            where: {
+                id: req.params.cartId,
+                UserId: req.userData.id,
+                status: 'wishlist'
+            }         
+        })
+            .then(data => {
+                console.log(data)
+                res.status(200).json({
+                    message: "Congratulations, your wish come true."
+                })
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static findAllMyWishlist(req, res, next) {
+        Cart.findAll({
+            where: {
+                UserId: req.userData.id,
+                status: 'wishlist'
+            },
+            include: [Product]
+            
+        })
+        .then(data => {
+            if(!data) {
+                res.status(200).json([])
+            } else {
+                let ids = []
+                let uniqueProduct = []
+                for(let i = 0; i < data.length; i++) {
+                    if(!ids.some(el => el === data[i].ProductId)) {
+                        ids.push(data[i].ProductId)
+                        uniqueProduct.push(data[i])
+                    } 
+                }
+                res.status(200).json(uniqueProduct)
+            }
+        })
+        .catch(err => {
+            next(err)
+        })
     }
 
 }

@@ -15,7 +15,13 @@ router.get('/mycart', CartController.findMyCart)
 router.post('/carts/:productId', CartController.addProductToMyCart)
 router.delete('/carts/:productId', CartController.deleteProductFromMyCart)
 router.put('/checkout', CartController.checkoutCart)
+router.get('/transactions', CartController.findMyTransactionHistory)
+router.get('/wishlists', CartController.findAllMyWishlist)
+router.post('/wishlists/:productId', CartController.addToWishList)
+router.put('/wishlists/:cartId', CartController.moveWishlistToCart)
 
+
+// Admin
 router.post('/products', authorization, ProductController.addProduct)
 router.put('/products/:id', authorization, ProductController.editProduct)
 router.delete('/products/:id', authorization, ProductController.deleteProduct)
