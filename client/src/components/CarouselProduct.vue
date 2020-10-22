@@ -10,9 +10,9 @@
               </div>
               <div class="item-box-blog-body"> 
                 <div class="item-box-blog-heading">
-                  <a href="#" tabindex="0">
+                  <!-- <a href="#" tabindex="0"> -->
                     <h5>{{product.name}}</h5>
-                  </a>
+                  <!-- </a> -->
                 </div>  
                 <div class="item-box-blog-text">
                   <p>{{product.description}}</p>

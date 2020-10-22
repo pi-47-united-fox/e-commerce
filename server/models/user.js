@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.belongsToMany(models.Product, {through: models.Cart})
+      User.belongsToMany(models.Product, {through: models.Wishlist})
     }
   };
   User.init({
@@ -35,7 +37,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks:{
       beforeCreate: (user, options) => {
-        user.password = bcrypt.hashSync(user.password, 8)
+        user.password = bcrypt.hashSync(user.password, 10)
+        user.role = 'customer'
       }
     },
     sequelize,

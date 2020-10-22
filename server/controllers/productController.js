@@ -1,4 +1,5 @@
 const {Product,Category} = require("../models")
+const { Op } = require("sequelize");
 
 class ProductController{
 
@@ -16,7 +17,17 @@ class ProductController{
     }
 
     static getProducts(req,res,next){ 
-        Product.findAll()
+        Product.findAll({
+            where:{
+                stock: {
+                    [Op.gt]:0
+                }
+            },
+            order: [
+                ['CategoryId','ASC'],
+                ['name','ASC'],
+            ]
+        })
             .then(result=>{
                 res.status(200).json(result)
             })

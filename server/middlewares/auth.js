@@ -6,7 +6,7 @@ function authentication(req,res,next){
     // console.log(access_token); 
     if(access_token){
         let decode = jwt.verify(access_token,secret_key)
-        // console.log(decode);
+        console.log(decode);
         req.userData = decode
         next()
     }else{ 

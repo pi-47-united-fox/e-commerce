@@ -1,6 +1,7 @@
 function errorHandler (err, req, res, next) {
     let msg = ''
     let code = ''
+    // console.log(err.name ,"error name <<<<<<<<<");
 
     switch(err.name) {
         case 'SequelizeValidationError':
@@ -10,7 +11,16 @@ function errorHandler (err, req, res, next) {
             });
             code = 400
             msg = `${errors}`
-            break;
+            break; 
+
+        case 'SequelizeUniqueConstraintError':
+            let errors2 = [];
+            err.errors.forEach(el => {
+                errors2.push(el.message);
+            });
+            code = 400
+            msg = `${errors2}`
+            break; 
 
         case 'Wrong Email or Password':
             code = 404

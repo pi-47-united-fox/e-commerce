@@ -7,7 +7,7 @@
     />
     <div class="container">
       <div class="row  justify-content-between">
-        <img src="@/assets/logo-2.png" class="col-2 " width="130px" alt="">
+        <img src="@/assets/logo-3.png" class="col-2 " width="130px" alt="">
         <h3 class="col-8 align-self-center ">Here is where you find your stuff</h3>
         <h3 class="col-2 align-self-center "></h3> 
       </div>
@@ -25,14 +25,14 @@
               <a @click.prevent="changePage('Home')" class="nav-link menu" href="#" > Home </a>
             </li>
             <li class="nav-item ">
-              <a @click="changePage('products')" class="nav-link menu" href="#">All Products</a>
+              <a @click.prevent="changePage('Products')" class="nav-link menu" href="#">All Products</a>
             </li>  
             <li class="nav-item dropdown" href="#"> 
               <a class="nav-link menu dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categories
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <div v-for="(category,i) in categories" :key="i">
+                <div @click.prevent="productPage(category.name)" v-for="(category,i) in categories" :key="i">
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">{{category.name}}</a> 
                 </div> 
@@ -40,16 +40,16 @@
             </li>
           </ul>
           <ul class="navbar-nav" >
-            <li class="nav-item"  href="#">
-              <a href="#" class="d-flex" data-toggle="tooltip" data-placement="top" title="Your Wishlist" style="background-color:#ffc038; border-radius:10px; max-width:90px">
+            <li class="nav-item" @click.prevent="changePage('Wishlists')"  href="#">
+              <a href="#"  class="d-flex" data-toggle="tooltip" data-placement="top" title="Your Wishlist" style="background-color:#ffc038; border-radius:10px; max-width:90px">
                 <img src="@/assets/wishlist-logo.webp" width="50px" alt=""> 
                 <div class="bg-dark text-white pl-3 pr-3 pt-3" style="border-radius:10px;">
                   {{wishlistsCount}}
                 </div>
               </a>
             </li>
-            <li class="nav-item" href="#"> 
-              <a href="#" class="d-flex " style="background-color:#ffc038; border-radius:10px; max-width:90px">
+            <li class="nav-item" @click.prevent="changePage('Cart')" href="#"> 
+              <a href="#" class="d-flex "  style="background-color:#ffc038; border-radius:10px; max-width:90px">
                 <img src="@/assets/cart-logo.png" width="50px" alt=""> 
                 <div class="bg-dark text-white pl-3 pr-3 pt-3" style="border-radius:10px;">
                   {{cartCount}}
@@ -64,7 +64,7 @@
                 {{email}}
               </a>
               <div class="dropdown-menu ml-3" aria-labelledby="navbarDropdown"> 
-                <a class="dropdown-item" href="#">Logout</a>
+                <a class="dropdown-item" @click.prevent="logout" href="#">Logout</a>
               </div>
             </li>
           </ul> 
@@ -105,6 +105,17 @@ export default {
     changePage (page) {
       console.log(page);
       this.$router.push({name:page})
+    },
+    productPage (payload ) { 
+       this.$router.push({ path: 'products', query: { category: payload } }) 
+    },
+    logout () {
+      localStorage.clear()
+      this.$store.commit('FETCH_WISHLISTS',[])
+      this.$store.commit('FETCH_CART',[])
+      this.$store.commit('TOOGLE_LOGGEDIN',[])
+      this.$router.push({name:'Home'})
+
     }
   },
   computed:{
@@ -131,8 +142,9 @@ export default {
     }
   },
   created () {
-    if(localStorage.access_token){
-
+    if(localStorage.access_token){ 
+      this.$store.dispatch("fetch_all");  
+      this.$store.commit("TOOGLE_LOGGEDIN"); 
     }else{
       this.$store.dispatch('fetch_products')
       this.$store.dispatch('fetch_categories')
@@ -184,6 +196,6 @@ export default {
   margin-right: 5px;
 }
 footer { 
-  background-color:#ffc038; 
+  background-color:#aa7f23; 
 }
 </style>

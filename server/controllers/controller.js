@@ -26,8 +26,23 @@ class Controller{
                     console.log(err);
                     next(err)
                 }) 
-        }
-
+        } 
+    }
+    static postRegister(req,res,next){
+        const {email,password} = req.body
+        console.log(email,password, "<<<<<<<<<<<<<<<<<");
+        
+        if(!email && !password){ //handle empty input
+            next({name:"Wrong Email or Password"})
+        }else{
+            User.create({email,password})
+                .then(user=>{
+                    res.status(201).json(user)
+                })
+                .catch(err=>{ 
+                    next(err)
+                }) 
+        } 
     }
 
 
