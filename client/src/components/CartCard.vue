@@ -11,7 +11,9 @@
             {{data.quantity}}
             <i class="far fa-plus-square ml-2" @click.prevent="onAddQty(data.id)"></i>
         </td>
-        <td><button class="btn btn-danger" @click.prevent="onDelete(data.id)"> delete </button></td>
+        <td>
+            <button class="btn btn-danger ml-1" @click.prevent="onDelete(data.id)"> delete </button>
+            </td>
     </tr>
 </template>
 

@@ -1,6 +1,7 @@
 const { User } = require('../models')
 const { comparePassword } = require('../helpers/bcryptjs')
 const { signToken } = require('../helpers/jwt')
+const transporter = require('../helpers/mailer')
 
 class UserController{
     static loginHandler(req,res,next){
@@ -39,7 +40,20 @@ class UserController{
                 }
             })
             .then(result2=>{
-                res.status(201).json({result2,message:'register done'})
+                let mailOptions={
+                    from:'Brompton <idhamdummy3@gmail.com>',
+                    to:email,
+                    subject:'Register Success',
+                    html:`Terimakasih Sudah Daftar di Ecommerce idham untuk testing
+
+                    `
+                }
+                transporter.sendMail(mailOptions,(errmail,resultmail)=>{
+                    if(errmail){
+                        next(errmail)
+                    } 
+                    res.status(201).json({result2,message:'register done'})
+                })
             })
             .catch(err=>{
                 next(err)

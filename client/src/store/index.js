@@ -116,6 +116,19 @@ export default new Vuex.Store({
       .catch(err=>{
         console.log(err)
       })
+    },
+    CHECKOUT_CART({dispatch},payload){
+      axios.post(`/checkout`,{},{
+        headers:{
+          access_token:localStorage.access_token
+        }
+      })
+      .then(()=>{
+        dispatch('GET_DATA_CART')
+      })
+      .catch(err=>{
+        console.log(err)
+      })
     }
   },
   modules: {

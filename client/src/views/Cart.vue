@@ -1,5 +1,6 @@
 <template>
   <div>
+        <center><button class="btn btn-success m-5" @click.prevent="onCheckoutHandler"> checkout </button></center>
       <table class="table table-striped">
         <thead>
             <tr>
@@ -35,6 +36,11 @@ export default {
     },
     components : {
         CartCard
+    },
+    methods : {
+        onCheckoutHandler () {
+            this.$store.dispatch('CHECKOUT_CART')
+        }
     }
 }
 </script>

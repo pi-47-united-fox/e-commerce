@@ -52,9 +52,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty:{
           msg:'stock cannot be empty'
         },
-        min:{
-          args:1,
-          msg:'stock must be greater than 1'
+        customMinimumStock(value){
+          if(value < 0){
+            throw new Error('stock cannot be lesser than 0')
+          }
         }
       }
     }

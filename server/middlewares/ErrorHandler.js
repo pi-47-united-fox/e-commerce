@@ -27,8 +27,10 @@ const ErrorHandler=(err,req,res,next)=>{
         case 'minuscart':
             res.status(err.status).json({message:err.message})
             break;
-            
         case 'emailnotavailable':
+            res.status(err.status).json({message:err.message})
+            break;
+        case 'outstock':
             res.status(err.status).json({message:err.message})
             break;
         default:

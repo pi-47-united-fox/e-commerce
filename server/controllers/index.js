@@ -1,6 +1,8 @@
 const { UserController } = require('./UserControllers')
 const { ProductController } = require('./ProductControllers')
 const { CartController } = require('./CartControllers')
+const { CheckoutController } = require('./CheckoutControllers')
+
 
 
 
@@ -8,5 +10,6 @@ const { CartController } = require('./CartControllers')
 module.exports = {
     UserController,
     ProductController,
-    CartController
+    CartController,
+    CheckoutController
 }

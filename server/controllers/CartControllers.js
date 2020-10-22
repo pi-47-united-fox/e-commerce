@@ -12,7 +12,8 @@ class CartController {
                     UserId:req.userData.id,
                     quantity:{
                         [Op.gt]:0
-                    }
+                    },
+                    status:'unpaid'
                 },
                 order:[['id','asc']],
                 include:['Product']
@@ -34,22 +35,28 @@ class CartController {
         }
         try {
             const getCart = await Cart.findAll({
-                where:{UserId:req.userData.id, ProductId:req.body.ProductId},
+                where:{UserId:req.userData.id, ProductId:req.body.ProductId,status:'unpaid'},
                 include:['Product']
             })
+
+            const getProduct = await Product.findByPk(req.body.ProductId)
 
             if(getCart.length>0){
                 if(getCart[0].Product.stock < getCart[0].quantity+1){
                     next({name:'stocklimited',message:'quantity cart melebihi stock',status:400})
                 }else{
                     const addQuantity = await Cart.update({quantity:getCart[0].quantity+1},{
-                        where:{UserId:req.userData.id,ProductId:req.body.ProductId}
+                        where:{UserId:req.userData.id,ProductId:req.body.ProductId,status:'unpaid'}
                     })
                     res.status(201).json({addQuantity})
                 }
             }else{
-                const addCart = await Cart.create(newCart)
-                res.status(201).json({addCart})
+                if(getProduct.stock > 0 ){
+                    const addCart = await Cart.create(newCart)
+                    res.status(201).json({addCart})
+                }else{
+                    next({name:'outstock',message:'bike out of stock',status:400})
+                }
             }    
 
         } catch (error) {
