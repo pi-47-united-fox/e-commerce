@@ -24,7 +24,7 @@
             </template>
             <span>Shop</span>
         </v-tooltip>
-        <v-tooltip right>
+        <v-tooltip right v-if="hideLogOut">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
                     v-bind="attrs"
@@ -39,7 +39,7 @@
             </template>
             <span>Wishlist</span>
         </v-tooltip>
-        <v-tooltip right>
+        <v-tooltip right v-if="hideLogOut">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
                     v-bind="attrs"
@@ -54,7 +54,7 @@
             </template>
             <span>Checkout</span>
         </v-tooltip>
-        <v-tooltip right>
+        <v-tooltip right v-if="hideLogOut">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
                     v-bind="attrs"

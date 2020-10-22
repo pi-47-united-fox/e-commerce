@@ -58,14 +58,13 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-// if (localStorage.access_token && to.path === '/login' || to.path === '/register') {
-//   next({path: '/'})
-// } else if (!localStorage.access_token){
-//   next()
-// } else {
-//   next()
-// }
-// })
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login' && localStorage.access_token) next({ name: 'Home' })
+  else if (to.path === '/register' && localStorage.access_token) next({ name: 'Home' })
+  else if (to.path === '/checkout' && !localStorage.access_token) next({ name: 'Home' })
+  else if (to.path === '/history' && !localStorage.access_token) next({ name: 'Home' })
+  else if (to.path === '/wishlist' && !localStorage.access_token) next({ name: 'Home' })
+  else next()
+})
 
 export default router
