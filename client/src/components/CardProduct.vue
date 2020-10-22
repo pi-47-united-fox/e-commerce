@@ -29,49 +29,57 @@ export default {
     props: ['product'],
     methods: {
         addWishlist () { 
-            server
-                .post(`wishlist`, {
-                    productId: this.product.id
-                },{
-                    headers: {
-                        access_token:localStorage.access_token
+
+            if(localStorage.access_token){
+                server
+                    .post(`wishlist`, {
+                        productId: this.product.id
+                    },{
+                        headers: {
+                            access_token:localStorage.access_token
+                        }
                     }
-                }
-                )
-                .then(({ data }) => { 
-                console.log(data); 
-                this.$store.dispatch("fetch_wishlists");
-                })
-                .catch((err) => { 
-                console.log(err.response);
-                if (err.response) {
-                    this.$store.commit('SET_ERRMSG',err.response.data.msg) 
-                }
-                });
+                    )
+                    .then(({ data }) => { 
+                    console.log(data); 
+                    this.$store.dispatch("fetch_wishlists");
+                    })
+                    .catch((err) => { 
+                    console.log(err.response);
+                    if (err.response) {
+                        this.$store.commit('SET_ERRMSG',err.response.data.msg) 
+                    }
+                    });
+            }else{
+            this.$store.commit("TOOGLE_LOGINFORM");
+            }
 
         },
         addCart () {
-            server
-                .post(`cart`, {
-                    productId: this.product.id
-                },{
-                    headers: {
-                        access_token:localStorage.access_token
+            if(localStorage.access_token){
+
+                server
+                    .post(`cart`, {
+                        productId: this.product.id
+                    },{
+                        headers: {
+                            access_token:localStorage.access_token
+                        }
                     }
-                }
-                )
-                .then(({ data }) => { 
-                console.log(data); 
-                this.$store.dispatch("fetch_cart");
-                })
-                .catch((err) => { 
-                console.log(err.response);
-                if (err.response) {
-                    this.$store.commit('SET_ERRMSG',err.response.data.msg) 
-                }
-                });
-
-
+                    )
+                    .then(({ data }) => { 
+                    console.log(data); 
+                    this.$store.dispatch("fetch_cart");
+                    })
+                    .catch((err) => { 
+                    console.log(err.response);
+                    if (err.response) {
+                        this.$store.commit('SET_ERRMSG',err.response.data.msg) 
+                    }
+                    });
+            }else{
+            this.$store.commit("TOOGLE_LOGINFORM");
+            } 
         },
     }
 

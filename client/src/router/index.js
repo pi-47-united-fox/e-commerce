@@ -46,6 +46,9 @@ router.beforeEach((to, from, next) => {
   if (to.name == 'Wishlists' && !localStorage.access_token){
     store.commit('TOOGLE_LOGINFORM')
     next({ name: 'Home' })
+  }else if  (to.name == 'Cart' && !localStorage.access_token){
+    store.commit('TOOGLE_LOGINFORM')
+    next({ name: 'Home' })
   }
   else next()
 })

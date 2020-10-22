@@ -15,12 +15,12 @@
                   <!-- </a> -->
                 </div>  
                 <div class="item-box-blog-text">
-                  <p>{{product.description}}</p>
+                  <p>Rp. {{product.price.toLocaleString('id')}}</p>
                 </div>
                 <div class="d-flex"> 
-                    <a href="#" tabindex="0" class="btn white wishlist"> 
+                    <a href="#" tabindex="0" @click.prevent="addWishlist(product.id)" class="btn white wishlist"> 
                     </a> 
-                    <a href="#" tabindex="0" class="btn bg-blue-ui white read">Add to cart</a>  
+                    <a href="#" tabindex="0" @click.prevent="addCart(product.id)" class="btn bg-blue-ui white read">Add to cart</a>  
                 </div>  
               </div>
             </div>
@@ -32,6 +32,7 @@
 
 <script>
 import { Carousel, Slide } from 'vue-carousel';
+import server from "@/api/server";
 export default {
   name: 'product-carousel',
   props: ['categoryName'],
@@ -39,6 +40,59 @@ export default {
       Carousel,
       Slide
   },
+    methods: {
+      addWishlist (productId) { 
+        if(localStorage.access_token){
+          server
+            .post(`wishlist`, {
+                productId
+            },{
+                headers: {
+                    access_token:localStorage.access_token
+                }
+            }
+            )
+            .then(({ data }) => { 
+            console.log(data); 
+            this.$store.dispatch("fetch_wishlists");
+            })
+            .catch((err) => { 
+            console.log(err.response);
+            if (err.response) {
+                this.$store.commit('SET_ERRMSG',err.response.data.msg) 
+            }
+            });
+        }else{
+          this.$store.commit("TOOGLE_LOGINFORM");
+        }
+
+      },
+      addCart (productId) {
+        if(localStorage.access_token){
+          server
+            .post(`cart`, {
+                productId
+            },{
+                headers: {
+                    access_token:localStorage.access_token
+                }
+            }
+            )
+            .then(({ data }) => { 
+            console.log(data); 
+            this.$store.dispatch("fetch_cart");
+            })
+            .catch((err) => { 
+            console.log(err.response);
+            if (err.response) {
+                this.$store.commit('SET_ERRMSG',err.response.data.msg) 
+            }
+            });
+        }else{
+          this.$store.commit("TOOGLE_LOGINFORM");
+        }
+      },
+    },
   computed: {  
     filteredProduct () { 
       let category = this.$store.state.categories.filter(cate => cate.name == this.categoryName)

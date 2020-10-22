@@ -126,7 +126,11 @@ export default {
       return this.$store.state.wishlists.length
     },
     cartCount () {
-      return this.$store.state.cart.length
+      let cCount = 0
+        this.$store.state.cart.forEach(el=>{
+          cCount+=el.quantity
+        })
+      return cCount
     },
     email () {
       return this.$store.state.userEmail
