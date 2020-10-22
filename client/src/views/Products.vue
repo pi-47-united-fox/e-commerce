@@ -85,6 +85,7 @@ export default {
   },
   created () {
     // console.log(this.$route);
+    this.$store.dispatch('fetch_products')
     const cat = this.$route.query.category || ''
     this.filter = cat
   },
