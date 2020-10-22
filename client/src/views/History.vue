@@ -31,6 +31,7 @@
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th> 
                         <th scope="col">Total</th> 
+                        <th scope="col">Purchase Date</th> 
                         </tr>
                     </thead>
                     <tbody> 
@@ -50,6 +51,9 @@
                           </td>
                           <td>{{item.quantity}}</td>
                           <td>Rp. {{(item.quantity*item.Product.price).toLocaleString('id')}}</td>
+                          <td>
+                            {{(new Date(item.updatedAt)).toLocaleString('id')}}
+                          </td>
                         </tr> 
                     </tbody>
                     </table>
