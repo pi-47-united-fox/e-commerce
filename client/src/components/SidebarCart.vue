@@ -29,9 +29,9 @@
 
 <script>
 export default {
-  name: "SidebarCart",
-  
-};
+  name: 'SidebarCart'
+
+}
 </script>
 
 <style>

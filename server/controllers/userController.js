@@ -17,7 +17,11 @@ class UserController {
         }
         User.create(newCustomer)
             .then(data => {
-                res.status(201).json(data)
+                res.status(201).json({
+                    id: data.id,
+                    email: data.email,
+                    role: data.role
+                })
             })
             .catch(err => {
                 console.log(err)

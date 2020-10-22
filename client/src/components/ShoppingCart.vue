@@ -60,40 +60,40 @@
 
 <script>
 export default {
-  name: "ShoppingCart",
+  name: 'ShoppingCart',
   methods: {
-    getMyCart() {
-      this.$store.dispatch("getMyCart");
+    getMyCart () {
+      this.$store.dispatch('getMyCart')
     },
 
-    removeFromMyCart(id) {
-      this.$store.dispatch("removeFromMyCart", id);
+    removeFromMyCart (id) {
+      this.$store.dispatch('removeFromMyCart', id)
     },
 
-    checkout() {
-       this.$store.dispatch("checkout") 
+    checkout () {
+      this.$store.dispatch('checkout')
     }
   },
 
-  created() {
-    this.getMyCart();
+  created () {
+    this.getMyCart()
   },
 
   computed: {
-    carts() {
-      return this.$store.state.myCart;
+    carts () {
+      return this.$store.state.myCart
     },
-    total() {
-      let total = 0;
-      let carts = this.$store.state.myCart;
+    total () {
+      let total = 0
+      const carts = this.$store.state.myCart
       for (let i = 0; i < carts.length; i++) {
-        let sub = carts[i].Product.price * carts[i].quantity;
-        total += sub;
+        const sub = carts[i].Product.price * carts[i].quantity
+        total += sub
       }
-      return total;
-    },
-  },
-};
+      return total
+    }
+  }
+}
 </script>
 
 <style>

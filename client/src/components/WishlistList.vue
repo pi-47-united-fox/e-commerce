@@ -45,36 +45,36 @@
 
 <script>
 export default {
-  name: "WishlistList",
+  name: 'WishlistList',
   methods: {
-    getMyWishlist() {
-      this.$store.dispatch("getMyWishlist");
+    getMyWishlist () {
+      this.$store.dispatch('getMyWishlist')
     },
 
-    addToCartFromWishlist(id) {
-      this.$store.dispatch("addToCartFromWishlist", id);
+    addToCartFromWishlist (id) {
+      this.$store.dispatch('addToCartFromWishlist', id)
     }
-    
+
   },
 
-  created() {
-    this.getMyWishlist();
+  created () {
+    this.getMyWishlist()
   },
 
   computed: {
-    wishes() {
-      return this.$store.state.myWishlist;
+    wishes () {
+      return this.$store.state.myWishlist
     },
-    total() {
-      let total = 0;
-      let wishes = this.$store.state.myWishlist;
+    total () {
+      let total = 0
+      const wishes = this.$store.state.myWishlist
       for (let i = 0; i < wishes.length; i++) {
-        total += wishes[i].Product.price;
+        total += wishes[i].Product.price
       }
-      return total;
-    },
-  },
-};
+      return total
+    }
+  }
+}
 </script>
 
 <style>

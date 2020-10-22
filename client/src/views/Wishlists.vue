@@ -11,18 +11,18 @@
 </template>
 
 <script>
-import WishlistList from "../components/WishlistList";
-import SidebarCart from "../components/SidebarCart"
-import Navbar from "../components/Navbar"
+import WishlistList from '../components/WishlistList'
+import SidebarCart from '../components/SidebarCart'
+import Navbar from '../components/Navbar'
 
 export default {
-  name: "Wishlists",
+  name: 'Wishlists',
   components: {
     Navbar,
     WishlistList,
     SidebarCart
-  },
-};
+  }
+}
 </script>
 
 <style>

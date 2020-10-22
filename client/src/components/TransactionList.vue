@@ -47,36 +47,36 @@
 
 <script>
 export default {
-  name: "TransactionList",
+  name: 'TransactionList',
   methods: {
-    getMyTransaction() {
-      this.$store.dispatch("getMyTransaction");
+    getMyTransaction () {
+      this.$store.dispatch('getMyTransaction')
     },
 
-    removeFromMyCart(id) {
-        this.$store.dispatch("removeFromMyCart", id)
+    removeFromMyCart (id) {
+      this.$store.dispatch('removeFromMyCart', id)
     }
   },
 
-  created() {
-    this.getMyTransaction();
+  created () {
+    this.getMyTransaction()
   },
 
   computed: {
-    transactions() {
-      return this.$store.state.myTransaction;
+    transactions () {
+      return this.$store.state.myTransaction
     },
-    total() {
-        let total = 0
-        let transactions = this.$store.state.myTransaction
-        for(let i=0; i <transactions.length; i++) {
-            let sub = transactions[i].Product.price * transactions[i].quantity
-            total += sub
-        }
-        return total
+    total () {
+      let total = 0
+      const transactions = this.$store.state.myTransaction
+      for (let i = 0; i < transactions.length; i++) {
+        const sub = transactions[i].Product.price * transactions[i].quantity
+        total += sub
+      }
+      return total
     }
-  },
-};
+  }
+}
 </script>
 
 <style>

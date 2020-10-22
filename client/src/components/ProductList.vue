@@ -19,7 +19,7 @@
             <div class="column">
               <div class="content">
                 <p class="title is-6 mb-0" style="color: black">
-                  <strong>Rp.{{ product.price }}</strong> 
+                  <strong>Rp.{{ product.price }}</strong>
                 </p>
                 <p class="title is-7 mt-0" style="color: gray">
                   Stock: {{ product.stock }}
@@ -52,30 +52,30 @@
 
 <script>
 export default {
-  name: "ProductList",
+  name: 'ProductList',
   methods: {
-    fetchProducts() {
-      this.$store.dispatch("fetchProducts");
+    fetchProducts () {
+      this.$store.dispatch('fetchProducts')
     },
 
-    addToMyCart(id) {
-      this.$store.dispatch("addToMyCart", id);
+    addToMyCart (id) {
+      this.$store.dispatch('addToMyCart', id)
     },
 
-    addToMyWishlist(id) {
-      this.$store.dispatch("addToMyWishlist", id)
+    addToMyWishlist (id) {
+      this.$store.dispatch('addToMyWishlist', id)
     }
   },
-  created() {
-    this.fetchProducts();
+  created () {
+    this.fetchProducts()
   },
 
   computed: {
-    products() {
-      return this.$store.state.products;
-    },
-  },
-};
+    products () {
+      return this.$store.state.products
+    }
+  }
+}
 </script>
 
 <style>

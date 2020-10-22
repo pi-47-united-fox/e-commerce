@@ -35,7 +35,7 @@ const routes = [
     name: 'Wishlists',
     component: () => import(/* webpackChunkName: "transactions" */ '../views/Wishlists.vue')
   }
-  
+
 ]
 
 const router = new VueRouter({
@@ -45,7 +45,11 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.path === '/' && !localStorage.getItem('access_token')) {
+  if (to.path === '/' && !localStorage.getItem('access_token')) {
+    next({ path: '/login' })
+  } else if (to.path === '/register' && !localStorage.getItem('access_token')) {
+    next()
+  } else if (to.path !== '/login' && !localStorage.getItem('access_token')) {
     next({ path: '/login' })
   } else {
     next()

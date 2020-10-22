@@ -11,18 +11,18 @@
 </template>
 
 <script>
-import ShoppingCart from "../components/ShoppingCart";
-import SidebarCart from "../components/SidebarCart"
-import Navbar from "../components/Navbar"
+import ShoppingCart from '../components/ShoppingCart'
+import SidebarCart from '../components/SidebarCart'
+import Navbar from '../components/Navbar'
 
 export default {
-  name: "Checkout",
+  name: 'Checkout',
   components: {
     Navbar,
     ShoppingCart,
     SidebarCart
-  },
-};
+  }
+}
 </script>
 
 <style>

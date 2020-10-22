@@ -1,4 +1,5 @@
 <template>
+<div>
   <!--- NAVIGATION START-->
   <nav
     class="navbar"
@@ -53,17 +54,19 @@
     </div>
   </nav>
   <!---NAVIGATION END-->
+
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Navbar",
+  name: 'Navbar',
   methods: {
-    logout() {
-      this.$store.dispatch("logout");
-    },
-  },
-};
+    logout () {
+      this.$store.dispatch('logout')
+    }
+  }
+}
 </script>
 
 <style>

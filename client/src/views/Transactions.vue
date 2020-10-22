@@ -11,18 +11,18 @@
 </template>
 
 <script>
-import TransactionList from "../components/TransactionList";
-import SidebarCart from "../components/SidebarCart"
-import Navbar from "../components/Navbar"
+import TransactionList from '../components/TransactionList'
+import SidebarCart from '../components/SidebarCart'
+import Navbar from '../components/Navbar'
 
 export default {
-  name: "Transactions",
+  name: 'Transactions',
   components: {
     Navbar,
     TransactionList,
     SidebarCart
-  },
-};
+  }
+}
 </script>
 
 <style>

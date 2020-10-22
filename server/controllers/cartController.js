@@ -62,8 +62,8 @@ class CartController {
                 UserId: req.userData.id,
                 status: 'paid'
             },
+            order: [['updatedAt', 'DESC']],
             include: [Product]
-            
         })
         .then(data => {
             if(!data) {
