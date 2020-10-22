@@ -10,11 +10,11 @@ const cors = require('cors')
 const errorHandler = require('./middlewares/errorHandler')
 
 app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(exprsess.json())
+app.use(expres.urlencoded({extended:true}))
 
 app.get('/', function(req, res) {
-    res.status(200).send('Welcome To E-Commerce App');
+    res.status(200).send('Welcome To E-Commerce v1.1');
 });
 
 app.use(routes)
