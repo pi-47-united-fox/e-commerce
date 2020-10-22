@@ -3,16 +3,30 @@ const { User, Product, Cart } = require("../models/index")
 
 class CartController {
     static addToCart(req, res, next) {
+        let result = {}
         let newProductToCart = {
             UserId: req.userData.id,
             ProductId: +req.params.productId
         }
         Cart.create(newProductToCart)
             .then(data => {
-                res.status(201).json(data)
+                result = data
+                console.log(data, "lin 13")
+                return Product.findOne({where: {id: +req.params.productId}})
+            })
+            .then(product => {
+                return Product.update({stock: product.stock-1}, {
+                    where: {
+                        id: product.id
+                    }
+                })
+            })
+            .then(data => {
+                console.log(data)
+                res.status(201).json(result)
             })
             .catch(err => {
-                next(err)
+                console.log(err)
             })
 
     }
@@ -93,12 +107,21 @@ class CartController {
 
     static deleteProductFromMyCart(req, res, next) {
         let targetId = +req.params.productId
-        // console.log(targetId)
         Cart.findOne({where: {ProductId: targetId, status: 'unpaid'}})
             .then(data => {
                 return Cart.destroy({
                     where: {
                         id: data.id
+                    }
+                })
+            })
+            .then(data => {
+                return Product.findOne({where: {id: targetId}})
+            })
+            .then(product => {
+                return Product.update({stock: product.stock+1}, {
+                    where: {
+                        id: product.id
                     }
                 })
             })

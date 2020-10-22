@@ -12,7 +12,7 @@ router.get('/products', ProductController.findAllProducts)
 
 router.use(authentication)
 router.get('/mycart', CartController.findMyCart)
-router.post('/carts/:productId', CartController.addProductToMyCart)
+router.post('/carts/:productId', CartController.addToCart)
 router.delete('/carts/:productId', CartController.deleteProductFromMyCart)
 router.put('/checkout', CartController.checkoutCart)
 router.get('/transactions', CartController.findMyTransactionHistory)
