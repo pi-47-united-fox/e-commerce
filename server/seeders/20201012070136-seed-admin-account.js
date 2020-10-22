@@ -15,6 +15,7 @@ module.exports = {
       email: 'admin@mail.com',
       password: BcryptJs.makeHash('1234'),
       role: 'admin',
+      isActive: true,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

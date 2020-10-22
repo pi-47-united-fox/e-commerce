@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         instance.role = 'customer'
         // Satus
         instance.isActive = false
+        instance.role = 'customer'
       }
     },
     sequelize,
