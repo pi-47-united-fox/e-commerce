@@ -10,10 +10,7 @@ class CheckoutController {
                 where:{UserId:req.userData.id,status:'unpaid'},
                 include:['Product']
             })
-            // console.log(dataCartUser)
-            // res.send(dataCartUser)
             dataCartUser.forEach(async (val) => {
-                console.log(val.Product.stock,val.quantity)
                 await Product.update({stock:val.Product.stock-val.quantity},{where:{id:val.ProductId}})
             });
 
