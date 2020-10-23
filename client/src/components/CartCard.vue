@@ -19,19 +19,19 @@
 
 <script>
 export default {
-    name:'CartCard',
-    props:['data'],
-    methods : {
-        onAddQty (id) {
-            this.$store.dispatch('UPDATE_CART',{id,quantity:1})
-        },
-        onMinusQty (id) {
-            this.$store.dispatch('UPDATE_CART',{id,quantity:-1})
-        },
-        onDelete (id) {
-            this.$store.dispatch('DELETE_CART', {id})
-        }
+  name: 'CartCard',
+  props: ['data'],
+  methods: {
+    onAddQty (id) {
+      this.$store.dispatch('UPDATE_CART', { id, quantity: 1 })
+    },
+    onMinusQty (id) {
+      this.$store.dispatch('UPDATE_CART', { id, quantity: -1 })
+    },
+    onDelete (id) {
+      this.$store.dispatch('DELETE_CART', { id })
     }
+  }
 }
 </script>
 

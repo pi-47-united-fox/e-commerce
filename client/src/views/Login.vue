@@ -19,20 +19,26 @@
 </template>
 
 <script>
+import router from '../router'
 export default {
-    name:'Login',
-    data () {
-        return { 
-            email:'',
-            password: ''
-        }
-    },
-    methods : { 
-        onSubmitLogin(){
-            let dataLogin = { email:this.email, password:this.password}
-            this.$store.dispatch('ON_SUBMIT_LOGIN', dataLogin)
-        }
+  name: 'Login',
+  data () {
+    return {
+      email: '',
+      password: ''
     }
+  },
+  methods: {
+    onSubmitLogin () {
+      const dataLogin = { email: this.email, password: this.password }
+      this.$store.dispatch('ON_SUBMIT_LOGIN', dataLogin)
+    }
+  },
+  created () {
+    if(localStorage.access_token){
+      router.push({path:'/'})
+    }
+  }
 }
 </script>
 

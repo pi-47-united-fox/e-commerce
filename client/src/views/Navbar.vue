@@ -6,7 +6,7 @@
         </div>
         <router-link to='/' style="text-decoration:none;color:white">
             <div class="navigation-1">
-             HOME 
+             HOME
             </div>
         </router-link>
         <div class="navigation-2 d-flex flex-row" v-if="!loginStatus">
@@ -24,24 +24,24 @@
 <script>
 import router from '../router'
 export default {
-    name:'Navbar',
-    computed : {
-        loginStatus () {
-            return this.$store.state.isLogin
-        }
-    },
-    methods : {
-        onLogout () {
-            this.$store.commit('ON_LOGOUT')
-        }
+  name: 'Navbar',
+  computed: {
+    loginStatus () {
+      return this.$store.state.isLogin
     }
+  },
+  methods: {
+    onLogout () {
+      this.$store.commit('ON_LOGOUT')
+    }
+  }
 }
 </script>
 
 <style scoped>
     .navigation-bar{
-        background-color: black;  
-        width: 100%; 
+        background-color: black;
+        width: 100%;
         height: 17vh;
         color: white;
         padding-right: 100px;
@@ -50,7 +50,7 @@ export default {
     .logo-nav{
         margin:10px 70px;
     }
-   
+
     .navigation-1{
         justify-content: center;
         margin-top: 35px;

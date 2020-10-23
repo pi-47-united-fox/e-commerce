@@ -25,23 +25,23 @@
 <script>
 import CartCard from '../components/CartCard'
 export default {
-    name:'Cart',
-    created () {
-        this.$store.dispatch('GET_DATA_CART')
-    },
-    computed : {
-        dataCart () {
-            return this.$store.state.dataCart
-        }
-    },
-    components : {
-        CartCard
-    },
-    methods : {
-        onCheckoutHandler () {
-            this.$store.dispatch('CHECKOUT_CART')
-        }
+  name: 'Cart',
+  created () {
+    this.$store.dispatch('GET_DATA_CART')
+  },
+  computed: {
+    dataCart () {
+      return this.$store.state.dataCart
     }
+  },
+  components: {
+    CartCard
+  },
+  methods: {
+    onCheckoutHandler () {
+      this.$store.dispatch('CHECKOUT_CART')
+    }
+  }
 }
 </script>
 

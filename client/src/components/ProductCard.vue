@@ -12,13 +12,13 @@
 
 <script>
 export default {
-    name:'ProductCard',
-    props:['data'],
-    methods : {
-        onAddCart (id) {
-            this.$store.dispatch('ADD_CART', id)
-        }
+  name: 'ProductCard',
+  props: ['data'],
+  methods: {
+    onAddCart (id) {
+      this.$store.dispatch('ADD_CART', id)
     }
+  }
 }
 </script>
 

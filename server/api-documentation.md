@@ -1,5 +1,6 @@
 # RESTful endpoints
 `-POST /login`
+`-POST /register`
 `-GET /product`
 `-POST /product`
 `-PUT /product/:id`
@@ -53,6 +54,47 @@
 ```
 {
     "message":"Email Not Found !"
+}
+```
+### _Response (500)_
+```
+{
+    "message":"Internal Server Error"
+}
+
+```
+
+## POST /register
+### _Request Header_
+```
+{
+
+}
+```  
+### _Request Params_
+```       
+{
+    
+}
+```
+### _Request Body_
+```       
+{
+    "email:"<email>",
+    "password:"<password>"
+}
+```
+### _Response (201)_
+```
+{
+    "message":"register success",
+    "id":<id>
+    "email":"<email>"
+```
+### _Response (409)_
+```
+{
+    "message":"email already registered"
 }
 ```
 ### _Response (500)_
