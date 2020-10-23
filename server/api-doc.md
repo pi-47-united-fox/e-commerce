@@ -3,6 +3,7 @@
 List of available endpoints:
 ​
 - `POST /login`
+- `POST /register`
 - `POST /product`
 - `GET /products`
 - `PUT /products/:id`
@@ -41,6 +42,57 @@ List of available endpoints:
 ```json
     {
         "msg": "Wrong Email or Password"
+    }
+```
+​
+- Response (500 - Internal server error)
+```json
+    {
+        "type": "Internal Server Error"
+    }
+```
+--- 
+## POST /register
+​
+- Request Header
+```
+    Not required.
+```
+​
+- Request Body
+```json
+    {
+        "email": "customer1@mail.com",
+        "password": "123456"
+    }
+```
+
+### Success Response :
+
+- _Response (200 - Ok)_
+```json
+    {
+        "id":2,
+        "email": "customer1@mail.com",
+        "role": "customer"
+    }
+```
+​
+### Failed Response :
+- _Response (400 - Bad Request)_
+```json
+    {
+        "msg": "Email cannot be empty"
+    }
+```
+```json
+    {
+        "msg": "Minimum length of password is 6"
+    }
+```
+```json
+    {
+        "msg": "Email is already in use"
     }
 ```
 ​

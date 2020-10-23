@@ -8,9 +8,9 @@
             <div class="item-box-blog-body">
                 <div class="item-box-blog-heading">
                     <h5>{{product.name}}</h5>
-                </div>
+                </div> 
                 <div class="item-box-blog-text">
-                    <p>{{product.description}}</p>
+                  <p>Rp. {{product.price.toLocaleString('id')}}</p>
                 </div>
                 <div class="d-flex">
                     <a href="#" tabindex="0" @click.prevent="addWishlist" class="btn white wishlist">

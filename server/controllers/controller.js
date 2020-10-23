@@ -33,11 +33,16 @@ class Controller{
         console.log(email,password, "<<<<<<<<<<<<<<<<<");
         
         if(!email && !password){ //handle empty input
-            next({name:"Wrong Email or Password"})
+            next({name:"please input email or password"})
         }else{
             User.create({email,password})
                 .then(user=>{
-                    res.status(201).json(user)
+                    let payload = {
+                        id: user.id,
+                        email:user.email,
+                        role:user.role
+                    }
+                    res.status(201).json(payload)
                 })
                 .catch(err=>{ 
                     next(err)
