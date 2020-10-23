@@ -46,10 +46,13 @@ router.beforeEach ((to, from, next) => {
   else if((to.name === 'Register') && localStorage.access_token){
     next({path:'/home'})
   }
-  else if((to.name !== 'Login') && !localStorage.access_token){
+  else if((to.name === 'Home') && !localStorage.access_token){
     next({path:'/'})
   }
-  else if((to.name !== 'Register') && !localStorage.access_token){
+  else if((to.name === 'Cart') && !localStorage.access_token){
+    next({path:'/'})
+  }
+  else if((to.name === 'Wishlist') && !localStorage.access_token){
     next({path:'/'})
   }
   else{

@@ -19,7 +19,7 @@
                 <button type="submit" class="btn btn-dark" style="width: 100%;">Sign up</button>
             </form>
             <div class="my-3 text-center">
-                <small>Already registered? <router-link to="/login" class="text-primary">Login here</router-link>.</small>
+                <small>Already registered? <router-link to="/" class="text-primary">Login here</router-link>.</small>
                 <router-view></router-view>
             </div>
         </div>
