@@ -4,8 +4,8 @@
     <div class="container">
         <h1 class="my-5 text-center">Our products</h1>
     </div>
-    <div class="container my-5">
-        <div class="row">
+    <div class="container my-5 px-0">
+        <div class="row px-0">
             <ProductCard v-for="(product, i) in products" 
             v-bind:key="i"
             v-bind:product="product"

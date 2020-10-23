@@ -1,5 +1,5 @@
 <template>
-<div class="col-3 px-0 mr-3">
+<div class="col-3 px-0 my-3">
     <div class="card h-100 shadow border border-dark" style="width: 18rem;">
         <img :src="product.image_url" class="card-img-top img-thumbnail" alt="Product's picture">
         <div class="card-body">
