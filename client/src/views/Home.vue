@@ -102,5 +102,7 @@ export default {
 .btn-add{
   background-color: transparent;
   border-width: 0px;
+}.home{
+  margin-bottom: 30px;
 }
 </style>

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Axios from 'axios'
+import Axios from '../config/axios'
 import router from '../router'
 import Swal from 'sweetalert2'
 
@@ -9,23 +9,23 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    carts:[]
+    carts: []
   },
   mutations: {
-    FETCH_DATA (state, payload) {
+    FETCH_DATA(state, payload) {
       state.products = payload
     },
-    SET_CART (state, payload) {
+    SET_CART(state, payload) {
       state.carts = payload
     },
   },
   actions: {
-    login (context, payload) {
+    login(context, payload) {
       const { email, password } = payload
       console.log(payload, '<---ini payload login store')
       Axios({
         method: 'POST',
-        url: 'http://localhost:3000/login',
+        url: '/login',
         data: {
           email: email,
           password: password
@@ -41,11 +41,11 @@ export default new Vuex.Store({
           console.log(err.response)
         })
     },
-    fetchData (context) {
+    fetchData(context) {
       // console.log('ini fetch data')
       Axios({
         method: 'GET',
-        url: 'http://localhost:3000/products',
+        url: '/products',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -58,10 +58,10 @@ export default new Vuex.Store({
           console.log(err.response)
         })
     },
-    fetchCarts ({ commit }) {
+    fetchCarts({ commit }) {
       Axios({
         method: 'GET',
-        url: 'http://localhost:3000/carts',
+        url: '/carts',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -74,16 +74,16 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    addToCart ({ commit }, payload) {
+    addToCart({ commit }, payload) {
       // console.log(id, 'id di addtocart store')
       Axios({
         method: 'POST',
-        url: `http://localhost:3000/carts/${payload.id}`,
+        url: `/carts/${payload.id}`,
         headers: {
           access_token: localStorage.getItem('access_token')
         },
-        data:{
-          price:payload.price
+        data: {
+          price: payload.price
         }
       })
         .then(({ data }) => {
@@ -94,7 +94,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    deleteFromCart ({ commit }, id) {
+    deleteFromCart({ commit }, id) {
       Swal.fire({
         title: 'Are you sure want to delete this item?',
         text: "You won't be able to revert this!",
@@ -106,7 +106,7 @@ export default new Vuex.Store({
       }).then(() => {
         Axios({
           method: 'DELETE',
-          url: `http://localhost:3000/carts/${id}`,
+          url: `/carts/${id}`,
           headers: {
             access_token: localStorage.access_token
           }
@@ -123,10 +123,10 @@ export default new Vuex.Store({
           })
       })
     },
-    updateCart ({ dispatch }, payload) {
-      Axios ({
+    updateCart({ dispatch }, payload) {
+      Axios({
         method: 'PUT',
-        url: `http://localhost:3000/carts/${id}${payload.id}`,
+        url: `/carts/${id}${payload.id}`,
         headers: {
           access_token: localStorage.access_token
         },
@@ -142,7 +142,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    logout ({ commit }) {
+    logout({ commit }) {
       Swal.fire({
         title: 'Are you sure to logout?',
         text: "You won't be able to revert this!",
@@ -159,29 +159,29 @@ export default new Vuex.Store({
         }
       })
     },
-    register (context, payload) {
+    register(context, payload) {
       console.log('ini di register', payload);
-        Axios({
-          method: 'POST',
-          url: 'http://localhost:3000/register',
-          data: {
-            email: payload.email,
-            password: payload.password
-          }
-        })
-          .then(({ data }) => {
-            // console.log(data.email)
-            Swal.fire(
-              'Successfully Register!',
-              'Please click login instead anchor!',
-              'success'
-            )
-            router.push('/login')
+      Axios({
+        method: 'POST',
+        url: '/register',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(({ data }) => {
+          // console.log(data.email)
+          Swal.fire(
+            'Successfully Register!',
+            'Please click login instead anchor!',
+            'success'
+          )
+          router.push('/login')
 
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
   },
   modules: {

@@ -6,7 +6,7 @@
         <div class="card-body">
           <h4 class="card-title">{{ products.name }}</h4>
           <h6 class="card-subtitle mb-2">Price Rp.{{ products.price }}</h6>
-          <!-- <h6 class="card-subtitle mb-2">Stock {{ products.stock }}</h6> -->
+          <p class="card-subtitle mb-2">Stock {{ products.stock }}</p>
           <div class="btn-wraper">
             <button class="add-btn" @click.prevent="addToCart()">
               Add to cart

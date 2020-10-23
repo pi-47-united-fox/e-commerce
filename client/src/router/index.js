@@ -30,8 +30,8 @@ const routes = [
     name: 'Register',
     component: Register
   },
-  
-  
+
+
 
 ]
 
@@ -40,14 +40,14 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-// router.beforeEach((to, from, next) => {
-//   if (to.name !== 'Login' && !localStorage.getItem('access_token')) next({ name: 'Login' })
-//   else next()
-// })
-
-// router.beforeEach((to, from, next) => {
-//   if (to.name === 'Login' && localStorage.getItem('access_token')) next({ name: 'Home' })
-//   else next()
-// })
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'Login' && !localStorage.getItem('access_token')) {
+    next({ name: 'Login' })
+  } else if (to.name === 'Login' && localStorage.getItem('access_token')) {
+    next({ name: 'Home' })
+  } else {
+    next()
+  }
+})
 
 export default router
