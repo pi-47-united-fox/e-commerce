@@ -9,12 +9,20 @@ class UserController{
             email: req.body.email,
             password: req.body.password
         }
-        User.create(customerInput)
+        User.findOne({where: {email: customerInput.email}})
+            .then(user => {
+                if(user){
+                    next({name:"Non unique email", message: "Email already registered!"})
+                }
+                else{
+                    return User.create(customerInput)
+                }
+            })
             .then(user => {
                 res.status(201).json({id:user.id, email:user.email})
             })
             .catch(err => {
-                return res.status(500).json({message: err.message})
+                next({message: err.message})
             })
     }
 
@@ -37,7 +45,7 @@ class UserController{
             })
                 .then(user => {
                     if(!user){
-                        res.status(401).json({
+                        next({
                             name: 'Unauthorized',
                             message: 'Wrong email or password!'
                         })
@@ -47,7 +55,7 @@ class UserController{
                         // })
                     }
                     else if(!comparePassword(userInput.password, user.password)) {
-                        res.status(401).json({
+                        next({
                             name: 'Unauthorized',
                             message: 'Wrong email or password!'
                         })
@@ -62,7 +70,7 @@ class UserController{
                     }
                 })
                 .catch(err => {
-                    return res.status(500).json({message: err.message})
+                    next({message: err.message})
                 })
 
         }

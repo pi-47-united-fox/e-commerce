@@ -14,7 +14,7 @@ class CartController {
             res.status(200).json(carts)
         })
         .catch(err => {
-            res.status(500).json({message: err.message})
+            next({message: err.message})
         })
     }
 
@@ -30,7 +30,7 @@ class CartController {
             })
             .catch(err => {
                 console.log(err)
-                res.status(500).json({
+                next({
                     message:err.message
                 })
             })
@@ -79,7 +79,7 @@ class CartController {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({
+            next({
                 message:err.message
             })
         })
@@ -89,11 +89,10 @@ class CartController {
         const id = req.params.id
         Cart.findByPk(id)
         .then(cart => {
-            // console.log(carts)
             res.status(200).json(cart)
         })
         .catch(err => {
-            res.status(500).json({message: err.message})
+            next({message: err.message})
         })
     }
 
@@ -112,7 +111,7 @@ class CartController {
                 })
             })
             .catch(err => {
-                res.status(500).json({message: err.message})
+                next({message: err.message})
             })
     }
 
@@ -128,7 +127,7 @@ class CartController {
             })
         })
         .catch(err => {
-            res.status(500).json({message: err.message})
+            next({message: err.message})
         })
     }
 
