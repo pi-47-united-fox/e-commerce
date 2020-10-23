@@ -64,7 +64,11 @@ export default {
   methods: {
     login() {
       this.$store.dispatch("login", this.payload);
-      this.$router.push({ path: "/" });
+      if (!localStorage.getItem("access_token")) {
+        console.log("cant login");
+      } else {
+        this.$router.push({ path: "/" });
+      }
     },
     logout() {
       localStorage.clear();
@@ -72,6 +76,11 @@ export default {
     },
     signUp() {
       this.$router.push({ path: "/register" });
+    }
+  },
+  computed: {
+    access_token() {
+      return localStorage.setItem(this.$store.state.access_token);
     }
   }
 };

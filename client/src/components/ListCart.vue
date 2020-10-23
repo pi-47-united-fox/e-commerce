@@ -32,6 +32,8 @@
                     type="number"
                     name="qty"
                     id="quantity"
+                    min="0"
+                    :max="cart.Product.stock"
                     v-model="quantity"
                     :placeholder="cart.quantity"
                   />
