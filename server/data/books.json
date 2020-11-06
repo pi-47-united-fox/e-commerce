@@ -1,0 +1,233 @@
+[
+    {
+        "name": "Covid-19 Dalam Bingkai Media Digital",
+        "image_url": "https://cdn.gramedia.com/uploads/items/img20200916_10233752.jpg",
+        "price": 50000,
+        "stock": 2,
+        "category": "Teknologi"
+    },
+    {
+        "name": "8 Jurus Editing Foto dengan Photoshop CC 2020",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786230020919_Cov_8_Jurus_Editing_Foto_Dengan_Photoshop_CC_2020.jpg",
+        "price": 65000,
+        "stock": 10,
+        "category": "Teknologi"
+    },
+    {
+        "name": "Membuat Dan Menyajikan Buku Kerja Dengan Excel 2019",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786230018701_Cover_Membuat_dan_Menyajikan_Buku_Kerja_OK.jpg",
+        "price": 65000,
+        "stock": 20,
+        "category": "Teknologi"
+    },
+    {
+        "name": "Belajar Sendiri Formula dan Fungsi Excel untuk Pemula",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786230019258_CoverDepan_Belajar_Sendiri_Formula_dan_Fungsi_Excel_untuk_Pemula.jpg",
+        "price": 70000,
+        "stock": 17,
+        "category": "Teknologi"
+    },
+    {
+        "name": "Ensiklopedi Akhlak Rasulullah",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9789795928287_Ensiklopedi-Akhlak-Rasulullah.jpg",
+        "price": 310000,
+        "stock": 5,
+        "category": "Agama"
+    },
+    {
+        "name": "Ragam Jalan Memahami Islam",
+        "image_url": "https://cdn.gramedia.com/uploads/items/ragam_jalan_memahami_islam.jpg",
+        "price": 85000,
+        "stock": 15,
+        "category": "Agama"
+    },
+    {
+        "name": "Nabi Cinta Kasih Dan Pelayan Pendamaian",
+        "image_url": "https://cdn.gramedia.com/uploads/items/Nabi_Cinta_Kasih.jpg",
+        "price": 75000,
+        "stock": 7,
+        "category": "Agama"
+    },
+    {
+        "name": "Indahnya Hidup Bersama Tuntunan-Nya",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786230018626_Cov_Indahnya_Hidup_Bersama_Tuntunan_Nya_1.jpg",
+        "price": 78000,
+        "stock": 10,
+        "category": "Agama"
+    },
+    {
+        "name": "Sastrawan Salah Pergaulan",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786237284086.jpg",
+        "price": 42000,
+        "stock": 5,
+        "category": "Fiksi"
+    },
+    {
+        "name": "Selamat Tinggal",
+        "image_url": "https://cdn.gramedia.com/uploads/items/selamat_tinggal.jpg",
+        "price": 68000,
+        "stock": 21,
+        "category": "Fiksi"
+    },
+    {
+        "name": "Perempuan-Perempuan Kelu (The Silence of the Girls)",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786020643175_the_silence_of_the_girl_cov.jpg",
+        "price": 119000,
+        "stock": 25,
+        "category": "Fiksi"
+    },
+    {
+        "name": "Eclipse (Gerhana)",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786020646961_eclipse_2020_cov.jpg",
+        "price": 115000,
+        "stock": 8,
+        "category": "Fiksi"
+    },
+    {
+        "name": "Aapuu : Asas-Asas Pengujian Undang-Undang",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786232314207.jpg",
+        "price": 85000,
+        "stock": 4,
+        "category": "Hukum"
+    },
+    {
+        "name": "Undang-Undang Pemilihan Umum (Pemilu) 2019",
+        "image_url": "https://cdn.gramedia.com/uploads/items/UU_Pemilihan_Umum.jpg",
+        "price": 62800,
+        "stock": 30,
+        "category": "Hukum"
+    },
+    {
+        "name": "Genealogi Negara Hegemoni Koorporatokrasi Negara Hukum Kesejahteraan Indonesia",
+        "image_url": "https://cdn.gramedia.com/uploads/items/img20200928_13514804.jpg",
+        "price": 65000,
+        "stock": 8,
+        "category": "Hukum"
+    },
+    {
+        "name": "Adminsitrasi Peradilan Prinsip, Model, Dan Tata Kelola",
+        "image_url": "https://cdn.gramedia.com/uploads/items/ADMINSITRASI-Peradilan-1.jpg",
+        "price": 80000,
+        "stock": 24,
+        "category": "Hukum"
+    },
+    {
+        "name": "I Saw the Same Dream Again 03-tamat",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786230302510_I_SAW_THE_SAME_DREAM_AGAIN_03.jpg",
+        "price": 28000,
+        "stock": 52,
+        "category": "Komik"
+    },
+    {
+        "name": "Detektif Kindaichi (Premium) 24",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786230020766_Cov_Kindaichi_Premium_24_1.jpg",
+        "price": 40000,
+        "stock": 5,
+        "category": "Komik"
+    },
+    {
+        "name": "Komik Pendidikan Vitamin : Menjaga Kesehatan Tubuh Dengan Tidur",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786230301896_Komik_Vitamin_menjaga_kesehatan_tubuh_dengan_tidur.jpg",
+        "price": 148000,
+        "stock": 50,
+        "category": "Komik"
+    },
+    {
+        "name": "One Punch Man 21",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786230018947_Onepunch_Man_21.jpg",
+        "price": 30000,
+        "stock": 4,
+        "category": "Komik"
+    },
+    {
+        "name": "Super Complete Ipa Terpadu Smp/Mts 7,8,9",
+        "image_url": "https://cdn.gramedia.com/uploads/items/Super_Complete_Ipa_Terpadu.jpg",
+        "price": 70000,
+        "stock": 21,
+        "category": "Pendidikan"
+    },
+    {
+        "name": "Membuat Multimedia Pembelajaran Berbasis Website Untuk Guru Smp",
+        "image_url": "https://cdn.gramedia.com/uploads/items/membuat_multimedia_pembelajaran.jpg",
+        "price": 118500,
+        "stock": 41,
+        "category": "Pendidikan"
+    },
+    {
+        "name": "Pendidikan Anak Usia Dini (Paud)",
+        "image_url": "https://cdn.gramedia.com/uploads/items/Pendidikan_Anak_Usia_Dini.jpg",
+        "price": 92000,
+        "stock": 15,
+        "category": "Pendidikan"
+    },
+    {
+        "name": "Sma/Ma/E-Smash B. Indonesia Jl.1A/K13N",
+        "image_url": "https://cdn.gramedia.com/uploads/items/5a59e8ca-23bd-48d6-ba61-78d388dc0bf2.jpg",
+        "price": 40000,
+        "stock": 26,
+        "category": "Pendidikan"
+    },
+    {
+        "name": "Psikologi Musik",
+        "image_url": "https://cdn.gramedia.com/uploads/items/PSIKOLOGI_MUSIK.jpg",
+        "price": 95000,
+        "stock": 2,
+        "category": "Psikologi"
+    },
+    {
+        "name": "Psikologi Perkembangan Anak",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786237333609.jpg",
+        "price": 49000,
+        "stock": 12,
+        "category": "Psikologi"
+    },
+    {
+        "name": "Psikologi Sosial Edisi Kedua",
+        "image_url": "https://cdn.gramedia.com/uploads/items/img20200824_11182642.jpg",
+        "price": 139000,
+        "stock": 14,
+        "category": "Psikologi"
+    },
+    {
+        "name": "Personal Branding Format Baru",
+        "image_url": "https://cdn.gramedia.com/uploads/items/img20200821_13452729.jpg",
+        "price": 50000,
+        "stock": 47,
+        "category": "Psikologi"
+    },
+    {
+        "name": "Jejak Awal Khalifah Utsmani",
+        "image_url": "https://cdn.gramedia.com/uploads/items/49bbcd221d912466d166ef0416defe90.jpg",
+        "price": 95000,
+        "stock": 11,
+        "category": "Sejarah"
+    },
+    {
+        "name": "Gerilya Republik Di Kota Probolinggo 1947-1949",
+        "image_url": "https://cdn.gramedia.com/uploads/items/img20200816_14450913.jpg",
+        "price": 70000,
+        "stock": 24,
+        "category": "Sejarah"
+    },
+    {
+        "name": "Seri Tempo: Wali Nusantara",
+        "image_url": "https://cdn.gramedia.com/uploads/items/9786024814427_WALI_NUSANTARA_FINAL.jpg",
+        "price": 60000,
+        "stock": 25,
+        "category": "Sejarah"
+    },
+    {
+        "name": "Sejarah Lengkap Perang Dunia 1: 1914-1918",
+        "image_url": "https://cdn.gramedia.com/uploads/items/sejarah_UuXRFLd.jpg",
+        "price": 54500,
+        "stock": 14,
+        "category": "Sejarah"
+    },
+    {
+        "name": "Textilepedia & Fashionpedia",
+        "image_url": "https://cdn.gramedia.com/uploads/items/img20201007_12342288.jpg",
+        "price": 108000,
+        "stock": 4,
+        "category": "Gaya Hidup"
+    }
+]
