@@ -1,0 +1,192 @@
+body {
+  width: 100%;
+  background-color: black;
+  justify-content: center;
+  /* background-image: url(https://images.unsplash.com/photo-1582288916603-4698cf723bf6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80); */
+}
+
+.home {
+  width: 100%;
+}
+
+/* navbar */
+.navbar-x {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: rgb(245, 245, 245);
+  position: fixed;
+  padding-top: 20px;
+}
+
+.navbar-container-x {
+  width: 95%;
+  height: auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.navbar-x li {
+  display: inline-flex;
+  margin-left: 20px;
+  font-size: large;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+.logo-x h1 {
+  font-size: 2em;
+  font-weight: bolder;
+  color: white;
+  cursor: pointer;
+}
+
+/* banner */
+.banner-big-home {
+  width: 100%;
+  height: 900px;
+  background-image: url(https://mk0bikesocietyop74ul.kinstacdn.com/wp-content/uploads/2020/06/MTB-2197-Home-Hero-2880x1620-Product-scaled.jpg);
+  background-size: cover;
+  background-position: top;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
+}
+
+.banner-text-left {
+  width: 15%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-left: 100px;
+  color: white;
+  flex-direction: column;
+  text-align: center;
+}
+
+.banner-text-left h1 {
+  color: white;
+  font-weight: bolder;
+}
+
+/* login */
+.container-login {
+  width: 100%;
+  height: 900px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+}
+button {
+  align-items: center;
+}
+
+.container-login h2 {
+  color: white;
+}
+
+/* itemcard */
+.container-x {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+}
+
+.box-homes {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.itemCard {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  background-color: saddlebrown;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.itemCard p {
+  color: black;
+}
+
+.itemCard-image {
+  width: 100%;
+  background-color: seashell;
+}
+
+.itemCard-text {
+  width: 100%;
+  height: auto;
+  background-color: seashell;
+  display: flex;
+  padding-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-inner {
+  width: 100%;
+  height: 80%;
+  background: transparent;
+  line-height: 5px;
+  text-align: center;
+  color: black;
+}
+
+.action {
+  width: 100%;
+  height: 20%;
+  background-color: red;
+  display: flex;
+}
+
+.addCart {
+  width: 75%;
+  height: 100%;
+  background-color: #0d1b2a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+}
+
+.wistlist {
+  width: 25%;
+  height: 100%;
+  background-color: #415a77;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.wistlist,
+i {
+  color: white;
+}
